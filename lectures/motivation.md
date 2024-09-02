@@ -112,6 +112,7 @@ tasks on different levels.
     [Bike-Components](http://www.bike-components.de) to you, your are on the
     right track 😉.
 
-[^2] S. Rinderle-Ma, J. Mangler, and D. Ritter, _Fundamentals of Information
-Systems Interoperability: Data, Services, and Processes_. Cham: Springer
-International Publishing, 2024.
+[^2]:
+    S. Rinderle-Ma, J. Mangler, and D. Ritter, _Fundamentals of Information
+    Systems Interoperability: Data, Services, and Processes_. Cham: Springer
+    International Publishing, 2024.
