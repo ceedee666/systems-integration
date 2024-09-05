@@ -116,3 +116,7 @@ tasks on different levels.
     S. Rinderle-Ma, J. Mangler, and D. Ritter, _Fundamentals of Information
     Systems Interoperability: Data, Services, and Processes_. Cham: Springer
     International Publishing, 2024.
+
+---
+
+🏠 [Overview](../README.md) | [Next Chapter >](./integration-styles.md)
