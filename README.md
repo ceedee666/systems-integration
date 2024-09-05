@@ -19,6 +19,13 @@ scenarios.
 ## Contents
 
 1. [Motivation](lectures/motivation.md)
+1. [Integration styles](lectures/integration-styles.md)
+1. [Exchange formats](lectures/exchange-formats.md)
+1. [Query languages](lectures/query-languages.md)
+1. [Mapping languages](lectures/mapping-languages.md)
+1. [Protocols](lectures/protocols.md)
+1. [Enterprise integration patterns](lectures/enterprise-integration-patterns.md)
+1. [Reliability & Performance](lectures/reliability-performance.md)
 
 ## Readings
 

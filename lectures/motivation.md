@@ -95,11 +95,11 @@ and across organizations.
 The following table provides examples of technologies and concepts used for the
 tasks on different levels.
 
-| Level / Task | Syntactial | Semantic | Organizational |
-| ------------ | ---------- | -------- | -------------- |
-| Exchange     |            |          |                |
-| Integrate    |            |          |                |
-| Orchestrate  |            |          |                |
+| Level / Task | Syntactial                                                                                                                                                                                          | Semantic | Organizational |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------- |
+| Exchange     | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values), [EDIFACT](https://en.wikipedia.org/wiki/EDIFACT), [XML](https://en.wikipedia.org/wiki/XML), [JSON](https://en.wikipedia.org/wiki/JSON) |          |                |
+| Integrate    |                                                                                                                                                                                                     |          |                |
+| Orchestrate  |                                                                                                                                                                                                     |          |                |
 
 ### Integration scenarios and methods
 
