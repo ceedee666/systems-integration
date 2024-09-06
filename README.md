@@ -4,7 +4,8 @@
 
 - [Systems Integration Lecture](#systems-integration-lecture)
   - [Overview](#overview)
-  - [Contents](#contents)
+  - [Lectures](#lectures)
+  - [Lab](#lab)
   - [Readings](#readings)
   <!--toc:end-->
 
@@ -13,10 +14,10 @@
 This repository contains the material for my master lecture on system
 integration at [FH Aachen](https://fh-aachen.de) in the winter term 2024/2025.
 The goal of this lecture is to provide students with theoretical foundations as
-well as hands on experience for implenting complex enterprise integration
+well as hands on experience for implementing complex enterprise integration
 scenarios.
 
-## Contents
+## Lectures
 
 1. [Motivation](lectures/motivation.md)
 1. [Integration styles](lectures/integration-styles.md)
@@ -26,6 +27,16 @@ scenarios.
 1. [Protocols](lectures/protocols.md)
 1. [Enterprise integration patterns](lectures/enterprise-integration-patterns.md)
 1. [Reliability & Performance](lectures/reliability-performance.md)
+
+## Lab
+
+0. Running the [Mini-ERP](./lab/mini-erp.md)
+1. Implementing a [simple Web shop](./lab/simple-web-shop.md)
+2. [Transferring](./lab/file-transfer.md) product information using files
+3. [Synchronizing](./lab/rpc.md) product stock and purchase orders
+4. [Adding](./lab/complex-system-landscape.md) additional systems and services
+5. Learn about the [SAP integration suite](./lab/integration-suite.md)
+6. Exchange data using [messages](./lab/messaging.md)
 
 ## Readings
 
