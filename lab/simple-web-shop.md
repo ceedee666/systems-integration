@@ -1,5 +1,14 @@
 # Lab 1: Implementing a Simple Web Shop
 
+<!--toc:start-->
+
+- [Lab 1: Implementing a Simple Web Shop](#lab-1-implementing-a-simple-web-shop)
+  - [Objective](#objective)
+  - [Requirements](#requirements)
+  - [Additional Considerations](#additional-considerations)
+  - [Navigation](#navigation)
+  <!--toc:end-->
+
 ## Objective
 
 In this exercise, you will design and implement a simple Web shop. Your web
