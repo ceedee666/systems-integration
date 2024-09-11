@@ -6,7 +6,8 @@
   - [Overview](#overview)
   - [Lectures](#lectures)
   - [Lab](#lab)
-  - [Readings](#readings)
+  - [Readings list](#readings-list)
+  - [Additional course material](#additional-course-material) - [Online ressources](#online-ressources) - [Tools](#tools)
   <!--toc:end-->
 
 ## Overview
@@ -38,7 +39,7 @@ scenarios.
 5. Learn about the [SAP integration suite](./lab/integration-suite.md)
 6. Exchange data using [messages](./lab/messaging.md)
 
-## Readings
+## Readings list
 
 1. S. Rinderle-Ma, J. Mangler, and D. Ritter, _Fundamentals of Information
    Systems Interoperability: Data, Services, and Processes_. Cham: Springer
@@ -48,3 +49,15 @@ scenarios.
 3. M. van Steen and A. S. Tanenbaum, Distributed Systems, Fourth edition,
    Version 4.01 (January 2023). Maarten van Steen, 2023.
    [Online](https://www.distributed-systems.net/index.php/books/ds4/)
+
+## Additional course material
+
+### Online ressources
+
+- [SAP CAP Documentation](https://cap.cloud.sap/docs/)
+- [Enterprise Integration Patterns Website](https://www.enterpriseintegrationpatterns.com/)
+
+### Tools
+
+- [draw.io](https://www.draw.io/) is a diagramming tool containing stencils
+  from the Enterprise Integration Patterns book.
