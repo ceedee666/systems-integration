@@ -13,23 +13,12 @@
       - [Message to Analyze](#message-to-analyze)
     - [Key Takeaways](#key-takeaways)
   - [XML](#xml)
-    - [**Basic Syntax of XML**](#basic-syntax-of-xml)
-      - [**XML Example: Product Information**](#xml-example-product-information)
-      - [**Key Elements of XML Syntax**:](#key-elements-of-xml-syntax)
-      - [**Well-Formed XML Rules**:](#well-formed-xml-rules)
-    - [**Namespaces in XML**](#namespaces-in-xml)
-      - [**Namespace Declaration**:](#namespace-declaration)
-      - [**Example Using Namespaces**:](#example-using-namespaces)
+    - [Basic Syntax of XML](#basic-syntax-of-xml)
+      - [Key Elements of XML Syntax:](#key-elements-of-xml-syntax)
+      - [Well-Formed XML document](#well-formed-xml-document)
+    - [Namespaces in XML](#namespaces-in-xml)
     - [**Schema Languages**](#schema-languages)
-      - [**Advantages of XSD over DTD**:](#advantages-of-xsd-over-dtd)
-    - [**Validation**:](#validation)
-      - [**Validating XML Against XSD Example**:](#validating-xml-against-xsd-example)
-    - [**Use Cases of XML in Modern Systems**:](#use-cases-of-xml-in-modern-systems)
-    - [**Exercise: Analyzing an XML Document**](#exercise-analyzing-an-xml-document)
-      - [XML Document to Analyze:](#xml-document-to-analyze)
-      - [Questions:](#questions)
-      - [Resources:](#resources)
-    - [**Key Takeaways**](#key-takeaways)
+    - [Exercise: Analyzing an XML document](#exercise-analyzing-an-xml-document)
   - [JSON](#json)
   - [Navigation](#navigation)
   <!--toc:end-->
@@ -395,7 +384,8 @@ XML documents are composed of a series of elements, each enclosed in matching
 opening and closing tags. XML’s structure is hierarchical, meaning it can
 represent complex data relationships in a tree-like structure.
 
-The following listing shows an example of simple XML document containing product information.
+The following listing shows an example of simple XML document containing
+product information.
 
 ```xml
   <product>
@@ -407,9 +397,11 @@ The following listing shows an example of simple XML document containing product
   </product>
 ```
 
-#### Key Elements of XML Syntax:
+#### Key Elements of XML Syntax
 
-XML documents are structured using a combination of tags, elements, attributes, and an optional XML declaration. These components together create a flexible framework for defining and exchanging data.
+XML documents are structured using a combination of tags, elements, attributes,
+and an optional XML declaration. These components together create a flexible
+framework for defining and exchanging data.
 
 1. **Tags:** Tags are the fundamental building blocks of an XML document. A tag
    is used to define the beginning and end of an element. Tags are enclosed in
@@ -425,11 +417,13 @@ XML documents are structured using a combination of tags, elements, attributes, 
    <name>Jane Doe</name>
    ```
 
-   Here, `<name>` is the opening tag, `</name>` is the closing tag, and the content between them is "Jane Doe."
+   Here, `<name>` is the opening tag, `</name>` is the closing tag, and the
+   content between them is "Jane Doe."
 
 2. **Elements:** An element in XML consists of an opening tag, content, and a
    closing tag. Elements are used to define the structure of the document and
-   contain either data or other nested elements. An element can be empty (self-closing) or it can contain text, attributes, or other elements.
+   contain either data or other nested elements. An element can be empty
+   (self-closing) or it can contain text, attributes, or other elements.
 
    - Full element: `<tagname>content</tagname>`
    - Empty element: `<tagname/>`
@@ -528,7 +522,9 @@ The following example shows the usage of a name in an XML document.
 
 ### **Schema Languages**
 
-XML Schema Languages define the structure and data types of an XML document, ensuring that it conforms to predefined rules. There are two primary schema languages for XML:
+XML Schema Languages define the structure and data types of an XML document,
+ensuring that it conforms to predefined rules. There are two primary schema
+languages for XML:
 
 1. **DTD (Document Type Definition)**:
 
