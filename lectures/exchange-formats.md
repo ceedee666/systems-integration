@@ -13,6 +13,23 @@
       - [Message to Analyze](#message-to-analyze)
     - [Key Takeaways](#key-takeaways)
   - [XML](#xml)
+    - [**Basic Syntax of XML**](#basic-syntax-of-xml)
+      - [**XML Example: Product Information**](#xml-example-product-information)
+      - [**Key Elements of XML Syntax**:](#key-elements-of-xml-syntax)
+      - [**Well-Formed XML Rules**:](#well-formed-xml-rules)
+    - [**Namespaces in XML**](#namespaces-in-xml)
+      - [**Namespace Declaration**:](#namespace-declaration)
+      - [**Example Using Namespaces**:](#example-using-namespaces)
+    - [**Schema Languages**](#schema-languages)
+      - [**Advantages of XSD over DTD**:](#advantages-of-xsd-over-dtd)
+    - [**Validation**:](#validation)
+      - [**Validating XML Against XSD Example**:](#validating-xml-against-xsd-example)
+    - [**Use Cases of XML in Modern Systems**:](#use-cases-of-xml-in-modern-systems)
+    - [**Exercise: Analyzing an XML Document**](#exercise-analyzing-an-xml-document)
+      - [XML Document to Analyze:](#xml-document-to-analyze)
+      - [Questions:](#questions)
+      - [Resources:](#resources)
+    - [**Key Takeaways**](#key-takeaways)
   - [JSON](#json)
   - [Navigation](#navigation)
   <!--toc:end-->
@@ -98,6 +115,8 @@ this principle structure as well as the corresponding segment tags.
 |___ Interchange Trailer             UNZ  Mandatory
 
 ```
+
+Let's apply this structure to a practical example.
 
 ### EDIFACT Example: Purchase Order (ORDERS) Message
 
@@ -358,9 +377,312 @@ Try to answer the following questions:
 
 ## XML
 
+XML (Extensible Markup Language) is a widely-used format for data
+representation and exchange. It was designed to be both machine-readable and
+human-readable, with the flexibility to represent complex, hierarchical data
+structures. XML has become a cornerstone of modern data interchange,
+particularly in enterprise systems, document workflows, and web services.
+According to Wikipedia
+
+> Hundreds of document formats using XML syntax have been developed,
+> including RSS, Atom, Office Open XML, OpenDocument, SVG, COLLADA, and XHTML.
+> XML also provides the base language for communication protocols such as SOAP
+> and XMPP. [^1]
+
+### Basic Syntax of XML
+
+XML documents are composed of a series of elements, each enclosed in matching
+opening and closing tags. XML’s structure is hierarchical, meaning it can
+represent complex data relationships in a tree-like structure.
+
+The following listing shows an example of simple XML document containing product information.
+
+```xml
+  <product>
+    <id>12345</id>
+    <name>Mountain Bike</name>
+    <description>High-end mountain bike</description>
+    <price currency="USD">1200.00</price>
+    <stock>10</stock>
+  </product>
+```
+
+#### Key Elements of XML Syntax:
+
+XML documents are structured using a combination of tags, elements, attributes, and an optional XML declaration. These components together create a flexible framework for defining and exchanging data.
+
+1. **Tags:** Tags are the fundamental building blocks of an XML document. A tag
+   is used to define the beginning and end of an element. Tags are enclosed in
+   angle brackets (`<` and `>`), and the element’s content appears between the
+   opening and closing tags.
+
+   - Opening tag: `<tagname>` – Marks the start of an element.
+   - Closing tag: `</tagname>` – Marks the end of an element.
+
+   Example:
+
+   ```xml
+   <name>Jane Doe</name>
+   ```
+
+   Here, `<name>` is the opening tag, `</name>` is the closing tag, and the content between them is "Jane Doe."
+
+2. **Elements:** An element in XML consists of an opening tag, content, and a
+   closing tag. Elements are used to define the structure of the document and
+   contain either data or other nested elements. An element can be empty (self-closing) or it can contain text, attributes, or other elements.
+
+   - Full element: `<tagname>content</tagname>`
+   - Empty element: `<tagname/>`
+
+   Example:
+
+   ```xml
+   <product>
+     <name>Mountain Bike</name>
+     <price>1200.00</price>
+     <description/>>
+   </product>
+   ```
+
+   In this example, `<product>` is an element that contains three child
+   elements: `<name>`, `<price>` and `<description>`. `<description>` is an
+   empty element.
+
+3. **Attribute**: Attributes provide additional information about elements.
+   They are placed within the opening tag of an element and consist of a
+   name-value pair, with the value enclosed in double quotes.
+
+   - Syntax: `<tagname attribute="value">content</tagname>`
+
+   Example:
+
+   ```xml
+    <price currency="USD">1200.00</price> `
+   ```
+
+   Here, `currency="USD"` is an attribute of the `<price>` element, adding extra
+   information about the currency type.
+
+4. **XML Declaration:** The XML declaration is an optional statement at the
+   beginning of an XML document that defines the version of XML being used and
+   the document’s character encoding.
+
+   - Syntax: `<?xml version="1.0" encoding="UTF-8"?>`
+
+   Example:
+
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <product>
+     <name>Mountain Bike</name>
+     <price currency="USD">1200.00</price>
+   </product>
+   ```
+
+   The XML declaration indicates that the document conforms to **XML version
+   1.0** and uses the **UTF-8** character encoding.
+
+#### Well-Formed XML document
+
+An XML document is _well-formed_ if it satisfies the following rules:
+
+- **Unicode:** It contains only properly encoded legal Unicode characters.
+- **Special characters:** None of the special syntax characters such as `<` and
+  `&` appear except when performing their markup-delineation roles.
+- **Nesting:** The begin, end, and empty-element tags that delimit the elements
+  are correctly nested, with none missing and none overlapping.
+- **Matching tags:** The element tags are case-sensitive. The beginning and end
+  tags must match exactly. Tag names cannot contain any of the characters
+  ``!"#$%&'()_+,/;<=>?@[\]^`{|}~`` nor a space character, and cannot start with
+  `-,.`, or a numeric digit.
+- **Single root element:** There is a single "root" element that contains all
+  the other elements.
+
+### Namespaces in XML
+
+Namespaces in XML are used to avoid naming conflicts, especially when combining
+data from different sources or standards. They help distinguish between
+elements or attributes that have the same name but are used in different
+contexts.
+
+A namespace is declared using the `xmlns` attribute, typically in the root
+element. A prefix can be assigned to the namespace, which is then used to
+qualify elements or attributes.
+
+The following example shows the usage of a name in an XML document.
+
+```xml
+<bookstore xmlns:bk="http://example.org/books">
+  <bk:book>
+    <bk:title>Learning XML</bk:title>
+    <bk:author>John Doe</bk:author>
+    <bk:price>39.95</bk:price>
+  </bk:book>
+</bookstore>
+```
+
+- **`xmlns:bk="http://example.org/books"`**: Declares a namespace with the
+  prefix `bk`, associating it with the URI `http://example.org/books`.
+- Elements like `<bk:book>` and `<bk:title>` are prefixed with `bk`,
+  identifying them as belonging to this namespace.
+
+### **Schema Languages**
+
+XML Schema Languages define the structure and data types of an XML document, ensuring that it conforms to predefined rules. There are two primary schema languages for XML:
+
+1. **DTD (Document Type Definition)**:
+
+   - One of the oldest schema languages, used to define the structure of XML
+     documents.
+   - It defines which elements and attributes can appear, the order of
+     elements, and their data types.
+   - Example of a DTD declaration:
+
+     ```xml
+     <!DOCTYPE product [
+       <!ELEMENT product (id, name, description, price, stock)>
+       <!ELEMENT id (#PCDATA)>
+       <!ELEMENT name (#PCDATA)>
+       <!ELEMENT description (#PCDATA)>
+       <!ELEMENT price (#PCDATA)>
+       <!ATTLIST price currency CDATA #REQUIRED>
+       <!ELEMENT stock (#PCDATA)>
+     ]>
+     ```
+
+2. **XML Schema (XSD)**:
+
+   - More powerful and flexible than DTD, allowing for detailed data type
+     definitions and richer validation.
+   - XSD is written in XML itself and provides support for defining complex
+     data types, namespaces, and more.
+   - Example of an XSD declaration:
+
+     ```xml
+     <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+       <xs:element name="product">
+         <xs:complexType>
+           <xs:sequence>
+             <xs:element name="id" type="xs:string"/>
+             <xs:element name="name" type="xs:string"/>
+             <xs:element name="description" type="xs:string"/>
+             <xs:element name="price">
+               <xs:complexType>
+                 <xs:simpleContent>
+                   <xs:extension base="xs:decimal">
+                     <xs:attribute name="currency" type="xs:string" use="required"/>
+                   </xs:extension>
+                 </xs:simpleContent>
+               </xs:complexType>
+             </xs:element>
+             <xs:element name="stock" type="xs:integer"/>
+           </xs:sequence>
+         </xs:complexType>
+       </xs:element>
+     </xs:schema>
+     ```
+
+The main advantages of XML schema over DTD are:
+
+- **Data Types**: XSD supports built-in data types (e.g., strings, integers,
+  dates), while DTD does not.
+- **Namespaces**: XSD fully supports XML namespaces, making it more suitable
+  for complex applications.
+- **Extensibility**: XSD allows for more complex structures, including nested
+  elements and attribute validation.
+
+### Exercise: Analyzing an XML document
+
+Given the following XML document and XML schema:
+
+XML document:
+
+```xml
+<customer>
+  <id>C123</id>
+  <name>Jane Doe</name>
+  <email>jane.doe@example.com</email>
+  <phone>+49-30-1234567</phone>
+  <dateOfBirth>1985-06-15</dateOfBirth>
+  <address>
+    <street>Main Street 123</street>
+    <city>Berlin</city>
+    <postalCode>10115</postalCode>
+    <country>DE</country>
+  </address>
+  <account>
+    <accountNumber>123456789</accountNumber>
+    <balance currency="EUR">1000.50</balance>
+    <createdDate>2023-01-01</createdDate>
+  </account>
+</customer>
+```
+
+XML schema:
+
+```xml
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="customer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+        <xs:element name="name" type="xs:string"/>
+        <xs:element name="email" type="xs:string" minOccurs="1"/>
+        <xs:element name="phone" type="xs:string" minOccurs="0"/>
+        <xs:element name="dateOfBirth" type="xs:date"/>
+        <xs:element name="address">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="street" type="xs:string"/>
+              <xs:element name="city" type="xs:string"/>
+              <xs:element name="postalCode" type="xs:string"/>
+              <xs:element name="country">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="account">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accountNumber" type="xs:string"/>
+              <xs:element name="balance">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:decimal">
+                      <xs:attribute name="currency" type="xs:string" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="createdDate" type="xs:date"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+```
+
+Answer the following questions:
+
+1. Does the XML document conform to the schema? Why or why not? If not, what
+   changes would be needed?
+2. How would the validation fail if the `country` field had more than 2
+   characters?
+3. What happens if the `email` field is missing, given that it's a mandatory
+   field?
+
 ## JSON
 
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous Chapter](./integration-styles.md) |
 [Next Chapter >](./query-languages.md)
+
+[^1]: Wikipedia page on [XML](https://en.wikipedia.org/wiki/XML)
