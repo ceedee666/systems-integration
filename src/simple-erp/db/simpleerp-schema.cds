@@ -1,5 +1,7 @@
 namespace de.fhaachen.simpleerp;
 
+using from '@sap/cds-common-content';
+
 using {
     cuid,
     managed,
@@ -9,11 +11,11 @@ using {
 
 @assert.unique: {id: [productID]}
 entity Products : cuid, managed {
-    productID          : String(50);
+    productID   : String(50);
     name        : String(100);
     description : String(500);
     price       : Decimal(9, 2);
-    currency: Currency;
+    currency    : Currency;
     stock       : Integer;
 }
 

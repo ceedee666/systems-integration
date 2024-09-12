@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^8",
+    "@sap/cds-common-content": "^2.1.0",
     "express": "^4"
   },
   "devDependencies": {
@@ -27,8 +28,5 @@
   "scripts": {
     "start": "cds-serve",
     "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
-  },
-  "sapux": [
-    "app/project1"
-  ]
+  }
 }
