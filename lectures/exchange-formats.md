@@ -33,11 +33,11 @@ of the earliest formats, has been widely used since the 1970s for simple
 tabular data transfers, and is still common in data imports and exports between
 business systems.
 
-, introduced in early 1980s, is
-a standardized format for exchanging business documents, particularly in
-logistics and global trade. In 1987 the UN/EDIFACT Syntax Rules were approved
-as the ISO standard [ISO 9735](https://www.iso.org/standard/82813.html) by the
-International Organization for Standardization.
+EDIFACT, introduced in early 1980s, is a standardized format for exchanging
+business documents, particularly in logistics and global trade. In 1987 the
+UN/EDIFACT Syntax Rules were approved as the ISO standard [ISO
+9735](https://www.iso.org/standard/82813.html) by the International
+Organization for Standardization.
 
 The EDIFACT standard provides:
 
@@ -675,6 +675,152 @@ Answer the following questions:
    field?
 
 ## JSON
+
+[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a
+lightweight, text-based format used to represent structured data. It was
+initially designed for JavaScript but has become the de facto standard for data
+interchange in web applications due to its simplicity, readability, and ease of
+use. As a result most modern programming languages contain libraries to
+parse JSON data. The JSON data format has been standardized as ISO/IEC 21778:2017.
+
+### Basic Syntax of JSON
+
+The following listing shows an example of a simple JSON document.
+
+```json
+{
+  "product": {
+    "id": 12345,
+    "name": "Mountain Bike",
+    "description": "High-end mountain bike",
+    "price": 1200.0,
+    "currency": "USD",
+    "stock": 10
+  }
+}
+```
+
+The basic elements of JSON document are:
+
+1. **Strings**: Strings in JSON are sequences of characters enclosed in double
+   quotes (`" "`). Special characters such as newlines or tabs must be escaped
+   using a backslash (`\`).
+   - Example: `json "name": "Mountain Bike"`
+2. **Numbers**: JSON supports signed decimal number that may contain a
+   fractional part and may use exponential notation.
+   - Example: `json "price": 1200.00`
+3. **Booleans**: JSON supports the boolean values `true` and `false`.
+   - Example: `json "inStock": true`
+4. **Arrays**: JSON arrays are ordered collections of values, which can include
+   any combination of strings, numbers, booleans, arrays, or objects. Arrays are
+   enclosed in square brackets `[]`.
+
+   - Example:
+
+   ```json
+   {
+     "items": ["Mountain Bike", "Helmet", "Gloves"]
+   }
+   ```
+
+5. **Objects**: JSON objects are collections of key-value pairs. The key is a
+   string enclosed in double quotes (`" "`), and the value can be a string,
+   number, boolean, array, or another JSON object.
+
+   - Example:
+
+   ```json
+   {
+     "name": "Mountain Bike",
+     "price": 1200.0
+   }
+   ```
+
+6. **Null**: JSON also supports the special value `null`, used to represent
+   empty or missing data.
+   - Example: `json "discount": null`
+
+### JSON Schema
+
+While JSON does not have a native schema system like XML, external tools and
+specifications like **JSON Schema** can be used to define and validate the
+structure of JSON data. JSON Schema is a powerful mechanism to enforce
+constraints on data format and values.
+
+#### Example of a JSON Schema
+
+```json
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema#",
+  "title": "Product",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string"
+    },
+    "inStock": {
+      "type": "boolean"
+    },
+    "discount": {
+      "type": ["number", "null"]
+    }
+  },
+  "required": ["id", "name", "price", "currency"]
+}
+```
+
+In this schema, the `Product` object is defined as an object with properties
+like `id`, `name`, `price`, and `currency`, and the `price` property must have
+a value greater than or equal to 0.
+
+### Exercise: Validating JSON Data
+
+Given the following JSON data:
+
+```json
+{
+  "id": 12345,
+  "name": "Mountain Bike",
+  "price": 1200.0,
+  "currency": "USD",
+  "inStock": true
+}
+```
+
+And the JSON schema defined above, answer the following questions:
+
+1. Does the data conform to the schema?
+2. What happens if the `price` is set to `-100`?
+3. What if the `currency` field is missing?
+4. How would the validation behave if an extra field, `description`, is added?
+
+### Comparison Between JSON and XML
+
+JSON and XML are two of the most widely used data exchange formats, but they
+differ significantly in their design philosophy and use cases.
+
+| Feature            | JSON                              | XML                              |
+| ------------------ | --------------------------------- | -------------------------------- |
+| **Simplicity**     | Simple, minimal syntax            | More verbose and flexible        |
+| **Readability**    | Easily human-readable             | Human-readable but more complex  |
+| **Structure**      | Key-value pairs and arrays        | Hierarchical tree structure      |
+| **Schema Support** | No native schema (external tools) | Native schema via DTD or XSD     |
+| **Type Handling**  | Simple (number, string, boolean)  | Extensive, with custom types     |
+| **Usage**          | Common in APIs, web applications  | Common in document-based systems |
+
+While JSON is lightweight and typically easier to work with for web services
+and APIs, XML offers more sophisticated options for representing complex data,
+especially when validation through schemas is necessary.
 
 ## Navigation
 
