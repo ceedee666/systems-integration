@@ -7,7 +7,7 @@
   - [Lectures](#lectures)
   - [Lab](#lab)
   - [Readings list](#readings-list)
-  - [Additional course material](#additional-course-material) - [Online ressources](#online-ressources) - [Tools](#tools)
+  - [Additional course material](#additional-course-material)
   <!--toc:end-->
 
 ## Overview
