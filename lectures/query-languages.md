@@ -1,5 +1,45 @@
 # Query languages
 
+<!--toc:start-->
+
+- [Query languages](#query-languages)
+  - [SQL](#sql)
+    - [Introduction to SQL](#introduction-to-sql)
+      - [1. Data Definition (DDL - Data Definition Language)](#1-data-definition-ddl-data-definition-language)
+      - [Key DDL Statements](#key-ddl-statements)
+      - [Example of Table Creation](#example-of-table-creation)
+      - [2. Data Querying (DQL - Data Query Language)](#2-data-querying-dql-data-query-language)
+        - [Example of a Basic Query](#example-of-a-basic-query)
+      - [3. Data Manipulation (DML - Data Manipulation Language)](#3-data-manipulation-dml-data-manipulation-language)
+        - [Key DML Statements](#key-dml-statements)
+        - [Example of Data Manipulation](#example-of-data-manipulation)
+      - [4. Data Control (DCL - Data Control Language)](#4-data-control-dcl-data-control-language)
+        - [Example of Data Control:](#example-of-data-control)
+    - [SQL Versions](#sql-versions)
+      - [SQL-86 (SQL-1) – The First SQL Standard](#sql-86-sql-1-the-first-sql-standard)
+      - [SQL-92 (SQL-2) – A Major Expansion](#sql-92-sql-2-a-major-expansion)
+      - [SQL:2003 – XML Support and Enhanced Data Types](#sql2003-xml-support-and-enhanced-data-types)
+      - [SQL:2016 – JSON Support and Security Improvements](#sql2016-json-support-and-security-improvements)
+  - [XPath](#xpath)
+    - [Key Concepts in XPath](#key-concepts-in-xpath)
+    - [XPath Examples](#xpath-examples)
+      - [1. **Selecting All `product` Elements**](#1-selecting-all-product-elements)
+      - [2. **Selecting the `name` of the First Product**](#2-selecting-the-name-of-the-first-product)
+      - [3. **Selecting All `price` Elements Anywhere in the Document**](#3-selecting-all-price-elements-anywhere-in-the-document)
+      - [4. **Filtering Based on Attribute Presence**](#4-filtering-based-on-attribute-presence)
+      - [5. **Selecting the `currency` Attribute of All `price` Elements**](#5-selecting-the-currency-attribute-of-all-price-elements)
+      - [6. **Selecting Products with a `price` Greater than 500**](#6-selecting-products-with-a-price-greater-than-500)
+      - [7. **Selecting Products Where `price` Is in EUR**](#7-selecting-products-where-price-is-in-eur)
+      - [8. **Counting the Number of `product` Elements**](#8-counting-the-number-of-product-elements)
+      - [9. **Selecting All `product` Elements with a `stock` Value Less Than 10**](#9-selecting-all-product-elements-with-a-stock-value-less-than-10)
+      - [10. **Selecting `name` Elements for Products Containing "Bike"**](#10-selecting-name-elements-for-products-containing-bike)
+      - [11. **Selecting All Products Where the `currency` Attribute Exists**](#11-selecting-all-products-where-the-currency-attribute-exists)
+    - [Exercise: Writing XPath Expressions](#exercise-writing-xpath-expressions)
+      - [Questions](#questions)
+  - [References](#references)
+  - [Navigation](#navigation)
+  <!--toc:end-->
+
 After discussing different exchange formats in the previous section the focus
 is now on query languages. The focus in this section will be on SQL and XPath.
 SQL is still the dominating language for extracting data from databases and
@@ -438,7 +478,8 @@ To select the `name` of the first `product`:
 
 #### 3. **Selecting All `price` Elements Anywhere in the Document**
 
-To select all `price` elements, regardless of where they are located within the XML document:
+To select all `price` elements, regardless of where they are located within the
+XML document:
 
 ```xpath
 //price
@@ -455,13 +496,15 @@ To select all `price` elements, regardless of where they are located within the 
 
 #### 4. **Filtering Based on Attribute Presence**
 
-To select all `product` elements where the `currency` attribute is present in the `price` element:
+To select all `product` elements where the `currency` attribute is present in
+the `price` element:
 
 ```xpath
 /products/product[price/@currency]
 ```
 
-This expression selects all products that have a `currency` attribute in the `price` element.
+This expression selects all products that have a `currency` attribute in the
+`price` element.
 
 **Result Set**:
 
@@ -499,10 +542,10 @@ To select the `currency` attribute of all `price` elements:
 **Result Set**:
 
 ```xml
-USD
-USD
-USD
-EUR
+currency="USD"
+currency="USD"
+currency="USD"
+currency="EUR"
 ```
 
 #### 6. **Selecting Products with a `price` Greater than 500**
@@ -674,8 +717,10 @@ functions. The basis for the exercise is the following XML document:
 ```
 
 Write XPath expressions to solve the following queries. For each query, the
-XPath expression should retrieve the relevant data from the XML document.
-Use an XPath evaluator to check your results.
+XPath expression should retrieve the relevant data from the XML document. Use
+an XPath evaluator, e.g.
+[https://codebeautify.org/Xpath-Tester](https://codebeautify.org/Xpath-Tester)
+to check your results.
 
 #### Questions
 
@@ -739,7 +784,8 @@ Use an XPath evaluator to check your results.
      Electric Scooter
      ```
 
-6. **Select all products that have the `featured` element present (regardless of its value).**
+6. Select all products that have the `featured` element present (regardless of
+   its value).
 
    - Write an XPath expression that selects all `product` elements where the
      `<featured>` element exists (whether it is `true` or `false`).
@@ -783,3 +829,9 @@ Use an XPath evaluator to check your results.
 [^1] M. Stonebraker and A. Pavlo, ‘What Goes Around Comes Around... And
 Around...’, SIGMOD Record, vol. 53, no. 2, pp. 21–37, Jun. 2024. Available
 [online](https://db.cs.cmu.edu/papers/2024/whatgoesaround-sigmodrec2024.pdf)
+[^2] [W3School XML tutorial](https://www.w3schools.com/xml/)
+
+## Navigation
+
+🏠 [Overview](../README.md) | [< Previous Chapter](./exchange-formats.md) | [Next
+Chapter >](./mapping-languages.md)
