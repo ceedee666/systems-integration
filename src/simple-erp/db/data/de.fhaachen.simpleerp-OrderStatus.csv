@@ -1,0 +1,6 @@
+status,name,descr
+"10","new","new"
+"20","picked","picked"
+"30","shipped","shipped"
+"40","completed","completed"
+"-10","canceled","canceled"

@@ -13,20 +13,44 @@
   "devDependencies": {
     "@cap-js/cds-types": "^0.6",
     "@cap-js/sqlite": "^1",
-    "@sap/ux-specification": "^1.124.0"
+    "@sap/ux-specification": "^1.124.1"
   },
   "cds": {
     "requires": {
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "alice": {
+              "roles": [
+                "admin"
+              ]
+            },
+            "bob": {
+              "roles": [
+                "support"
+              ]
+            }
+          }
+        }
+      },
       "db": {
         "kind": "sqlite",
         "credentials": {
-          "url": "db.sqlite"
+          "url": ":memory:"
         }
       }
     }
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
-  }
+    "watch-customers": "cds watch --open customers/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-products": "cds watch --open products/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-orders": "cds watch --open orders/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/customers",
+    "app/products",
+    "app/orders"
+  ]
 }
