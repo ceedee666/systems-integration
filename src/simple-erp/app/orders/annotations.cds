@@ -67,6 +67,26 @@ annotate service.Orders with @(
             Value: customer.name,
             Label: '{i18n>Customer}',
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.pickOrder',
+            Label : '{i18n>Pickorder}',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.shipOrder',
+            Label : '{i18n>Shiporder}',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.completeOrder',
+            Label : '{i18n>Completeorder}',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.cancelOrder',
+            Label : '{i18n>Cancelorder}',
+        },
     ],
     UI.SelectionFields           : [
         orderID,
@@ -112,6 +132,28 @@ annotate service.Orders with @(
         },
         TypeImageUrl : 'sap-icon://sales-order',
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.pickOrder',
+            Label : '{i18n>Pickorder}',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.shipOrder',
+            Label : '{i18n>Shiporder}',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.completeOrder',
+            Label : '{i18n>Completeorder}',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'SimpleERPService.cancelOrder',
+            Label : '{i18n>Cancelorder}',
+        },
+    ],
 );
 
 annotate service.Orders with {
