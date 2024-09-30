@@ -18,3 +18,5 @@ service SimpleERPService {
 annotate erp.Products with @odata.draft.enabled;
 annotate erp.Customers with @odata.draft.enabled;
 annotate erp.Orders with @odata.draft.enabled;
+
+annotate SimpleERPService with @(requires: 'customerservice');

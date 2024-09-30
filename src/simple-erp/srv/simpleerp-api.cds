@@ -5,3 +5,5 @@ service SimpleERPApi  @(
 ) {
     function getProducts() returns String;
 }
+
+annotate SimpleERPApi with @(requires: 'system-integration');

@@ -1,0 +1,14 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.system-integration",
+      "description": "system-integration"
+    },
+    {
+      "name": "$XSAPPNAME.customerservice",
+      "description": "customerservice"
+    }
+  ],
+  "attributes": [],
+  "role-templates": []
+}
