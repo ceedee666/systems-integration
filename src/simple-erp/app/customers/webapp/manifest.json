@@ -35,6 +35,15 @@
             "parameters": {},
             "additionalParameters": "allowed"
           }
+        },
+        "Customers-display": {
+          "semanticObject": "Customers",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -150,5 +159,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "simplerp"
   }
 }

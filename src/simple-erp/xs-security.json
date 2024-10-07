@@ -10,5 +10,24 @@
     }
   ],
   "attributes": [],
-  "role-templates": []
+  "role-templates": [
+    {
+      "name": "system-integration",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.system-integration"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "customerservice",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.customerservice"
+      ],
+      "attribute-references": []
+    }
+
+
+  ]
 }

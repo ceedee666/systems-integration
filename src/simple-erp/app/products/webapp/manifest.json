@@ -1,7 +1,7 @@
 {
   "_version": "1.65.0",
   "sap.app": {
-    "id": "products",
+    "id": "de.fhaachen.drumm.products",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -29,6 +29,15 @@
       "inbounds": {
         "Product-display": {
           "semanticObject": "Product",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        },
+        "Products-display": {
+          "semanticObject": "Products",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -73,7 +82,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "products.i18n.i18n"
+          "bundleName": "de.fhaachen.drumm.products.i18n.i18n"
         }
       },
       "": {
@@ -150,5 +159,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "simplerp"
   }
 }
