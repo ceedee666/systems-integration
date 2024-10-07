@@ -12,8 +12,8 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
-      "version": "1.14.5",
-      "toolsId": "fafa2fcb-c39c-415b-81bc-a77b27ce6bfd"
+      "version": "1.15.1",
+      "toolsId": "745b7a4b-9152-44e2-8cde-42ba3974fc63"
     },
     "dataSources": {
       "mainService": {
@@ -58,7 +58,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.128.1",
+      "minUI5Version": "1.129.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -108,8 +108,8 @@
         },
         {
           "pattern": "Orders({key})/items({key2}):?query:",
-          "name": "OrderPositionsObjectPage",
-          "target": "OrderPositionsObjectPage"
+          "name": "OrderItemsObjectPage",
+          "target": "OrderItemsObjectPage"
         }
       ],
       "targets": {
@@ -134,8 +134,7 @@
                     "type": "ResponsiveTable"
                   }
                 }
-              },
-              "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#table"
+              }
             }
           }
         },
@@ -150,14 +149,14 @@
               "navigation": {
                 "items": {
                   "detail": {
-                    "route": "OrderPositionsObjectPage"
+                    "route": "OrderItemsObjectPage"
                   }
                 }
               },
               "controlConfiguration": {
-                "items/@com.sap.vocabularies.UI.v1.LineItem#i18nOrderitems": {
+                "items/@com.sap.vocabularies.UI.v1.LineItem#Items": {
                   "tableSettings": {
-                    "type": "ResponsiveTable",
+                    "selectionMode": "Single",
                     "creationMode": {
                       "name": "InlineCreationRows"
                     }
@@ -167,9 +166,9 @@
             }
           }
         },
-        "OrderPositionsObjectPage": {
+        "OrderItemsObjectPage": {
           "type": "Component",
-          "id": "OrderPositionsObjectPage",
+          "id": "OrderItemsObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {

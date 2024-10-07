@@ -4,9 +4,9 @@ sap.ui.require(
         'de/fhaachen/drumm/orders/test/integration/FirstJourney',
 		'de/fhaachen/drumm/orders/test/integration/pages/OrdersList',
 		'de/fhaachen/drumm/orders/test/integration/pages/OrdersObjectPage',
-		'de/fhaachen/drumm/orders/test/integration/pages/OrderPositionsObjectPage'
+		'de/fhaachen/drumm/orders/test/integration/pages/OrderItemsObjectPage'
     ],
-    function(JourneyRunner, opaJourney, OrdersList, OrdersObjectPage, OrderPositionsObjectPage) {
+    function(JourneyRunner, opaJourney, OrdersList, OrdersObjectPage, OrderItemsObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
@@ -19,7 +19,7 @@ sap.ui.require(
                 pages: { 
 					onTheOrdersList: OrdersList,
 					onTheOrdersObjectPage: OrdersObjectPage,
-					onTheOrderPositionsObjectPage: OrderPositionsObjectPage
+					onTheOrderItemsObjectPage: OrderItemsObjectPage
                 }
             },
             opaJourney.run

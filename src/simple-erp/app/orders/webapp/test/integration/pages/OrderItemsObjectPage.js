@@ -9,7 +9,7 @@ sap.ui.define(['sap/fe/test/ObjectPage'], function(ObjectPage) {
     return new ObjectPage(
         {
             appId: 'de.fhaachen.drumm.orders',
-            componentId: 'OrderPositionsObjectPage',
+            componentId: 'OrderItemsObjectPage',
             contextPath: '/Orders/items'
         },
         CustomPageDefinitions

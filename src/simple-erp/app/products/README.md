@@ -1,18 +1,18 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Sep 17 2024 19:23:36 GMT+0200 (Central European Summer Time)|
+|**Generation Date and Time**<br>Mon Oct 07 2024 16:17:10 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
-|**App Generator Version**<br>1.14.5|
-|**Generation Platform**<br>Visual Studio Code|
+|**App Generator Version**<br>1.15.1|
+|**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>http://localhost:4004/odata/v4/simple-erp/|
 |**Module Name**<br>products|
 |**Application Title**<br>Manage Products|
-|**Namespace**<br>|
+|**Namespace**<br>de.fhaachen.drumm|
 |**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.128.1|
+|**UI5 Version**<br>1.129.0|
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|

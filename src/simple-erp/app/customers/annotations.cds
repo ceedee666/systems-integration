@@ -1,28 +1,61 @@
-using SimpleERPService as service from '../../srv/simpleerp-service';
-using from '@sap/cds/common';
+using SimpleERPApi as service from '../../srv/simpleerp-api';
+using from '../../srv/simpleerp-service';
+using from '../../db/simpleerp-schema';
 
-annotate service.Customers with @(
-    UI.FieldGroup #GeneratedGroup : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type : 'UI.DataField',
-                Label : '{i18n>Name}',
-                Value : name,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : '{i18n>Email}',
-                Value : email,
-            },
-        ],
+annotate SimpleERPService.Customers with @(
+    UI.SelectionFields : [
+        name,
+        country_code,
+    ],
+    UI.LineItem : [
+        {
+            $Type : 'UI.DataField',
+            Value : email,
+            Label : '{i18n>Email}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : name,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : street,
+            Label : '{i18n>Street}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : houseNumber,
+            Label : '{i18n>Housenumber}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : postalCode,
+            Label : '{i18n>Postalcode}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : city,
+            Label : '{i18n>City}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : country_code,
+        },
+    ],
+    UI.HeaderInfo : {
+        TypeName : '{i18n>Customer}',
+        TypeNamePlural : '{i18n>Customers}',
+        Title : {
+            $Type : 'UI.DataField',
+            Value : name,
+        },
     },
     UI.Facets : [
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'GeneratedFacet1',
-            Label : 'General Information',
-            Target : '@UI.FieldGroup#GeneratedGroup',
+            Label : '{i18n>Generalinformation}',
+            ID : 'GeneralInformation',
+            Target : '@UI.FieldGroup#GeneralInformation',
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -31,98 +64,52 @@ annotate service.Customers with @(
             Target : '@UI.FieldGroup#Address',
         },
     ],
-    UI.LineItem : [
-        {
-            $Type : 'UI.DataField',
-            Label : '{i18n>Name}',
-            Value : name,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : '{i18n>Email}',
-            Value : email,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : '{i18n>Street}',
-            Value : street,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : '{i18n>Housenumber}',
-            Value : houseNumber,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : '{i18n>City}',
-            Value : city,
-        },
-    ],
-    UI.SelectionFields : [
-        name,
-        country.code,
-    ],
-    UI.HeaderInfo : {
-        TypeNamePlural : 'Customers',
-        TypeName : 'Customer',
-        Title : {
-            $Type : 'UI.DataField',
-            Value : name,
-        },
-        TypeImageUrl : 'sap-icon://customer',
+    UI.FieldGroup #GeneralInformation : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : name,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : email,
+                Label : '{i18n>Email}',
+            },
+        ],
     },
     UI.FieldGroup #Address : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>Street}',
                 Value : street,
+                Label : '{i18n>Street}',
             },
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>Housenumber}',
                 Value : houseNumber,
+                Label : '{i18n>Housenumber}',
             },
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>City}',
-                Value : city,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : '{i18n>Postalcode}',
                 Value : postalCode,
+                Label : '{i18n>Postalcode}',
             },
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>Countrycode}',
+                Value : city,
+                Label : '{i18n>City}',
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : country_code,
             },
         ],
     },
 );
 
-annotate service.Customers with {
-    postalCode @Common.Label : '{i18n>Postalcode}'
-};
-
-annotate service.Customers with {
-    city @Common.Label : '{i18n>City}'
-};
-
-annotate service.Customers with {
+annotate SimpleERPService.Customers with {
     name @Common.Label : '{i18n>Name}'
-};
-
-annotate service.Countries with {
-    code @Common.Text : {
-        $value : descr,
-        ![@UI.TextArrangement] : #TextFirst,
-    }
-};
-
-annotate service.Customers with {
-    country @Common.ValueListWithFixedValues : true
 };
 

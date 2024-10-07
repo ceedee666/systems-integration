@@ -1,15 +1,15 @@
 sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
-        'products/test/integration/FirstJourney',
-		'products/test/integration/pages/ProductsList',
-		'products/test/integration/pages/ProductsObjectPage'
+        'de/fhaachen/drumm/products/test/integration/FirstJourney',
+		'de/fhaachen/drumm/products/test/integration/pages/ProductsList',
+		'de/fhaachen/drumm/products/test/integration/pages/ProductsObjectPage'
     ],
     function(JourneyRunner, opaJourney, ProductsList, ProductsObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
-            launchUrl: sap.ui.require.toUrl('products') + '/index.html'
+            launchUrl: sap.ui.require.toUrl('de/fhaachen/drumm/products') + '/index.html'
         });
 
        
