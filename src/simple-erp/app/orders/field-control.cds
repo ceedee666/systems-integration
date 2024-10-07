@@ -1,6 +1,6 @@
 using SimpleERPService as service from '../../srv/simpleerp-service';
 
-extend projection service.Orders with {
+extend projection SimpleERPService.Orders with {
     virtual null as pickEnabled     : Boolean @UI.Hidden,
     virtual null as shipEnabled     : Boolean @UI.Hidden,
     virtual null as completeEnabled : Boolean @UI.Hidden,

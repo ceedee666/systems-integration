@@ -27,6 +27,26 @@ annotate service.Orders with @(
                 Label : '{i18n>Orderstatus}',
                 Value : orderStatus_status,
             },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Action : 'SimpleERPService.pickOrder',
+                Label : '{i18n>Pickorder}',
+            },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Action : 'SimpleERPService.shipOrder',
+                Label : '{i18n>Shiporder}',
+            },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Action : 'SimpleERPService.completeOrder',
+                Label : '{i18n>Completeorder}',
+            },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Action : 'SimpleERPService.cancelOrder',
+                Label : '{i18n>Cancelorder}',
+            },
         ],
     },
     UI.Facets : [
@@ -93,7 +113,7 @@ annotate service.Orders with @(
     UI.SelectionFields : [
         orderID,
         customer_ID,
-        items.product_productID,
+        items.product_ID,
     ],
     UI.HeaderInfo : {
         TypeName : '{i18n>Order}',
@@ -158,12 +178,16 @@ annotate service.OrderItems with {
                 {
                     $Type : 'Common.ValueListParameterInOut',
                     LocalDataProperty : product_ID,
-                    ValueListProperty : 'productID',
+                    ValueListProperty : 'ID',
                 },
             ],
         },
         Common.ValueListWithFixedValues : true,
-    )
+        Common.Text : {
+            $value : product.productID,
+            ![@UI.TextArrangement] : #TextOnly
+        },
+        )
 };
 
 annotate service.Orders with {
@@ -182,7 +206,7 @@ annotate service.OrderItems with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : product_productID,
+            Value : product_ID,
         },
         {
             $Type : 'UI.DataField',
@@ -221,7 +245,7 @@ annotate service.OrderItems with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : product_productID,
+                Value : product_ID,
             },
             {
                 $Type : 'UI.DataField',
@@ -262,7 +286,11 @@ annotate service.Products with {
 annotate service.Customers with {
     ID @Common.Text : {
         $value : name,
-        ![@UI.TextArrangement] : #TextOnly
+        ![@UI.TextArrangement] : #TextFirst
     }
+};
+
+annotate service.Products with {
+    ID @Common.Text : productID
 };
 

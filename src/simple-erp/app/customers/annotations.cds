@@ -10,12 +10,12 @@ annotate SimpleERPService.Customers with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Value : email,
-            Label : '{i18n>Email}',
+            Value : name,
         },
         {
             $Type : 'UI.DataField',
-            Value : name,
+            Value : email,
+            Label : '{i18n>Email}',
         },
         {
             $Type : 'UI.DataField',

@@ -12,6 +12,8 @@ service SimpleERPService {
             action cancelOrder();
         };
 
+        
+
     entity OrderItems as projection on erp.OrderItems
 }
 
@@ -20,9 +22,3 @@ annotate erp.Customers with @odata.draft.enabled;
 annotate erp.Orders with @odata.draft.enabled;
 annotate SimpleERPService with @(requires: 'customerservice');
 
-extend projection SimpleERPService.Orders with {
-    virtual null as pickEnabled     : Boolean @UI.Hidden,
-    virtual null as shipEnabled     : Boolean @UI.Hidden,
-    virtual null as completeEnabled : Boolean @UI.Hidden,
-    virtual null as cancelEnabled   : Boolean @UI.Hidden,
-}

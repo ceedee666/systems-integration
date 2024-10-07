@@ -4,7 +4,7 @@ class SimpleERPService extends cds.ApplicationService {
   init() {
     const { Customers, Orders, OrderItems, OrderStatus, Products } = this.entities;
     
-    this.before("*", Customers.drafts, async (req) => {
+    this.before("CREATE", Customers.drafts, async (req) => {
       const { uuid } = cds.utils
       req.data.ID = uuid();
     });
@@ -26,16 +26,16 @@ class SimpleERPService extends cds.ApplicationService {
         req.data.itemID = maxID + 10;
       }
 
-      let productID = req.data.product_productID
-        ? req.data.product_productID
-        : itemDraft.product_productID;
+      let productID = req.data.product_ID
+        ? req.data.product_ID
+        : itemDraft.product_ID;
 
       let quantity = req.data.quantity ? req.data.quantity : itemDraft.quantity;
       quantity = quantity ? quantity : 0;
 
       const product = await SELECT.one
         .from(Products)
-        .where({ productID: productID });
+        .where({ ID: productID });
 
       req.data.itemAmount = product.price * quantity;
       req.data.currency_code = product.currency_code;
