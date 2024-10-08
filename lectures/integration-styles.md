@@ -54,7 +54,7 @@ the following aspects of your assigned style:
    scalability, performance, and reliability?
 4. Relation to integration levels: How does this style connect to the
    syntactic, semantic, and organizational levels of interoperability?
-5. Relation to integration Scenarios and methods: How does this style relate to
+5. Relation to integration scenarios and methods: How does this style relate to
    different integration scenarios and methods?
 6. Scenarios: Apply this style to the small-to-medium-sized company from
    Exercise 1 in the Motivation lecture. Would this style be effective for
