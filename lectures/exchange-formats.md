@@ -17,7 +17,7 @@
       - [Key Elements of XML Syntax:](#key-elements-of-xml-syntax)
       - [Well-Formed XML document](#well-formed-xml-document)
     - [Namespaces in XML](#namespaces-in-xml)
-    - [**Schema Languages**](#schema-languages)
+    - [Schema Languages](#schema-languages)
     - [Exercise: Analyzing an XML document](#exercise-analyzing-an-xml-document)
   - [JSON](#json)
   - [Navigation](#navigation)
@@ -520,7 +520,7 @@ The following example shows the usage of a name in an XML document.
 - Elements like `<bk:book>` and `<bk:title>` are prefixed with `bk`,
   identifying them as belonging to this namespace.
 
-### **Schema Languages**
+### Schema Languages
 
 XML Schema Languages define the structure and data types of an XML document,
 ensuring that it conforms to predefined rules. There are two primary schema
