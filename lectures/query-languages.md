@@ -6,15 +6,15 @@
   - [SQL](#sql)
     - [Introduction to SQL](#introduction-to-sql)
       - [1. Data Definition (DDL - Data Definition Language)](#1-data-definition-ddl-data-definition-language)
-      - [Key DDL Statements](#key-ddl-statements)
-      - [Example of Table Creation](#example-of-table-creation)
+        - [Key DDL Statements](#key-ddl-statements)
+        - [Example of Table Creation](#example-of-table-creation)
       - [2. Data Querying (DQL - Data Query Language)](#2-data-querying-dql-data-query-language)
         - [Example of a Basic Query](#example-of-a-basic-query)
       - [3. Data Manipulation (DML - Data Manipulation Language)](#3-data-manipulation-dml-data-manipulation-language)
         - [Key DML Statements](#key-dml-statements)
         - [Example of Data Manipulation](#example-of-data-manipulation)
       - [4. Data Control (DCL - Data Control Language)](#4-data-control-dcl-data-control-language)
-        - [Example of Data Control:](#example-of-data-control)
+        - [Example of Data Control](#example-of-data-control)
     - [SQL Versions](#sql-versions)
       - [SQL-86 (SQL-1) – The First SQL Standard](#sql-86-sql-1-the-first-sql-standard)
       - [SQL-92 (SQL-2) – A Major Expansion](#sql-92-sql-2-a-major-expansion)
@@ -23,17 +23,17 @@
   - [XPath](#xpath)
     - [Key Concepts in XPath](#key-concepts-in-xpath)
     - [XPath Examples](#xpath-examples)
-      - [1. **Selecting All `product` Elements**](#1-selecting-all-product-elements)
-      - [2. **Selecting the `name` of the First Product**](#2-selecting-the-name-of-the-first-product)
-      - [3. **Selecting All `price` Elements Anywhere in the Document**](#3-selecting-all-price-elements-anywhere-in-the-document)
-      - [4. **Filtering Based on Attribute Presence**](#4-filtering-based-on-attribute-presence)
-      - [5. **Selecting the `currency` Attribute of All `price` Elements**](#5-selecting-the-currency-attribute-of-all-price-elements)
-      - [6. **Selecting Products with a `price` Greater than 500**](#6-selecting-products-with-a-price-greater-than-500)
-      - [7. **Selecting Products Where `price` Is in EUR**](#7-selecting-products-where-price-is-in-eur)
-      - [8. **Counting the Number of `product` Elements**](#8-counting-the-number-of-product-elements)
-      - [9. **Selecting All `product` Elements with a `stock` Value Less Than 10**](#9-selecting-all-product-elements-with-a-stock-value-less-than-10)
-      - [10. **Selecting `name` Elements for Products Containing "Bike"**](#10-selecting-name-elements-for-products-containing-bike)
-      - [11. **Selecting All Products Where the `currency` Attribute Exists**](#11-selecting-all-products-where-the-currency-attribute-exists)
+      - [1. Selecting All `product` Elements](#1-selecting-all-product-elements)
+      - [2. Selecting the `name` of the First Product](#2-selecting-the-name-of-the-first-product)
+      - [3. Selecting All `price` Elements Anywhere in the Document](#3-selecting-all-price-elements-anywhere-in-the-document)
+      - [4. Filtering Based on Attribute Presence](#4-filtering-based-on-attribute-presence)
+      - [5. Selecting the `currency` Attribute of All `price` Elements](#5-selecting-the-currency-attribute-of-all-price-elements)
+      - [6. Selecting Products with a `price` Greater than 500](#6-selecting-products-with-a-price-greater-than-500)
+      - [7. Selecting Products Where `price` Is in EUR](#7-selecting-products-where-price-is-in-eur)
+      - [8. Counting the Number of `product` Elements](#8-counting-the-number-of-product-elements)
+      - [9. Selecting All `product` Elements with a `stock` Value Less Than 10](#9-selecting-all-product-elements-with-a-stock-value-less-than-10)
+      - [10. Selecting `name` Elements for Products Containing "Bike"](#10-selecting-name-elements-for-products-containing-bike)
+      - [11. Selecting All Products Where the `currency` Attribute Exists](#11-selecting-all-products-where-the-currency-attribute-exists)
     - [Exercise: Writing XPath Expressions](#exercise-writing-xpath-expressions)
       - [Questions](#questions)
   - [References](#references)
@@ -57,7 +57,7 @@ and controlling access to the data. SQL is divided into several functional
 categories, each serving a specific purpose: **Data Querying**, **Data
 Definition**, **Data Manipulation**, and **Data Control**.
 
-##### 1. Data Definition (DDL - Data Definition Language)
+#### 1. Data Definition (DDL - Data Definition Language)
 
 **Data Definition Language (DDL)** is used to define and modify the structure
 of database objects like tables, indexes, and schemas. DDL statements create,
@@ -162,19 +162,19 @@ access to certain data or operations.
 - **`GRANT`**: Grants specific privileges to a user or role.
 - **`REVOKE`**: Removes specific privileges from a user or role.
 
-##### Example of Data Control:
+##### Example of Data Control
 
 1. **Grant access to a table:**
 
-```sql
-GRANT SELECT, INSERT ON Products TO user_name;
-```
+   ```sql
+   GRANT SELECT, INSERT ON Products TO user_name;
+   ```
 
 2. **Revoke access from a user:**
 
-```sql
-REVOKE INSERT ON Products FROM user_name;
-```
+   ```sql
+   REVOKE INSERT ON Products FROM user_name;
+   ```
 
 ### SQL Versions
 
@@ -182,7 +182,7 @@ The relation database model and SQL as the query and data manipulation language
 is is still the most used technologies for managing data today. The historic
 evolution of relational database is discussed in the SIGMOD paper by M.
 Stonebraker and A. Pavlo titled 'What goes around comes around... and
-around...' [^1].
+around...'. [^1]
 
 As a result of this evolution also the SQL standard evolved significantly. The
 following list show the most important improvements in selected SQL versions.
@@ -429,7 +429,7 @@ Let’s continue with our example XML document about products:
 </products>
 ```
 
-#### 1. **Selecting All `product` Elements**
+#### 1. Selecting All `product` Elements
 
 To select all `product` elements under the `products` element:
 
@@ -462,7 +462,7 @@ To select all `product` elements under the `products` element:
 </product>
 ```
 
-#### 2. **Selecting the `name` of the First Product**
+#### 2. Selecting the `name` of the First Product
 
 To select the `name` of the first `product`:
 
@@ -476,7 +476,7 @@ To select the `name` of the first `product`:
 <name>Mountain Bike</name>
 ```
 
-#### 3. **Selecting All `price` Elements Anywhere in the Document**
+#### 3. Selecting All `price` Elements Anywhere in the Document
 
 To select all `price` elements, regardless of where they are located within the
 XML document:
@@ -494,7 +494,7 @@ XML document:
 <price currency="EUR">25.00</price>
 ```
 
-#### 4. **Filtering Based on Attribute Presence**
+#### 4. Filtering Based on Attribute Presence
 
 To select all `product` elements where the `currency` attribute is present in
 the `price` element:
@@ -531,7 +531,7 @@ This expression selects all products that have a `currency` attribute in the
 </product>
 ```
 
-#### 5. **Selecting the `currency` Attribute of All `price` Elements**
+#### 5. Selecting the `currency` Attribute of All `price` Elements
 
 To select the `currency` attribute of all `price` elements:
 
@@ -548,7 +548,7 @@ currency="USD"
 currency="EUR"
 ```
 
-#### 6. **Selecting Products with a `price` Greater than 500**
+#### 6. Selecting Products with a `price` Greater than 500
 
 To select all products where the `price` is greater than 500:
 
@@ -571,7 +571,7 @@ To select all products where the `price` is greater than 500:
 </product>
 ```
 
-#### 7. **Selecting Products Where `price` Is in EUR**
+#### 7. Selecting Products Where `price` Is in EUR
 
 To select all products where the `currency` attribute in the `price` element is `EUR`:
 
@@ -589,7 +589,7 @@ To select all products where the `currency` attribute in the `price` element is 
 </product>
 ```
 
-#### 8. **Counting the Number of `product` Elements**
+#### 8. Counting the Number of `product` Elements
 
 To count the number of `product` elements:
 
@@ -603,7 +603,7 @@ count(/products/product)
 4
 ```
 
-#### 9. **Selecting All `product` Elements with a `stock` Value Less Than 10**
+#### 9. Selecting All `product` Elements with a `stock` Value Less Than 10
 
 To select all `product` elements where the `stock` value is less than 10:
 
@@ -621,7 +621,7 @@ To select all `product` elements where the `stock` value is less than 10:
 </product>
 ```
 
-#### 10. **Selecting `name` Elements for Products Containing "Bike"**
+#### 10. Selecting `name` Elements for Products Containing "Bike"
 
 To select the `name` elements of products whose name contains the word "Bike":
 
@@ -636,7 +636,7 @@ To select the `name` elements of products whose name contains the word "Bike":
 <name>Road Bike</name>
 ```
 
-#### 11. **Selecting All Products Where the `currency` Attribute Exists**
+#### 11. Selecting All Products Where the `currency` Attribute Exists
 
 To select all products where the `currency` attribute exists in the `price`
 element (useful if some `price` elements don’t have a `currency` attribute):
@@ -826,10 +826,12 @@ to check your results.
 
 ## References
 
-[^1] M. Stonebraker and A. Pavlo, ‘What Goes Around Comes Around... And
-Around...’, SIGMOD Record, vol. 53, no. 2, pp. 21–37, Jun. 2024. Available
-[online](https://db.cs.cmu.edu/papers/2024/whatgoesaround-sigmodrec2024.pdf)
-[^2] [W3School XML tutorial](https://www.w3schools.com/xml/)
+[^1]:
+    M. Stonebraker and A. Pavlo, ‘What Goes Around Comes Around... And
+    Around...’, SIGMOD Record, vol. 53, no. 2, pp. 21–37, Jun. 2024. Available
+    [online](https://db.cs.cmu.edu/papers/2024/whatgoesaround-sigmodrec2024.pdf)
+
+[^2]: [W3School XML tutorial](https://www.w3schools.com/xml/)
 
 ## Navigation
 
