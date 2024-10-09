@@ -3,11 +3,6 @@ const cds = require("@sap/cds");
 class SimpleERPService extends cds.ApplicationService {
   init() {
     const { Customers, Orders, OrderItems, OrderStatus, Products } = this.entities;
-    
-    this.before("CREATE", Customers.drafts, async (req) => {
-      const { uuid } = cds.utils
-      req.data.ID = uuid();
-    });
 
     this.before("CREATE", Orders, async (req) => {
       const { maxID } = await SELECT.one`max(orderID) as maxID`.from(Orders);

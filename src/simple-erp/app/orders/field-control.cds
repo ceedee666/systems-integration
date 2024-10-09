@@ -1,4 +1,6 @@
 using SimpleERPService as service from '../../srv/simpleerp-service';
+using from './annotations';
+
 
 extend projection SimpleERPService.Orders with {
     virtual null as pickEnabled     : Boolean @UI.Hidden,

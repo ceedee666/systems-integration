@@ -28,7 +28,7 @@ modules:
     buildpack: nodejs_buildpack
 - name: simple-erp-app-deployer
   type: com.sap.application.content
-  path: gen
+  path: .
   requires:
   - name: simple-erp-html5-repo-host
     parameters:

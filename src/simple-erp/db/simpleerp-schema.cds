@@ -11,15 +11,15 @@ using {
 } from '@sap/cds/common';
 
 entity Products : cuid, managed {
-    key productID   : String(50);
-        name        : localized String(100);
-        description : localized String(500);
-        price       : Decimal(10, 2);
-        currency    : Currency;
-        stock       : Integer default 0 @assert.range: [
-            0,
-            1000
-        ];
+    productID   : String(50) not null;
+    name        : localized String(100);
+    description : localized String(500);
+    price       : Decimal(10, 2);
+    currency    : Currency;
+    stock       : Integer default 0 @assert.range: [
+        0,
+        1000
+    ];
 }
 
 entity Customers : cuid, managed {
@@ -62,4 +62,3 @@ entity OrderItems : cuid, managed {
     itemAmount : Decimal(10, 2);
     currency   : Currency;
 }
-

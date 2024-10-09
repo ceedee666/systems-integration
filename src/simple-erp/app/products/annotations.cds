@@ -74,7 +74,10 @@ annotate service.Products with @(
 );
 
 annotate service.Products with {
-    productID @Common.Label : '{i18n>Productid}'
+    productID @(
+        Common.Label : '{i18n>Productid}',
+        Common.FieldControl : #Mandatory,
+    )
 };
 
 annotate service.Products with {

@@ -206,7 +206,8 @@ annotate service.OrderItems with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : product_ID,
+            Value : product.ID,
+            Label : '{i18n>Product}',
         },
         {
             $Type : 'UI.DataField',
@@ -268,21 +269,6 @@ annotate service.OrderItems with {
     )
 };
 
-annotate service.Products with {
-    productID @(Common.ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'Products',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : productID,
-                    ValueListProperty : 'productID',
-                },
-            ],
-        },
-        Common.ValueListWithFixedValues : true
-)};
-
 annotate service.Customers with {
     ID @Common.Text : {
         $value : name,
@@ -291,6 +277,23 @@ annotate service.Customers with {
 };
 
 annotate service.Products with {
-    ID @Common.Text : productID
+    ID @(
+        Common.Text : {
+        $value : productID,
+        ![@UI.TextArrangement] : #TextOnly,
+    },
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Products',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : ID,
+                    ValueListProperty : 'ID',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+    )
 };
 
