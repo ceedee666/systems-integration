@@ -824,6 +824,11 @@ to check your results.
      </product>
      ```
 
+## Navigation
+
+🏠 [Overview](../README.md) | [< Previous Chapter](./exchange-formats.md) | [Next
+Chapter >](./mapping-languages.md)
+
 ## References
 
 [^1]:
@@ -832,8 +837,3 @@ to check your results.
     [online](https://db.cs.cmu.edu/papers/2024/whatgoesaround-sigmodrec2024.pdf)
 
 [^2]: [W3School XML tutorial](https://www.w3schools.com/xml/)
-
-## Navigation
-
-🏠 [Overview](../README.md) | [< Previous Chapter](./exchange-formats.md) | [Next
-Chapter >](./mapping-languages.md)
