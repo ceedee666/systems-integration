@@ -78,8 +78,19 @@ additional exercises.
      cds watch
      ```
 
-   - The system should now be running locally. Open a browser and go to
-     `http://localhost:4004` to access the service.
+   - The system should now be running locally. Open a browser and open the URL
+     `http://localhost:4004` to access the service. You should see a Web site
+     similar to the screenshot below.
+
+     ![ERP running locally](./imgs/erp-running-locally.png)
+
+     The different applications of the ERP system can be accessed using the
+     links in the Web application section. To access the application default
+     users have been configure in the ERP system. The following users are
+     currently defined:
+
+     - User: alice, password: alice, able to access the Web applications
+     - User: service-user. password: service-user, able to access the REST api.
 
 ## Deploy the system to SAP BTP
 
@@ -105,6 +116,8 @@ additional exercises.
      ````
 
 ## SAP CAP resources
+
+- [SAP CAP documentation](https://cap.cloud.sap/)
 
 ### Tutorials
 
