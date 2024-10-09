@@ -180,8 +180,10 @@ Consider a REST API for a product catalog:
 
 - **GET /products**: Retrieve a list of products.
 - **GET /products/1**: Retrieve the product with ID 1.
-- **POST /products**: Create a new product by sending the product details in the request body.
-- **PUT /products/1**: Update the product with ID 1 by sending the updated product data in the request body.
+- **POST /products**: Create a new product by sending the product details in
+  the request body.
+- **PUT /products/1**: Update the product with ID 1 by sending the updated
+  product data in the request body.
 - **DELETE /products/1**: Delete the product with ID 1.
 
 Here’s an example of an HTTP request and response for **GET /products/1**:
@@ -383,7 +385,7 @@ suited for enterprise environments.
 
 ### Key Problems Solved by OData
 
-In summary, **OData** addresses several critical shortcomings of **REST** in
+In summary, OData addresses several critical shortcomings of REST in
 data-driven applications:
 
 - **Standardized Query Language**: OData provides a unified, powerful query
@@ -401,79 +403,27 @@ data-driven applications:
   improving performance in scenarios where multiple operations need to be
   processed.
 
----
+### Exercise: OData basics
 
-### Practical Exercise: Querying and Manipulating Data with OData
+To get a basic understanding of the code OData elements work though the [basic
+tutorial](https://www.odata.org/getting-started/basic-tutorial/) on the [OData
+Web site](https://www.odata.org).
 
-In this exercise, students will interact with a public **OData service** to explore how OData improves on REST by providing powerful querying and data manipulation capabilities.
+### Exercise: Accessing ERP data using OData
 
-#### Tools to Use:
+To get a thourough unterstanding of OData access the data of the [ERP
+system](../lab/mini-erp.md) unsed in the lecture. Use tools Postman or HTTPie
+to interact with the service. Here are some ideas for possible queries:
 
-- **Postman**: A popular API testing tool that supports OData.
-- **httpie**: A command-line tool for interacting with OData services.
-- **Browser**: Simple OData queries can be performed directly in a web browser.
+- All orders
+- All orders by a certain customer
+- Details of one order including items and product details
+- All orders in a certain status ordered by order value
 
-#### Step 1: Exploring an OData Service
+## Navigation
 
-Use the **TripPin OData Service** provided by Microsoft to practice querying and manipulating data.
-
-- **Service Root URL**:
-  ```http
-  GET https://services.odata.org/TripPinRESTierService/(S(lgcsd54pv5tw2wtewk0rzauf))/People
-  ```
-
-1. **Retrieve All People**:  
-   Retrieve a list of all people:
-
-   ```http
-   GET https://services.odata.org/TripPinRESTierService/(S(lgcsd54pv5tw2wtewk0rzauf))/People
-   ```
-
-2. **Filter by Last Name**:  
-   Retrieve people whose last name is "Smith":
-
-   ```http
-   GET https://services.odata.org/TripPinRESTierService/(S(lgcsd54pv5tw2wtewk0rzauf))/People?$filter=LastName eq 'Smith'
-   ```
-
-3. **Paginate Results**:  
-   Retrieve the first 5 people:
-
-   ```http
-   GET https://services.odata.org/TripPinRESTierService/(S(lgcsd54pv5tw2wtewk0rzauf))/People?$top=5
-   ```
-
-4. **Expand Related Entities**:  
-   Retrieve people along with their trips:
-   ```http
-   GET https://services.odata.org/TripPinRESTierService/(S(lgcsd54pv5tw2wtewk0rzauf))/People?$expand=Trips
-   ```
-
-#### Step 2: Creating a New Person with POST
-
-1. **Create a New Person**:  
-   Use Postman or httpie to add a new person:
-   ```bash
-   http POST https://services.odata.org/TripPinRESTierService/(S(lgcsd54pv5tw2wtewk0rzauf))/People \
-   FirstName="Jane" LastName="Doe" UserName="janedoe"
-   ```
-
-#### Step 3: Batch Requests
-
-1. **Batch Multiple Requests**:  
-   Submit multiple requests (e.g., creating and updating several people) in a single batch request.
-
----
-
-#### Further Reading and Tutorials
-
-- **OData Official Documentation**: Learn more about OData’s standardized query options and features. [OData.org](https://www.odata.org/)
-- **TripPin OData Service**: An interactive OData service to explore OData features. [TripPin OData Service](https://www.odata.org/blog/trippin/)
-- **ASP.NET OData Tutorial**: Learn how to build your own OData API using ASP.NET. [ASP.NET OData Documentation](https://docs.microsoft.com/en-us/odata/)
-
----
-
-This exercise gives students a hands-on understanding of how OData extends REST to solve real-world problems, particularly in **data-centric applications**. By exploring advanced querying and manipulation features, students will see how OData enables more powerful and flexible interactions with complex data models
+🏠 [Overview](../README.md) | [< Previous Chapter](./mapping-languages.md) | [Next
+Chapter >](./enterprise-integration-patterns.md)
 
 ## References
 
