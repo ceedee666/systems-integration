@@ -1,6 +1,6 @@
-# Running the Mini-ERP
+# Running the ERP system
 
-In this lab, you will install and run a Mini-ERP system built using SAP CAP
+In this lab, you will install and run a small ERP system built using SAP CAP
 (Cloud Application Programming). By the end of this exercise, you should have
 the system running locally or in SAP Business Technology Platform (BTP), with a
 basic understanding of how it operates.
@@ -18,16 +18,9 @@ additional exercises.
 - Basic knowledge of the terminal
 - Basic knowledge of Git Node.js and SAP BTP
 
-## Set Up SAP BTP Trial Account
+## Running the ERP locally
 
-1. Follow [this
-   tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account..html)
-   to create a trial account for SAP BTP.
-
-2. Optional: Download and install the [Cloud Foundry Command Line Interface (CF
-   CLI)](https://developers.sap.com/tutorials/cp-cf-download-cli.html).
-
-## Set Up SAP CAP Environment
+### Installing the SAP CAP
 
 1. Install Node.js
 
@@ -53,17 +46,7 @@ additional exercises.
      cds -v
      ```
 
-3. Install MBT (Multi-Target Application Build Tool)
-
-   - MBT is used to package and deploy multi-target applications on SAP BTP.
-     Install MBT globally:
-
-     ````bash
-     npm install -g mbt
-     ```bash
-     ````
-
-## Clone and Run the Simple ERP System
+### Clone and run the simple ERP system
 
 1. Clone the Simple ERP System Repository
 
@@ -95,12 +78,46 @@ additional exercises.
      cds watch
      ```
 
-   - The system should now be running locally. Open a browser and go to
-     `http://localhost:4004` to access the service.
+   - The system should now be running locally. Open a browser and open the URL
+     `http://localhost:4004` to access the service. You should see a Web site
+     similar to the screenshot below.
+
+     ![ERP running locally](./imgs/erp-running-locally.png)
+
+     The different applications of the ERP system can be accessed using the
+     links in the Web application section. To access the application default
+     users have been configure in the ERP system. The following users are
+     currently defined:
+
+     - User: alice, password: alice, able to access the Web applications
+     - User: service-user. password: service-user, able to access the REST api.
 
 ## Deploy the system to SAP BTP
 
+### Set Up SAP BTP Trial Account
+
+1. Follow [this
+   tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account..html)
+   to create a trial account for SAP BTP.
+
+2. Optional: Download and install the [Cloud Foundry Command Line Interface (CF
+   CLI)](https://developers.sap.com/tutorials/cp-cf-download-cli.html).
+
+### Installing dependencies
+
+1. Install MBT (Multi-Target Application Build Tool)
+
+   - MBT is used to package and deploy multi-target applications on SAP BTP.
+     Install MBT globally:
+
+     ````bash
+     npm install -g mbt
+     ```bash
+     ````
+
 ## SAP CAP resources
+
+- [SAP CAP documentation](https://cap.cloud.sap/)
 
 ### Tutorials
 

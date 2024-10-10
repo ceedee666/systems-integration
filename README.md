@@ -31,7 +31,7 @@ scenarios.
 
 ## Lab
 
-0. Running the [Mini-ERP](./lab/mini-erp.md)
+0. Running the simple [ERP system](./lab/mini-erp.md)
 1. Implementing a [simple Web shop](./lab/simple-web-shop.md)
 2. [Transferring](./lab/file-transfer.md) product information using files
 3. [Synchronizing](./lab/rpc.md) product stock and purchase orders
@@ -52,7 +52,7 @@ scenarios.
 
 ## Additional course material
 
-### Online ressources
+### Online resources
 
 - [SAP CAP Documentation](https://cap.cloud.sap/docs/)
 - [Enterprise Integration Patterns Website](https://www.enterpriseintegrationpatterns.com/)
