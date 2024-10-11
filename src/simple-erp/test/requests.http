@@ -1,0 +1,6 @@
+POST http://localhost:4004/rest/api/createOrder 
+Authorization: Basic service-user:service-user
+content-type: application/json
+
+{
+}

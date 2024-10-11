@@ -1,5 +1,5 @@
 const cds = require("@sap/cds");
-const { Products } = cds.entities;
+const {Orders, Products } = cds.entities;
 
 module.exports = (srv) => {
   srv.on("getProducts", async (req) => {
@@ -20,5 +20,22 @@ module.exports = (srv) => {
 
     req.res.set("Content-Type", "text/csv");
     return csvHeader + csvRows;
+  });
+
+  srv.on("products", async (req) => {
+    const products = await SELECT.from(Products);
+    req.res.set("Content-Type", "application/json");
+    return JSON.stringify(products);
+  });
+
+  srv.on("orders", async (req) => {
+    const orders = await SELECT.from(Orders);
+    req.res.set("Content-Type", "application/json");
+    return JSON.stringify(orders);
+  });
+
+  srv.on("createOrder", async (req) => {
+    orderData = JSON.parse(req);
+
   });
 };

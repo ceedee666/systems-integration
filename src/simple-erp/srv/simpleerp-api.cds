@@ -5,8 +5,8 @@ service SimpleERPApi  @(
 ) {
     function getProducts() returns String;
     function products() returns String;
-    function stock(productID: String) returns Integer;
-    function createOrder() returns Boolean;
+    function orders() returns String;
+    action createOrder(data: String);
 }
 
 annotate SimpleERPApi with @(requires: 'system-integration');

@@ -28,7 +28,8 @@
             "alice": {
               "password": "alice",
               "roles": [
-                "customerservice"
+                "customerservice",
+                "system-integration"
               ]
             },
             "service-user": {
