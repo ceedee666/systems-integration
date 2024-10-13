@@ -8,7 +8,7 @@ class SimpleERPUIService extends cds.ApplicationService {
     this.before("CREATE", Orders, async (req) => {
       await simpleErp.calculateOrderID(req);
     });
-    
+
     this.on("CREATE", Orders, async (req, next) => {
       const { items } = req.data;
       await simpleErp.updateProductStock(items);
@@ -54,18 +54,10 @@ class SimpleERPUIService extends cds.ApplicationService {
       return res;
     });
 
-    this.on("pickOrder", (req) =>
-      simpleErp.updateOrderStatus(req, 20)
-    );
-    this.on("shipOrder", (req) =>
-      simpleErp.updateOrderStatus(req, 30)
-    );
-    this.on("completeOrder", (req) =>
-      simpleErp.updateOrderStatus(req, 40)
-    );
-    this.on("cancelOrder", (req) =>
-      simpleErp.updateOrderStatus(req, -10)
-    );
+    this.on("pickOrder", (req) => simpleErp.updateOrderStatus(req, 20));
+    this.on("shipOrder", (req) => simpleErp.updateOrderStatus(req, 30));
+    this.on("completeOrder", (req) => simpleErp.updateOrderStatus(req, 40));
+    this.on("cancelOrder", (req) => simpleErp.updateOrderStatus(req, -10));
 
     this.after("each", Orders, (res, req) =>
       simpleErp.calculateButtonAvailability(res, req)

@@ -95,7 +95,7 @@ async function updateOrderStatus(req, newStatus) {
       "orderStatus_status"
     );
   } else {
-    UPDATE(req.subject).with({ orderStatus_status: newStatus });
+    await UPDATE(req.subject).with({ orderStatus_status: newStatus });
   }
 }
 
