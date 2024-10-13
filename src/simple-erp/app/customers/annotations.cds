@@ -1,8 +1,6 @@
-using SimpleERPApi as service from '../../srv/simpleerp-api';
-using from '../../srv/simpleerp-service';
-using from '../../db/simpleerp-schema';
+using SimpleERPUIService as service from '../../srv/simpleerpui-service.cds';
 
-annotate SimpleERPService.Customers with @(
+annotate service.Customers with @(
     UI.SelectionFields : [
         name,
         country_code,
@@ -109,7 +107,7 @@ annotate SimpleERPService.Customers with @(
     },
 );
 
-annotate SimpleERPService.Customers with {
+annotate service.Customers with {
     name @Common.Label : '{i18n>Name}'
 };
 

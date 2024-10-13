@@ -1,8 +1,6 @@
-using SimpleERPService as service from '../../srv/simpleerp-service';
-using from './annotations';
+using SimpleERPUIService as service from '../services.cds';
 
-
-extend projection SimpleERPService.Orders with {
+extend projection SimpleERPUIService.Orders with {
     virtual null as pickEnabled     : Boolean @UI.Hidden,
     virtual null as shipEnabled     : Boolean @UI.Hidden,
     virtual null as completeEnabled : Boolean @UI.Hidden,

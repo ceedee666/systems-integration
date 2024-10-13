@@ -1,4 +1,5 @@
-using SimpleERPService as service from '../../srv/simpleerp-service';
+using SimpleERPUIService as service from '../../srv/simpleerpui-service.cds';
+
 annotate service.Orders with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
@@ -29,22 +30,22 @@ annotate service.Orders with @(
             },
             {
                 $Type : 'UI.DataFieldForAction',
-                Action : 'SimpleERPService.pickOrder',
+                Action : 'service.pickOrder',
                 Label : '{i18n>Pickorder}',
             },
             {
                 $Type : 'UI.DataFieldForAction',
-                Action : 'SimpleERPService.shipOrder',
+                Action : 'service.shipOrder',
                 Label : '{i18n>Shiporder}',
             },
             {
                 $Type : 'UI.DataFieldForAction',
-                Action : 'SimpleERPService.completeOrder',
+                Action : 'service.completeOrder',
                 Label : '{i18n>Completeorder}',
             },
             {
                 $Type : 'UI.DataFieldForAction',
-                Action : 'SimpleERPService.cancelOrder',
+                Action : 'service.cancelOrder',
                 Label : '{i18n>Cancelorder}',
             },
         ],
@@ -91,22 +92,22 @@ annotate service.Orders with @(
         },
         {
             $Type : 'UI.DataFieldForAction',
-            Action : 'SimpleERPService.pickOrder',
+            Action : 'service.pickOrder',
             Label : '{i18n>Pickorder}',
         },
         {
             $Type : 'UI.DataFieldForAction',
-            Action : 'SimpleERPService.shipOrder',
+            Action : 'service.shipOrder',
             Label : '{i18n>Shiporder}',
         },
         {
             $Type : 'UI.DataFieldForAction',
-            Action : 'SimpleERPService.completeOrder',
+            Action : 'service.completeOrder',
             Label : '{i18n>Completeorder}',
         },
         {
             $Type : 'UI.DataFieldForAction',
-            Action : 'SimpleERPService.cancelOrder',
+            Action : 'service.cancelOrder',
             Label : '{i18n>Cancelorder}',
         },
     ],

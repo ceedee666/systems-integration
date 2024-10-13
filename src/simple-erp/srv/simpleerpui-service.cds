@@ -1,6 +1,6 @@
 using de.fhaachen.simpleerp as erp from '../db/simpleerp-schema.cds';
 
-service SimpleERPService {
+service SimpleERPUIService {
     entity Products   as projection on erp.Products;
     entity Customers  as projection on erp.Customers;
 
@@ -17,4 +17,8 @@ service SimpleERPService {
     entity OrderItems as projection on erp.OrderItems
 }
 
-annotate SimpleERPService with @(requires : 'authenticated-user'); //@(requires: 'customerservice');
+annotate SimpleERPUIService.Products with @odata.draft.enabled;
+annotate SimpleERPUIService.Customers with @odata.draft.enabled;
+annotate SimpleERPUIService.Orders with @odata.draft.enabled;
+
+annotate SimpleERPUIService with @(requires : 'authenticated-user'); //@(requires: 'customerservice');

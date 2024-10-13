@@ -1,4 +1,5 @@
-using SimpleERPService as service from '../../srv/simpleerp-service';
+using SimpleERPUIService as service from '../../srv/simpleerpui-service.cds';
+
 annotate service.Products with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',

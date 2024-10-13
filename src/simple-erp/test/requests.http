@@ -1,6 +1,33 @@
+GET http://localhost:4004/odata/v4/simple-erp/Products
+Authorization: Basic service-user:service-user
+
+###
+
+
+GET http://localhost:4004/odata/v4/simple-erp/Orders?$expand=items
+Authorization: Basic service-user:service-user
+
+###
+
 POST http://localhost:4004/rest/api/createOrder 
 Authorization: Basic service-user:service-user
 content-type: application/json
 
 {
+    "order": 
+        {
+          "customer": "93cada62-c115-47f9-8a06-b56497a60e11",
+          "orderDate": "2024-10-10",
+          "orderAmount": 6000.00,
+          "currency": "EUR",
+          "items": [
+            {
+              "itemID": 10,  
+              "product": "67d85897-dd5a-49b3-bf5c-64df5342b5c2",
+              "quantity": 5,
+              "itemAmount": 6000.00,
+              "currency": "EUR"
+            }
+          ]
+        }
 }

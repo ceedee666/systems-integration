@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/simple-erp/",
+        "uri": "/odata/v4/simple-erpui/",
         "type": "OData",
         "settings": {
           "annotations": [],

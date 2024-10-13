@@ -1,5 +1,5 @@
 const cds = require("@sap/cds");
-const {Orders, Products } = cds.entities;
+const { Orders, Products } = cds.entities;
 
 module.exports = (srv) => {
   srv.on("getProducts", async (req) => {
@@ -35,7 +35,24 @@ module.exports = (srv) => {
   });
 
   srv.on("createOrder", async (req) => {
-    orderData = JSON.parse(req);
+    const erpSrv = await cds.connect.to("SimpleERPService");
+    const { Orders } = erpSrv.entities;
+    let orderData = req.data.order;
+    let order = {};
 
+    order.customer_ID = orderData.customer;
+    order.orderDate = orderData.orderDate;
+    order.orderAmount = orderData.orderAmount;
+    order.currency_code = orderData.currency;
+    order.items = [];
+    orderData.items.forEach((item) => {
+      order.items.push({
+        product_ID: item.product,
+        quantity: item.quantity,
+        itemAmount: item.itemAmount,
+        currency_code: item.currency,
+      });
+    });
+    await erpSrv.run(INSERT(order).into(Orders));
   });
 };
