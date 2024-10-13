@@ -17,4 +17,4 @@ service SimpleERPService {
     entity OrderItems as projection on erp.OrderItems
 }
 
-annotate SimpleERPService with @(requires : 'authenticated-user'); //@(requires: 'customerservice');
+annotate SimpleERPService with @(requires: 'system-integration');

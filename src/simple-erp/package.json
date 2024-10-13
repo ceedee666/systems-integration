@@ -32,6 +32,12 @@
                 "system-integration"
               ]
             },
+            "bob": {
+              "password": "bob",
+              "roles": [
+                "customerservice"
+              ]
+            },
             "service-user": {
               "password": "service-user",
               "roles": [

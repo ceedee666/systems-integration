@@ -21,4 +21,4 @@ annotate SimpleERPUIService.Products with @odata.draft.enabled;
 annotate SimpleERPUIService.Customers with @odata.draft.enabled;
 annotate SimpleERPUIService.Orders with @odata.draft.enabled;
 
-annotate SimpleERPUIService with @(requires : 'authenticated-user'); //@(requires: 'customerservice');
+annotate SimpleERPUIService with @(requires : 'customerservice'); 
