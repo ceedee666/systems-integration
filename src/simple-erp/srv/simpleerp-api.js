@@ -5,21 +5,17 @@ module.exports = (srv) => {
   srv.on("getProducts", async (req) => {
     const products = await SELECT.from(Products);
 
-    const csvHeader = "productID,name,description,price,stock\n";
-    const csvRows = products
-      .map((product) => {
-        return [
-          product.productID,
-          product.name,
-          product.description,
-          product.price + " " + product.currency_code,
-          product.stock,
-        ].join(",");
-      })
+    const header = "productID,name,description,price,stock\n";
+    const rows = products
+      .map(({ productID, name, description, price, currency_code, stock }) =>
+        [productID, name, description, `${price} ${currency_code}`, stock].join(
+          ","
+        )
+      )
       .join("\n");
 
     req.res.set("Content-Type", "text/csv");
-    return csvHeader + csvRows;
+    return header + rows;
   });
 
   srv.on("products", async (req) => {
@@ -44,15 +40,12 @@ module.exports = (srv) => {
     order.orderDate = orderData.orderDate;
     order.orderAmount = orderData.orderAmount;
     order.currency_code = orderData.currency;
-    order.items = [];
-    orderData.items.forEach((item) => {
-      order.items.push({
-        product_ID: item.product,
-        quantity: item.quantity,
-        itemAmount: item.itemAmount,
-        currency_code: item.currency,
-      });
-    });
+    order.items = orderData.items.map((item) => ({
+      product_ID: item.productID,
+      quantity: item.quantity,
+      itemAmount: item.itemAmount,
+      currency_code: item.currencyCode,
+    }));
     await erpSrv.run(INSERT(order).into(Orders));
   });
 };
