@@ -1,14 +1,13 @@
-GET http://localhost:4004/odata/v4/simple-erp/Products
+
+GET http://localhost:4004/rest/api/customers()
 Authorization: Basic service-user:service-user
 
 ###
 
-
-GET http://localhost:4004/odata/v4/simple-erp/Orders?$expand=items
+GET http://localhost:4004/rest/api/products()
 Authorization: Basic service-user:service-user
 
 ###
-
 GET http://localhost:4004/rest/api/orders()
 Authorization: Basic service-user:service-user
 
@@ -31,6 +30,13 @@ content-type: application/json
               "product": "67d85897-dd5a-49b3-bf5c-64df5342b5c2",
               "quantity": 5,
               "itemAmount": 6000.00,
+              "currency": "EUR"
+            },
+            {
+              "itemID": 10,  
+              "product": "0d785839-a5d9-428e-9a9b-15b4e4895e12",
+              "quantity": 3,
+              "itemAmount": 6300.00,
               "currency": "EUR"
             }
           ]

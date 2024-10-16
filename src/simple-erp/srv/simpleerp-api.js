@@ -1,5 +1,5 @@
 const cds = require("@sap/cds");
-const { Orders, Products } = cds.entities;
+const { Customers, Orders, Products } = cds.entities;
 
 module.exports = (srv) => {
   srv.on("getProducts", async (req) => {
@@ -19,9 +19,31 @@ module.exports = (srv) => {
   });
 
   srv.on("products", async (req) => {
-    const products = await SELECT.from(Products);
+    const products = await SELECT.from(Products).columns((p) => {
+      p.productID,
+        p.name,
+        p.description,
+        p.price,
+        p.currency_code`as currency`,
+        p.stock;
+    });
     req.res.set("Content-Type", "application/json");
-    return JSON.stringify(products);
+    return products;
+  });
+
+  srv.on("customers", async (req) => {
+    const customers = await SELECT.from(Customers).columns((c) => {
+      c.ID`as customerID`;
+      c.name;
+      c.email;
+      c.street;
+      c.houseNumber;
+      c.city;
+      c.postalCode;
+      c.country;
+    });
+    req.res.set("Content-Type", "application/json");
+    return customers;
   });
 
   srv.on("orders", async (req) => {
@@ -31,14 +53,14 @@ module.exports = (srv) => {
         c.orderDate,
         c.orderAmount,
         c.currency_code`as currency`,
-        c.orderStatus_status`as orderStatus`
-        c.items((i) => {
-          i.itemID,
+        c.orderStatus_status`as orderStatus`;
+      c.items((i) => {
+        i.itemID,
           i.product_ID`as product`,
           i.quantity,
           i.itemAmount,
           i.currency_code`as currency`;
-        });
+      });
     });
     req.res.set("Content-Type", "application/json");
     return orders;

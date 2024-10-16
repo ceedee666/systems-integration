@@ -17,12 +17,11 @@ service SimpleERPApi @(
         orderDate   :      Date;
         orderAmount :      Decimal(10, 2);
         currency    :      String(3);
-        orderStatus :      Integer; 
+        orderStatus :      Integer;
         items       : many OrderItems;
     }
 
     define type Products {
-        ID          : UUID;
         productID   : String(50) not null;
         name        : String(100);
         description : String(500);
@@ -31,9 +30,21 @@ service SimpleERPApi @(
         stock       : Integer;
     }
 
+    define type Customers {
+        customerID  : UUID;
+        name        : String(100) not null;
+        email       : String(100) not null;
+        street      : String(100);
+        houseNumber : String(10);
+        city        : String(100);
+        postalCode  : String(10);
+        country     : String(3);
+    }
+
     function getProducts() returns String;
     function products()    returns Products;
     function orders()      returns many Orders;
+    function customers()   returns many Customers;
     action   createOrder(order : Orders);
 }
 
