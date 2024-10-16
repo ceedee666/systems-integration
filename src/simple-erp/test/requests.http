@@ -9,6 +9,11 @@ Authorization: Basic service-user:service-user
 
 ###
 
+GET http://localhost:4004/rest/api/orders()
+Authorization: Basic service-user:service-user
+
+###
+
 POST http://localhost:4004/rest/api/createOrder 
 Authorization: Basic service-user:service-user
 content-type: application/json

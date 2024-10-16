@@ -25,27 +25,41 @@ module.exports = (srv) => {
   });
 
   srv.on("orders", async (req) => {
-    const orders = await SELECT.from(Orders);
+    const orders = await SELECT.from(Orders).columns((c) => {
+      c.orderID,
+        c.customer_ID`as customer`,
+        c.orderDate,
+        c.orderAmount,
+        c.currency_code`as currency`,
+        c.orderStatus_status`as orderStatus`
+        c.items((i) => {
+          i.itemID,
+          i.product_ID`as product`,
+          i.quantity,
+          i.itemAmount,
+          i.currency_code`as currency`;
+        });
+    });
     req.res.set("Content-Type", "application/json");
-    return JSON.stringify(orders);
+    return orders;
   });
 
   srv.on("createOrder", async (req) => {
     const erpSrv = await cds.connect.to("SimpleERPService");
     const { Orders } = erpSrv.entities;
-    let orderData = req.data.order;
-    let order = {};
+    const orderReq = req.data.order;
+    const newOrder = {};
 
-    order.customer_ID = orderData.customer;
-    order.orderDate = orderData.orderDate;
-    order.orderAmount = orderData.orderAmount;
-    order.currency_code = orderData.currency;
-    order.items = orderData.items.map((item) => ({
-      product_ID: item.productID,
+    newOrder.customer_ID = orderReq.customer;
+    newOrder.orderDate = orderReq.orderDate;
+    newOrder.orderAmount = orderReq.orderAmount;
+    newOrder.currency_code = orderReq.currency;
+    newOrder.items = orderReq.items.map((item) => ({
+      product_ID: item.product,
       quantity: item.quantity,
       itemAmount: item.itemAmount,
-      currency_code: item.currencyCode,
+      currency_code: item.currency,
     }));
-    await erpSrv.run(INSERT(order).into(Orders));
+    await erpSrv.run(INSERT(newOrder).into(Orders));
   });
 };

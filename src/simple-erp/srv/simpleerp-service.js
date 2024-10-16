@@ -14,7 +14,7 @@ class SimpleERPService extends cds.ApplicationService {
 
     this.on("CREATE", Orders, async (req, next) => {
       const { items } = req.data;
-      await simpleErp.updateProductStock(items);
+      await simpleErp.updateProductStock(items, req);
       return next();
     });
 

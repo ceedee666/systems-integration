@@ -63,7 +63,7 @@ async function updateOrderAmount(req, orderToUpdate = "") {
   });
 }
 
-async function updateProductStock(items) {
+async function updateProductStock(items, req) {
   const { Products } = cds.entities;
   if (items) {
     for (let { product_ID, quantity } of items) {
