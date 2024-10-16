@@ -60,4 +60,5 @@ real-time whenever necessary.
 
 ## Navigation
 
-🏠 [Overview](../README.md) | [< Previous Chapter](./file-transfer.md) | [Next Chapter >](./complex-system-landscape.md)
+🏠 [Overview](../README.md) | [< Previous Chapter](./file-transfer.md) | [Next
+Chapter >](./integration-suite.md)
