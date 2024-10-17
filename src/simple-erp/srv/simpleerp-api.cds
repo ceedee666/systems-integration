@@ -42,7 +42,7 @@ service SimpleERPApi @(
     }
 
     function getProducts() returns String;
-    function products()    returns Products;
+    function products()    returns many Products;
     function orders()      returns many Orders;
     function customers()   returns many Customers;
     action   createOrder(order : Orders);
