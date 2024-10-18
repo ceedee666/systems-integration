@@ -1,11 +1,14 @@
 # Learn about the SAP integration suite
 
-This lab exercise is divided into two parts:
+This lab exercise is divided into two parts. The first two parts focus on the SAP integration suite:
 
 1. Learning about the SAP Integration Suite to understand its capabilities and
    architecture.
 2. Setting up the SAP Integration Suite in a BTP (Business Technology Platform)
    trial account for hands-on experience.
+
+Additionally, the Mini-ERP system should be deployed to the SAP BTP. The
+necessary steps are described in the [Mini-ERP lab](./mini-erp.md).
 
 ## Learning About SAP Integration Suite
 
@@ -18,7 +21,7 @@ pre-packaged content and custom integration flows.
 ### What is SAP Integration Suite?
 
 The SAP Integration Suite is a comprehensive integration platform-as-a-service
-(iPaaS) that helps organizations connect their on-premise and cloud
+(PaaS) that helps organizations connect their on-premise and cloud
 applications. It supports a wide variety of integration scenarios, such as API
 management, event-driven integration, and process orchestration.
 
@@ -52,7 +55,7 @@ The goal for this part of the lab is to set up the SAP Integration Suite in a
 
    After setting up your BTP trial account, you will need to enable the SAP
    Integration Suite service. Follow [this
-   guide](https://developers.sap.com/tutorials/cp-starter-isuite-onboard-subscribe.html)
+   guide](https://developers.sap.com/tutorials/btp-integration-suite-nonsapconnectivity-settingup-suite.html)
    to activate the SAP Integration Suite in you SAP BTP trial account.
 
 1. **Developing with SAP Integration Suite**:
