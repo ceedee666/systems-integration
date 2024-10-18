@@ -12,6 +12,6 @@ It contains these folders and files, following our recommended project layout:
 | `package.json` | project metadata and configuration   |
 | `readme.md`    | this getting started guide           |
 
-## Learn More
+## Learn More about SAP CAP
 
 Learn more about SAP CAP [here](https://cap.cloud.sap/docs/get-started/).
