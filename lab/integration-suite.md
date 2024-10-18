@@ -58,12 +58,12 @@ The goal for this part of the lab is to set up the SAP Integration Suite in a
    guide](https://developers.sap.com/tutorials/btp-integration-suite-nonsapconnectivity-settingup-suite.html)
    to activate the SAP Integration Suite in you SAP BTP trial account.
 
-1. **Developing with SAP Integration Suite**:
+## Developing with SAP Integration Suite
 
-   After setting up the SAP Integration Suite in you trail account work through
-   this [learning
-   journey](https://learning.sap.com/learning-journeys/developing-with-sap-integration-suite)
-   to learn about its main features.
+After setting up the SAP Integration Suite in you trail account work through
+this [learning
+journey](https://learning.sap.com/learning-journeys/developing-with-sap-integration-suite)
+to learn about its main features.
 
 ## Navigation
 
