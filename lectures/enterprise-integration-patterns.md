@@ -1,5 +1,25 @@
 # Enterprise integration patterns
 
+<!--toc:start-->
+
+- [Enterprise integration patterns](#enterprise-integration-patterns)
+  - [Why Patterns?](#why-patterns)
+    - [Exercise: Reflecting on Lab 3 - Synchronizing Product Stock and Purchase Orders](#exercise-reflecting-on-lab-3-synchronizing-product-stock-and-purchase-orders)
+      - [Discussion Points](#discussion-points)
+    - [The Need for Patterns: A Historical Perspective](#the-need-for-patterns-a-historical-perspective)
+      - [Origins of Patterns](#origins-of-patterns)
+      - [Patterns in Software Development](#patterns-in-software-development)
+      - [Enterprise Integration Patterns (EIP)](#enterprise-integration-patterns-eip)
+      - [Why Patterns Matter](#why-patterns-matter)
+    - [Organizing Enterprise Integration Patterns](#organizing-enterprise-integration-patterns)
+      - [Core Elements](#core-elements)
+      - [Message Channel](#message-channel)
+      - [Message](#message)
+      - [Message Routing](#message-routing)
+  - [Navigation](#navigation)
+  - [References](#references)
+  <!--toc:end-->
+
 ## Why Patterns?
 
 ### Exercise: Reflecting on Lab 3 - Synchronizing Product Stock and Purchase Orders
@@ -186,6 +206,56 @@ typically consists of two parts:
 - **Payload**: Contains the actual data being transferred, such as an order or
   stock update.
 
+#### Message Routing
+
+![Message Routing](./imgs/message-routing.drawio.png)
+
+In Enterprise Integration Patterns **Message Routing** and the
+**Pipes-and-Filters** are presented as separate topics. In this discussion thy
+are combined into routing. These two concepts address complementary concerns:
+
+- Pipes-and-Filters focuses on breaking down complex processing into smaller,
+  modular steps.
+- Message Routing ensures that each message is delivered to the correct channel
+  or endpoint based on certain criteria.
+
+##### Pipes-and-Filters
+
+The Pipes-and-Filters approach is about dividing the processing of messages
+into distinct, smaller steps called "filters," which are connected by "pipes."
+This is similar to the core concept of the unis shell where multiple small
+tools can be combined by pipes to perform complex tasks.
+
+##### Message Routing
+
+Message Routing is responsible for ensuring that messages reach the correct
+destination or channel. Routing is about directing messages based on certain
+conditions, such as the content of the message or the current system state.
+
+### Message Translator
+
+![Message Translator](./imgs/message-translator.drawio.png)
+
+In an enterprise integration scenario, different systems often use different
+data formats, protocols, or structures. This creates a challenge when one
+system sends a message that another system might not be able to understand
+directly. The Message Translator is a pattern that addresses this challenge
+by converting the format of the message from one system to a format that the
+receiving system can interpret.
+
+According to the discussion on [integration
+styles](./motivation.md#integration-styles) the translator can perform
+transformations on different levels. Ranging from simple format conversions
+(e.g. converting the date formate YYYY-MM-DD to the date format MM-DD-YYYY) to
+complex structural translations. Also transformation of the data representation
+(e.g. from XML to JSON) is possible.
+
+Complex transformations often require multiple steps, each addressing a
+different aspect of the message. Instead of performing all transformations in a
+single translator, multiple Message Translators can be chained together (cf.
+pipes and filters). This allows each translator to focus on a specific
+transformation step, creating a modular and maintainable system.
+
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous Chapter](./protocols.md) | [Next
@@ -199,10 +269,10 @@ Chapter >](./reliability-performance.md)
 
 [^2]:
     E. Gamma, Ed., Design patterns: elements of reusable object-oriented
-    software, 39. printing. in Addison-Wesley professional computing series.
+    software. Addison-Wesley professional computing series.
     Boston, Mass. Munich: Addison-Wesley, 2011.
 
 [^3]:
     G. Hohpe and B. Woolf, Enterprise integration patterns: designing,
-    building, and deploying messaging solutions, 17. print. in The
+    building, and deploying messaging solutions. The
     Addison-Wesley signature series. Boston Munich: Addison-Wesley, 2013.
