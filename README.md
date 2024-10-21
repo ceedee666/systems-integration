@@ -35,9 +35,8 @@ scenarios.
 1. Implementing a [simple Web shop](./lab/simple-web-shop.md)
 2. [Transferring](./lab/file-transfer.md) product information using files
 3. [Synchronizing](./lab/rpc.md) product stock and purchase orders
-4. [Adding](./lab/complex-system-landscape.md) additional systems and services
-5. Learn about the [SAP integration suite](./lab/integration-suite.md)
-6. Exchange data using [messages](./lab/messaging.md)
+4. Learn about the [SAP integration suite](./lab/integration-suite.md)
+5. Exchange data using [messages](./lab/messaging.md)
 
 ## Readings list
 
