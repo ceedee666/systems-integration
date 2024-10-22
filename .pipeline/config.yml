@@ -19,7 +19,7 @@ stages:
     tmsExport: false
     tmsUpload: false
     cfApiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
-    cfOrg: "6cc1ed9trial_trial-ujz3kpyf"
+    cfOrg: "76cc1ed9trial_trial-ujz3kpyf"
     cfSpace: "dev"
     deployType: "standard"
     cloudFoundryDeploy: true
