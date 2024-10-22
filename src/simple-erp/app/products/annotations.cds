@@ -60,6 +60,11 @@ annotate service.Products with @(
             Label : '{i18n>Price}',
             Value : price,
         },
+        {
+            $Type : 'UI.DataField',
+            Value : stock,
+            Label : '{i18n>Stock}',
+        },
     ],
     UI.SelectionFields : [
         productID,
