@@ -112,7 +112,7 @@ process.
    tutorial](https://developers.sap.com/tutorials/set-up-bas..html) to
    subscribe to the SAP Business Application Studio in your trial account.
 2. When creating the development workspace in the 4th step of the tutorial,
-   name the development workspace _Systems Integration_.
+   name the development workspace _Systems_Integration_.
 
 ### Cloning the project and installing dependencies
 
