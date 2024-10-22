@@ -70,7 +70,7 @@ async function updateProductStock(items, req) {
       let product = await SELECT.from(Products, product_ID, (p) => {
         p.productID, p.stock;
       });
-      if (product.stock > quantity)
+      if (product.stock >= quantity)
         await UPDATE(Products, product_ID).with({
           stock: (product.stock -= quantity),
         });
