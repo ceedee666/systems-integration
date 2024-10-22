@@ -20,7 +20,8 @@ module.exports = (srv) => {
 
   srv.on("products", async (req) => {
     const products = await SELECT.from(Products).columns((p) => {
-      p.productID,
+        p.ID
+        p.productID,
         p.name,
         p.description,
         p.price,
