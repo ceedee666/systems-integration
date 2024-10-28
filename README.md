@@ -26,7 +26,8 @@ scenarios.
 1. [Query languages](lectures/query-languages.md)
 1. [Mapping languages](lectures/mapping-languages.md)
 1. [Protocols](lectures/protocols.md)
-1. [Enterprise integration patterns](lectures/enterprise-integration-patterns.md)
+1. [Introduction to enterprise integration patterns](lectures/enterprise-integration-patterns.md)
+1. [Enterprise integration patterns in detail](lectures/enterprise-integration-patterns-details.md)
 1. [Reliability & Performance](lectures/reliability-performance.md)
 
 ## Lab

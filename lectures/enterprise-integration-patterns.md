@@ -1,21 +1,27 @@
-# Enterprise integration patterns
+# Introduction to enterprise integration patterns
 
 <!--toc:start-->
 
-- [Enterprise integration patterns](#enterprise-integration-patterns)
+- [Introduction to enterprise integration patterns](#introduction-to-enterprise-integration-patterns)
   - [Why Patterns?](#why-patterns)
     - [Exercise: Reflecting on Lab 3 - Synchronizing Product Stock and Purchase Orders](#exercise-reflecting-on-lab-3-synchronizing-product-stock-and-purchase-orders)
       - [Discussion Points](#discussion-points)
-    - [The Need for Patterns: A Historical Perspective](#the-need-for-patterns-a-historical-perspective)
-      - [Origins of Patterns](#origins-of-patterns)
-      - [Patterns in Software Development](#patterns-in-software-development)
-      - [Enterprise Integration Patterns (EIP)](#enterprise-integration-patterns-eip)
-      - [Why Patterns Matter](#why-patterns-matter)
-    - [Organizing Enterprise Integration Patterns](#organizing-enterprise-integration-patterns)
-      - [Core Elements](#core-elements)
-      - [Message Channel](#message-channel)
-      - [Message](#message)
+  - [The Need for Patterns: A Historical Perspective](#the-need-for-patterns-a-historical-perspective)
+    - [Origins of Patterns](#origins-of-patterns)
+    - [Patterns in Software Development](#patterns-in-software-development)
+    - [Enterprise Integration Patterns (EIP)](#enterprise-integration-patterns-eip)
+    - [Why Patterns Matter](#why-patterns-matter)
+  - [Organizing Enterprise Integration Patterns](#organizing-enterprise-integration-patterns)
+    - [Core Elements](#core-elements)
+    - [Message Channel](#message-channel)
+    - [Message](#message)
+    - [Message Routing](#message-routing)
+      - [Pipes-and-Filters](#pipes-and-filters)
       - [Message Routing](#message-routing)
+    - [Message Translator](#message-translator)
+    - [Message Endpoints](#message-endpoints)
+  - [Exercise: Reflecting on Lab 3 again](#exercise-reflecting-on-lab-3-again)
+    - [Discussion Points](#discussion-points)
   - [Navigation](#navigation)
   - [References](#references)
   <!--toc:end-->
@@ -64,23 +70,23 @@ Synchronizing Product Stock and Purchase Orders](../lab/rpc.md).
 - What where the challenges you faced when creating the diagrams and presenting
   them to the others?
 
-### The Need for Patterns: A Historical Perspective
+## The Need for Patterns: A Historical Perspective
 
 In software development, as systems became more complex and interconnected,
 engineers faced recurring problems when designing solutions. This led to the
 need for standardized approaches to these challenges—what we now call **design
 patterns**.
 
-#### Origins of Patterns
+### Origins of Patterns
 
-The concept of patterns didn’t begin in software engineering; it started in
+The concept of patterns did not begin in software engineering; it started in
 **architecture**. In the 1970s, architect _Christopher Alexander_ introduced
 the idea of recurring design solutions in his book _A Pattern Language_ [^1]. He
 observed that certain building structures, when used repeatedly, solved common
 problems in urban design and construction. His key insight was that complex
 problems could be broken down into smaller, reusable solutions.
 
-#### Patterns in Software Development
+### Patterns in Software Development
 
 In the early 1990s, this idea was adapted to software by the _Gang of Four
 (GoF)_ — Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. Their
@@ -91,7 +97,7 @@ problems in object-oriented programming. By identifying these recurring
 solutions, software developers could avoid reinventing the wheel and instead
 apply well-tested approaches.
 
-#### Enterprise Integration Patterns (EIP)
+### Enterprise Integration Patterns (EIP)
 
 As software systems became more distributed and interconnected, the challenges
 of system integration emerged. Developers needed to connect different
@@ -106,7 +112,7 @@ Integration Patterns: Designing, Building, and Deploying Messaging Solutions_
 common integration problems, especially those encountered when systems need to
 exchange messages or synchronize data.
 
-#### Why Patterns Matter
+### Why Patterns Matter
 
 Patterns provide several key benefits in software and systems integration:
 
@@ -127,14 +133,14 @@ Patterns provide several key benefits in software and systems integration:
    for every problem, you can use an established pattern, improving both the
    speed and quality of the solution.
 
-### Organizing Enterprise Integration Patterns
+## Organizing Enterprise Integration Patterns
 
 In this section, we will first look at how Enterprise Integration Patterns
 (EIP) are structured, focusing on the core elements that serve as building
 blocks for messaging systems. After introducing the overall structure, we will
 dive into each core element to understand its role in enterprise integration.
 
-#### Core Elements
+### Core Elements
 
 ![Core Pattern Elements](./imgs/root-patterns.drawio.png)
 
@@ -160,7 +166,7 @@ elements:
 
 Next, let’s explore each of these elements in more detail.
 
-#### Message Channel
+### Message Channel
 
 ![Message Channel](./imgs/message-channel.drawio.png)
 
@@ -194,7 +200,7 @@ decoupled and scalable manner.
 In principle there are two types of channels: Point-to-Point Channels and
 Publish-Subscribe Channels.
 
-#### Message
+### Message
 
 ![Message](./imgs/message.drawio.png)
 
@@ -206,7 +212,7 @@ typically consists of two parts:
 - **Payload**: Contains the actual data being transferred, such as an order or
   stock update.
 
-#### Message Routing
+### Message Routing
 
 ![Message Routing](./imgs/message-routing.drawio.png)
 
@@ -219,14 +225,14 @@ are combined into routing. These two concepts address complementary concerns:
 - Message Routing ensures that each message is delivered to the correct channel
   or endpoint based on certain criteria.
 
-##### Pipes-and-Filters
+#### Pipes-and-Filters
 
 The Pipes-and-Filters approach is about dividing the processing of messages
 into distinct, smaller steps called "filters," which are connected by "pipes."
 This is similar to the core concept of the unis shell where multiple small
 tools can be combined by pipes to perform complex tasks.
 
-##### Message Routing
+#### Message Routing
 
 Message Routing is responsible for ensuring that messages reach the correct
 destination or channel. Routing is about directing messages based on certain
@@ -256,10 +262,73 @@ single translator, multiple Message Translators can be chained together (cf.
 pipes and filters). This allows each translator to focus on a specific
 transformation step, creating a modular and maintainable system.
 
+### Message Endpoints
+
+![Message Endpoint](./imgs/message-endpoint.drawio.png)
+
+In a messaging system, **Message Endpoints** are the connection points where
+applications interact with the messaging infrastructure. They serve as the
+interface between an application and the messaging system, allowing
+applications to send or receive messages through **Message Channels** without
+needing to know the internal details of the messaging mechanism.
+
+Messaging Endpoints encapsulate the internals of the messaging system from the
+rest of the application. The implementation of Message Endpoints is custom to
+the application and the messaging system. A Message Endpoint takes the data
+from the application, transforms it into a message and sends it to a channel.
+Message Endpoints are either sending or receiving endpoints. A Message Endpoint
+never does both.
+
+The _Enterprise Integration Patterns_ book describes several types of message
+endpoints, each designed to handle different aspects of message exchange
+between applications and the messaging system. Two examples are:
+
+1. **Polling Consumer**: A Polling Consumer is an endpoint that actively
+   checks a message channel at regular intervals to see if any messages are
+   available. This approach gives the application control over when it retrieves
+   messages, allowing it to process messages at its own pace or based on
+   availability of resources.
+
+2. Event-Driven Consumer: An Event-Driven Consumer waits passively for a
+   message to arrive. When a new message is available on the channel, the
+   messaging system automatically delivers it to the endpoint, triggering
+   immediate processing. This approach is suitable for applications that need
+   real-time or near-instantaneous processing of messages.
+
+## Exercise: Reflecting on Lab 3 again
+
+In this exercise, we will again reflect on your experience from [Lab 3:
+Synchronizing Product Stock and Purchase Orders](../lab/rpc.md) and depict
+the results as a diagram.
+
+- Step 1: Draw Your Solution
+
+  Draw a diagram of the integration you implemented in
+  Lab 3. Your diagram should include:
+
+  - Systems: Represent the ERP system, web shop, or any other relevant systems.
+  - Data Flow: Show how product stock and purchase orders were transferred
+    between the systems.
+  - Interfaces/Protocols: Indicate the methods or technologies used for
+    communication (e.g., REST API, file transfer, messaging).
+
+- Step 2: Present and Discuss
+
+  You will now present your diagrams in small groups. As you explain your
+  solution, focus on how you represented different aspects in your diagram.
+
+### Discussion Points
+
+- Are there common elements and obvious differences between the presented
+  diagrams?
+- How easy was it to understand the different diagrams?
+- What where the challenges you faced when creating the diagrams and presenting
+  them to the others?
+
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous Chapter](./protocols.md) | [Next
-Chapter >](./reliability-performance.md)
+Chapter >](./enterprise-integration-patterns-details.md)
 
 ## References
 
