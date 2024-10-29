@@ -72,8 +72,8 @@ datasets.
 
 ```sql
 SELECT p.name, p.price, c.category_name
-FROM Products p
-INNER JOIN Categories c
+FROM Products AS p
+INNER JOIN Categories AS c
 ON p.category_id = c.category_id;
 ```
 
