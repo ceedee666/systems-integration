@@ -413,7 +413,7 @@ Web site](https://www.odata.org).
 ### Exercise: Accessing ERP data using OData
 
 To get a thourough unterstanding of OData access the data of the [ERP
-system](../lab/mini-erp.md) unsed in the lecture. Use tools Postman or HTTPie
+system](../lab/mini-erp.md) used in the lecture. Use tools Postman or HTTPie
 to interact with the service. Here are some ideas for possible queries:
 
 - All orders
