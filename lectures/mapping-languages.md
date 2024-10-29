@@ -450,6 +450,20 @@ greater than 100.
 </xsl:stylesheet>
 ```
 
+**Resulting XML:**
+
+```xml
+<TransformedData>
+  <Item>
+    <Name>Mountain Bike</Name>
+    <Price>1200</Price>
+  </Item>
+  <Item>
+    <Name>Helmet</Name>
+  </Item>
+</TransformedData>
+```
+
 **Explanation:**
 
 - The template for `Product` uses `<xsl:if>` to include the `Price` element
