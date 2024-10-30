@@ -228,9 +228,11 @@ to retrieve data.
 1. **Accessing a Public API**:
 
    - Visit the following URL in your browser or Postman to retrieve a list of
-     posts: `http GET https://jsonplaceholder.typicode.com/posts`
-   - In Postman or httpie: `bash http GET
-https://jsonplaceholder.typicode.com/posts`
+     posts: `https://jsonplaceholder.typicode.com/posts`
+   - In Postman or httpie:
+     ```bash
+     http GET https://jsonplaceholder.typicode.com/posts
+     ```
 
 2. **Retrieving a Specific Resource**: Retrieve a specific post by appending
    the ID of the post:
@@ -253,7 +255,7 @@ https://jsonplaceholder.typicode.com/posts`
 
 2. **Viewing the Created Resource**:
    - After creating the post, retrieve it using a `GET` request: `http GET
-https://jsonplaceholder.typicode.com/posts/{id} p`
+https://jsonplaceholder.typicode.com/posts/{id}`
 
 #### Step 3: Updating a Resource with PUT
 
