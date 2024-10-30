@@ -162,14 +162,98 @@ incomplete transactions, missing updates, or data inconsistencies.
 Consequently, a mechanism is required to ensure that the message will reach its
 destination, regardless of temporary issues.
 
+![Guaranteed delivery example](./imgs/guaranteed-delivery.drawio.png)
+
 The Guaranteed Delivery pattern addresses this problem by adding persistent
 data stores to the all involved systems (i.e. sender, messaging system and
 receiver). Using the Guaranteed Delivery pattern sending a message involves the
 following steps:
 
-1. The sender stores the message in its data store. Sending only completed once
+1. The sender stores the message in its data store. Sending only completes once
    the message has been stored.
-2. The
+2. The message is forwarded to the messaging system. It is only deleted from
+   the data store of the sender once it has been successfully stored in the
+   messaging systems data store.
+3. The message is forwarded to the receiver. It is only deleted form the data
+   store of the messaging system once it has been successfully stored in the
+   receiver data store.
+4. Finally, the receiver processes the messages and deletes it from the data
+   store once it has been successfully processed.
+
+The increased reliability of the guaranteed delivery pattern obviously reduced
+the performance of the message delivery and requires additional storage.
+Depending on the message size and the duration of an outage huge amounts of
+storage might be required. For this reason some messaging systems support retry
+timeouts or maximum number of retries. Also the Message Expiration pattern
+might be used to limit the amount of time a message is stored.
+
+### Channel Adapter
+
+> **Problem Statement**
+>
+> How can we integrate applications that were not designed with messaging in
+> mind into a messaging infrastructure?
+
+In an enterprise environment, some applications — often legacy systems or
+external systems — lack native messaging capabilities. If the existing system
+provide an API it most likely will not fit the API of the messaging system.
+Nevertheless, these systems need to be connected to the messaging system.
+
+In case of custom applications functionality for the integration with the
+messaging system could be added to the application. This would increase the
+complexity of the application. Furthermore, this approach closely ties the
+application to a particular messaging system.
+
+The Channel Adapter pattern addresses these issue by creating a connection
+between the application and the messaging system. The channel adapter acts as a
+client to the messaging system. It translates messages and invokes the
+appropriate application functionality. It also listens to application events
+and send messages via the messaging system in response to these events.
+
+The Channel Adapter pattern aims to adapt the interfaces of the messaging
+system and the connected application to each others. In this respect it is
+quite similar to the adapter pattern in the Design Patterns book. [^2].
+
+#### Channel adapter and application layers
+
+![Channel adapter and different application layers](./imgs/channel-adapter.drawio.png)
+
+The channel adapter can connect to different layers of an application:
+
+1. **UI layer**:
+
+   Sometimes it is not possible to expose the functionality of a system via an
+   API. The reason could be that an legacy system simply does not provide the
+   functionality or a system vendor does not provide the necessary APIs. In
+   these cases a UI adapter enable the access to the same functionality a user
+   has on the UI of the application. The downside of an adapter on the UI level
+   is that these adapters tend to be brittle and comparably slow.
+
+2. **Business logic layer**:
+
+   Information systems usually expose their
+   functionality via an API. These API are provided by vendors to support
+   system integration. The APIs tend to be more stable the UI of an application.
+   Additionally, APIs offer better performance then an integration on the UI
+   Layer. If a system offers an API on the business logic layer, it is the
+   recommended layer to implement the channel adapter.
+
+3. **Database layer**:
+
+   Most information system persist their data in a relation database. A channel
+   adapter on the database layer can extract the data from the database without
+   the knowledge of the application. A trigger can be added to the database to
+   always send a message when relevant tables change. This approach can be used
+   when there is no other programmatic access to the application, or when
+   read-only data extraction is sufficient. Updates on the database layer
+   usually are very dangerous as they circumvent the business logic of the
+   application.
+
+### Message Bus
+
+> **Problem Statement**
+>
+> How can multiple applications communicate efficiently using a shared messaging infrastructure?
 
 ## Navigation
 
@@ -183,3 +267,8 @@ Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
     G. Hohpe and B. Woolf, Enterprise integration patterns: designing,
     building, and deploying messaging solutions. The
     Addison-Wesley signature series. Boston Munich: Addison-Wesley, 2013.
+
+[^2]:
+    E. Gamma, Ed., Design patterns: elements of reusable object-oriented
+    software, 39. printing. in Addison-Wesley professional computing series.
+    Boston, Mass. Munich: Addison-Wesley, 2011.
