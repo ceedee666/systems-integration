@@ -100,7 +100,7 @@ integration.
   used in modern web APIs, and its flexibility allows for the exchange of
   data in various formats, such as JSON and XML.
 
-- OData: OData extends REST by adding more advanced querying and data
+- **OData**: OData extends REST by adding more advanced querying and data
   manipulation features. It provides built-in support for metadata and
   exposes complex data models, allowing clients to query and retrieve relational
   data over HTTP. OData is commonly used in data-centric systems where rich
