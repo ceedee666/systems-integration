@@ -72,8 +72,8 @@ datasets.
 
 ```sql
 SELECT p.name, p.price, c.category_name
-FROM Products p
-INNER JOIN Categories c
+FROM Products AS p
+INNER JOIN Categories AS c
 ON p.category_id = c.category_id;
 ```
 
@@ -88,8 +88,6 @@ names by joining the `Products` table with the `Categories` table on a common
 | Mountain Bike | 1200  | Outdoor       |
 | Road Bike     | 900   | Outdoor       |
 | Laptop        | 1500  | Electronics   |
-
----
 
 #### Subqueries: Nesting Queries for Flexibility
 
@@ -121,7 +119,6 @@ This query retrieves all products that have a price greater than the average pri
 | Mountain Bike | 1200  |
 | Laptop        | 1500  |
 
----
 
 #### Common Table Expressions (CTEs)
 
@@ -238,8 +235,6 @@ This query ranks products based on their price in descending order.
 | Smartphone | 1000  | 2    |
 | Headphones | 200   | 3    |
 
----
-
 ### Special SQL Features for XML and JSON Transformation
 
 In addition to structural and analytical transformations, modern SQL databases
@@ -281,8 +276,6 @@ FOR XML PATH('product'), ROOT('products');
   </product>
 </products>
 ```
-
----
 
 #### Transforming Data into JSON
 
@@ -413,8 +406,6 @@ This example shows how to transform an XML structure from one schema to another.
 3. The template for each `Product` creates a new `<Item>` element, copying the
    `Name` and `Price` using `<xsl:value-of>`.
 
----
-
 #### Conditional Logic and Control Structures
 
 - XSLT provides conditional structures like `<xsl:if>` and `<xsl:choose>`,
@@ -450,14 +441,26 @@ greater than 100.
 </xsl:stylesheet>
 ```
 
+**Resulting XML:**
+
+```xml
+<TransformedData>
+  <Item>
+    <Name>Mountain Bike</Name>
+    <Price>1200</Price>
+  </Item>
+  <Item>
+    <Name>Helmet</Name>
+  </Item>
+</TransformedData>
+```
+
 **Explanation:**
 
 - The template for `Product` uses `<xsl:if>` to include the `Price` element
   only if the value is greater than 100.
 - This allows for selective transformation based on data conditions, which is
   often needed in integration scenarios.
-
----
 
 #### Data Aggregation and Sorting
 
