@@ -1,4 +1,4 @@
-# Protocols 
+# Protocols
 
 After covering integration styles, exchange formats, query we
 now turn our focus to the protocols that enable systems to communicate
@@ -243,7 +243,7 @@ to retrieve data.
 
 1. **Using POST to Add a New Post**:
 
-   - In Postman or httpie, create a new post:
+   In Postman or httpie, create a new post:
 
    ```bash
    http POST https://jsonplaceholder.typicode.com/posts \
@@ -251,17 +251,18 @@ to retrieve data.
    body="This is the content of the new post" userId=1
    ```
 
-   - This will create a new resource and return the new post as a response.
+   This will create a new resource and return the new post as a response.
 
 2. **Viewing the Created Resource**:
-   - After creating the post, retrieve it using a `GET` request: `http GET
+
+   After creating the post, retrieve it using a `GET` request: `http GET
 https://jsonplaceholder.typicode.com/posts/{id}`
 
 #### Step 3: Updating a Resource with PUT
 
 1. **Updating a Post**:
 
-   - In Postman or httpie, update an existing post:
+   In Postman or httpie, update an existing post:
 
    ```bash
    http PUT https://jsonplaceholder.typicode.com/posts/1 \
@@ -269,20 +270,22 @@ https://jsonplaceholder.typicode.com/posts/{id}`
    ```
 
 2. **Verifying the Update**:
-   - Retrieve the updated post and verify that the changes have been applied.
+
+   Retrieve the updated post and verify that the changes have been applied.
 
 #### Step 4: Deleting a Resource with DELETE
 
 1. **Deleting a Post**:
 
-   - Use the `DELETE` method to remove a specific post:
+   Use the `DELETE` method to remove a specific post:
 
    ```bash
    http DELETE https://jsonplaceholder.typicode.com/posts/1
    ```
 
 2. **Confirming Deletion**:
-   - Attempt to retrieve the deleted post, and the server should return a `404
+
+   Attempt to retrieve the deleted post, and the server should return a `404
 Not Found` error.
 
 #### Advanced: Exploring REST API Documentation
