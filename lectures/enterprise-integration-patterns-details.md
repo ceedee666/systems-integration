@@ -1,5 +1,29 @@
 # Enterprise integration patterns in detail
 
+<!--toc:start-->
+
+- [Enterprise integration patterns in detail](#enterprise-integration-patterns-in-detail)
+  - [Message channel patterns](#message-channel-patterns)
+    - [Point-to-point channel](#point-to-point-channel)
+      - [Example of a point-to-point channel](#example-of-a-point-to-point-channel)
+      - [Relation to other channel patterns](#relation-to-other-channel-patterns)
+      - [RPC communication](#rpc-communication)
+    - [Publish-subscribe channel](#publish-subscribe-channel)
+      - [Example of a publish-subscribe channel](#example-of-a-publish-subscribe-channel)
+      - [Event messages](#event-messages)
+      - [MQTT](#mqtt)
+    - [Datatype channel](#datatype-channel)
+      - [**Example of a Data Type Channel**](#example-of-a-data-type-channel)
+    - [Guaranteed Delivery](#guaranteed-delivery)
+    - [Channel Adapter](#channel-adapter)
+      - [Channel adapter and application layers](#channel-adapter-and-application-layers)
+    - [Message bus](#message-bus)
+      - [Example of a Message Bus](#example-of-a-message-bus)
+      - [Key Elements of the Message Bus](#key-elements-of-the-message-bus)
+  - [Navigation](#navigation)
+  - [References](#references)
+  <!--toc:end-->
+
 The diagram below provides an overview of the different enterprise integration
 patterns that are discussed in detail in this lecture. Note that this is only a
 selection of the patterns defined in the enterprise integration pattern book.
@@ -249,11 +273,70 @@ The channel adapter can connect to different layers of an application:
    usually are very dangerous as they circumvent the business logic of the
    application.
 
-### Message Bus
+### Message bus
 
 > **Problem Statement**
 >
-> How can multiple applications communicate efficiently using a shared messaging infrastructure?
+> How can multiple applications send messages to each others while being
+> loosely coupled? It should be possible to easily add and remove applications.
+
+In large enterprise systems, applications often need to communicate with each
+other, exchanging data and triggering actions across different systems.
+However, directly connecting each application to every other application leads
+to a tightly coupled architecture that is difficult to scale or maintain. Every
+time a new application is added, new point-to-point connections must be
+created, increasing complexity.
+
+The message bus pattern provides a solution by introducing a central
+communication infrastructure that acts as a common messaging backbone. This bus
+enables multiple applications to communicate in a standardized and loosely
+coupled manner. Applications are not aware of each other’s internal structures
+or implementations; they simply send and receive messages via the bus.
+
+#### Example of a Message Bus
+
+Consider a system landscape where multiple systems handle different parts of the
+order process:
+
+- A Web shop handles the creation of customer orders.
+- A ERP system reserves raw material for an order an schedules production.
+- A customs application handles the customs clearance of the order.
+- The billing system generates the invoice and sends it to the customer.
+- Finally, a shipping system plans and schedules the shipping of an order
+
+Each of these systems needs to react on activities of other systems (e.g. when
+an order is created). To achieve this each system only interacts with the
+message bus. This allows changes to the individual application without the
+other applications being impacted. For example, if a new billing system is
+added, it can simply subscribe to relevant messages.
+
+![Example of a message bus](./imgs/message-bus.drawio.png)
+
+#### Key Elements of the Message Bus
+
+1. **Common Communication Infrastructure**
+
+   The message bus serves as the backbone for all communication between
+   applications. Each application connects to the bus, and messages are routed
+   through this central channel. This setup eliminates the need for direct
+   connections between applications, reducing complexity. The communication
+   infrastructure may include a Message Router or may be based on
+   Publish-Subscribe channels.
+
+2. **Adapters**
+
+   Applications typically do not natively support communication over the
+   Message Bus. To solve this, each application uses an adapter to interface
+   with the bus. This adapter can, for example, be implemented using the
+   channel adapter pattern.
+
+3. **Common Command Structure**
+
+   The message bus uses a predefined command structure to ensure all messages
+   participants understand the messages. This can be achieved using the command
+   massage pattern. Furthermore, the data structure of the transmitted data
+   need to be agreed upon by all involved applications. The can be achieved
+   using a canonical data model.
 
 ## Navigation
 
