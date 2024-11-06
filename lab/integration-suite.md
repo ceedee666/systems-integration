@@ -67,4 +67,4 @@ to learn about its main features.
 
 ## Navigation
 
-🏠 [Overview](../README.md) | [< Previous Chapter](./rpc.md) | [Next Chapter >](./messaging.md)
+🏠 [Overview](../README.md) | [< Previous Chapter](./rpc.md) | [Next Chapter >](./connect-to-integration-suit.md)

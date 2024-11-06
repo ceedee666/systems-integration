@@ -37,6 +37,9 @@ customer orders to the ERP system sending a message via a messaging channel.
      message delivery or ERP service invocation. Consider leveraging message
      persistence and retry options available within the suite.
 
+Please also document the integration you build using the [enterprise
+integration patterns](../lectures/enterprise-integration-patterns-details.md).
+
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous Chapter](./rpc.md) | [Next

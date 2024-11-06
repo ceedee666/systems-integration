@@ -21,14 +21,14 @@ scenarios.
 ## Lectures
 
 1. [Motivation](lectures/motivation.md)
-1. [Integration styles](lectures/integration-styles.md)
-1. [Exchange formats](lectures/exchange-formats.md)
-1. [Query languages](lectures/query-languages.md)
-1. [Mapping languages](lectures/mapping-languages.md)
-1. [Protocols](lectures/protocols.md)
-1. [Introduction to enterprise integration patterns](lectures/enterprise-integration-patterns.md)
-1. [Enterprise integration patterns in detail](lectures/enterprise-integration-patterns-details.md)
-1. [Reliability & Performance](lectures/reliability-performance.md)
+2. [Integration styles](lectures/integration-styles.md)
+3. [Exchange formats](lectures/exchange-formats.md)
+4. [Query languages](lectures/query-languages.md)
+5. [Mapping languages](lectures/mapping-languages.md)
+6. [Protocols](lectures/protocols.md)
+7. [Introduction to enterprise integration patterns](lectures/enterprise-integration-patterns.md)
+8. [Enterprise integration patterns in detail](lectures/enterprise-integration-patterns-details.md)
+9. [Reliability & Performance](lectures/reliability-performance.md)
 
 ## Lab
 
@@ -37,7 +37,9 @@ scenarios.
 2. [Transferring](./lab/file-transfer.md) product information using files
 3. [Synchronizing](./lab/rpc.md) product stock and purchase orders
 4. Learn about the [SAP integration suite](./lab/integration-suite.md)
-5. Exchange data using [messages](./lab/messaging.md)
+5. [In- and outbound connection](./lab/connect-to-integration-suit.md) in the
+   SAP integration suite
+6. Exchange data using [messages](./lab/messaging.md)
 
 ## Readings list
 
