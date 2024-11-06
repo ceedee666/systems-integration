@@ -2,7 +2,10 @@
   "scopes": [
     {
       "name": "$XSAPPNAME.system-integration",
-      "description": "system-integration"
+      "description": "system-integration",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application, xsappforapi)"
+      ]
     },
     {
       "name": "$XSAPPNAME.customerservice",
