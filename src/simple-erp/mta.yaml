@@ -128,6 +128,12 @@ resources:
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
+- name: bsimple-erp-auth-api
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security-api.json
+    service-plan: application
+    service: xsuaa
 - name: simple-erp-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
