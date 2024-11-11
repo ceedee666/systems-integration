@@ -62,8 +62,8 @@ for security):
 1. In your terminal or environment, set the following variables:
 
    ```bash
-   export CLIENT_ID="client_id_of_the_service_key"
-   export CLIENT_SECRET="client_secret_of_the_service_key"
+   CLIENT_ID="client_id_of_the_service_key"
+   CLIENT_SECRET="client_secret_of_the_service_key"
    ```
 
 2. Invoke the integration flow.
