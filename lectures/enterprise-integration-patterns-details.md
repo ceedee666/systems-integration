@@ -338,6 +338,246 @@ added, it can simply subscribe to relevant messages.
    need to be agreed upon by all involved applications. The can be achieved
    using a canonical data model.
 
+## Message patterns
+
+### Command message
+
+> **Problem statement**
+>
+> How can a request for an action be communicated between systems using messing?
+
+In many enterprise integration scenarios, one system needs another system to
+perform a specific action. The requesting system often has limited knowledge of
+the processing system, and the goal is to send a command for execution without
+tight coupling. This separation ensures that changes in one system do not
+directly impact the other.
+
+The Command Message pattern addresses this by encapsulating a request for an
+action within a message. The command specifies what action needs to be
+performed and often carries the data necessary for the action.
+
+#### Example of a command message
+
+Consider an ERP system that need to trigger the update of currency exchange
+rates in some external system. The ERP system could use the follwoing Command
+Message to trigger the update:
+
+```json
+  "command": "UpdateExchangeRate",
+  "data": {
+    "currencyFrom": "USD",
+    "currencyTo": "EUR",
+  }
+```
+
+![Command message](./imgs/command-message.drawio.png)
+
+#### Relation to other patterns
+
+- Document message:
+
+  Unlike a command message, a document message carries data or state
+  information without specifying an action. It is up to the receiving system to
+  determine how to handle the data.
+
+- Request-reply pattern:
+
+  Command messages are often used with the request-reply pattern when a
+  response is expected. The requester sends a Command Message and waits for a
+  reply indicating the result of the action.
+
+- Point-to-point channel:
+
+  Command messages are usually sent via point-to-point channels. This ensures
+  that each command will be invoked only once and by exactly one receiver.
+
+### Document Message
+
+> **Problem Statement**
+>
+> How can data or state information be transferred from one system to another
+> in a way that allows the receiver to process it independently?
+
+The most common problem in distributes systems is that one system has data
+another system needs. Different integration styles (file transfer, shared
+database or RPC) try to address this problem.
+
+The document message pattern addresses this by encapsulating data or state
+information in a message that is sent to another system. The document message
+carries the data without specifying a particular action, allowing the receiver
+to determine how to process it.
+
+#### Example of a Document Message
+
+Consider a scenario where a Web shop generates a purchase order for products
+that need to be processed by an ERP system. The Web shop creates a document
+message containing all the details of the purchase order, such as the customer
+information, items, and total amount (cf example below). This message is sent
+to the ERP system, which then processes it based on its internal logic (e.g.,
+updating inventory, generating invoices, scheduling shipment).
+
+```xml
+<PurchaseOrder>
+    <OrderID>PO-123456</OrderID>
+    <OrderDate>2024-11-11</OrderDate>
+    <Customer>
+        <CustomerID>CUST-7890</CustomerID>
+        <Name>Jane Doe</Name>
+        <Address>
+            <Street>123 Elm Street</Street>
+            <City>Springfield</City>
+            <State>IL</State>
+            <PostalCode>62704</PostalCode>
+            <Country>USA</Country>
+        </Address>
+    </Customer>
+    <Items>
+        <Item>
+            <ProductID>PROD-001</ProductID>
+            <ProductName>Wireless Mouse</ProductName>
+            <Quantity>2</Quantity>
+            <PricePerUnit>25.99</PricePerUnit>
+        </Item>
+        <Item>
+            <ProductID>PROD-002</ProductID>
+            <ProductName>Mechanical Keyboard</ProductName>
+            <Quantity>1</Quantity>
+            <PricePerUnit>79.99</PricePerUnit>
+        </Item>
+    </Items>
+    <TotalAmount>131.97</TotalAmount>
+</PurchaseOrder>
+```
+
+![Document message](./imgs/document-message.drawio.png)
+
+#### Relation to other patterns
+
+- Event message
+
+  Document and event message are closely related. While a document message
+  contains data or state information to be processed by the receiving system,
+  an event message signals that something of interest has happened in the
+  sender system. The main difference is that usually for an event message the
+  timing is more important then the content. In contrast to that the content of
+  a document message is more important that the timing.
+
+- Command message
+
+  Unlike a document message, a command message explicitly instructs the
+  receiver to perform a specific action. The document message focuses solely on
+  data transfer, while the command message specifies what action needs to be
+  taken using the provided data.
+
+- Point-to-point channel
+
+  Document Messages are typically transferred via a
+  point-to-point channel, ensuring that only one receiver processes the message.
+  This exclusive consumption guarantees that the message is handled exactly once,
+  which is especially important for critical data like purchase orders or
+  customer updates.
+
+- Request-reply pattern
+  In a request-reply interaction, the reply to a
+  request is often a document message. For example, an ERP system might send a
+  command message to a financial service requesting updated exchange rates. The
+  response would come back as a document message containing the updated rates,
+  providing the necessary data without further instructions.
+
+### Event Message
+
+> **Problem Statement**
+>
+> How can changes or state transitions in one system be communicated to other
+> systems in a way that triggers appropriate responses?
+
+In distributes systems one systems often need to notify others of changes or
+significant state transitions (events). For example, a central pricing system
+might notify the ERP system and the Web shop about price changes of products.
+Implementing this notification using RPC would require each receiver to
+immediately react on the event. Furthermore, the sender would need to know all
+receivers.
+
+The event message pattern addresses this by encapsulating an event within a
+message and broadcasting it to other systems. The receiving systems subscribe
+to (e.g. via the publish-subscribe channel pattern) and react to the event as
+needed.
+
+#### Example of an Event Message
+
+When a shipping systems ships an order, it creates an event message to notify
+other systems of the status change of the order. The event might indicate that
+the order is "Shipped."
+
+The ERP system subscribes to this event to update the state of the order, while
+the notification service sends a confirmation email.
+
+![Event message](./imgs/event-message.drawio.png)
+
+#### Push vs. pull for event messages
+
+##### Push model
+
+In the push model, when an event occurs, the event message itself carries all
+the necessary data required by the consumers. This means that the producer
+includes the complete new state with the event. Consumers receive the new state
+immediately without further requests.
+
+In this model the event message is a combined event and document message.
+
+##### Pull model
+
+In the pull model, when an event occurs, the event message contains minimal
+information, often just a notification or identifier indicating that an event
+has happened. Interested consumers must then retrieve additional data
+themselves if they wish to act on the event. This model keeps the initial event
+lightweight but requires follow-up interactions. The pull model requires three messages:
+
+1. An _update_ that notifies receivers of the event. This is an event message.
+2. A _state request_, a command message, interested receivers use to request
+   additional details.
+3. A _state reply_, a document message send to the receiver, containing the
+   additional details.
+
+Both approaches have advantaged and disadvantages. In the push model the main
+advantage is that initial event messages are small. The disadvantage is the
+additional channels and messages needed for the state request and state reply.
+
+#### Relation to Other Patterns
+
+- Publish-Subscribe Channel
+
+  Event Messages are commonly used with Publish-Subscribe Channels to broadcast
+  events to multiple systems.
+
+## Message routing patterns - Reading Week Task
+
+### Task Description
+
+Each group of students will focus on a selected Message Routing Pattern. The
+goal is to develop a deep understanding of the assigned pattern, including its
+purpose, mechanics, and use cases within enterprise integration scenarios.
+
+### Steps to complete the task
+
+- Read about the selected pattern
+
+  Each group is expected to thoroughly read and
+  understand their assigned pattern, exploring its role, structure, and
+  application in message routing.
+
+- Create a presentation and example implementation
+
+  Based on your understanding, create a presentation that explains the selected
+  pattern in detail, supported by an example implementation demonstrating how
+  the pattern works in practice.
+
+- Present during the next lecture
+
+  During the next lecture, each group will present their findings and
+  implementation to the class, sharing insights, challenges, and practical
+  applications of the pattern.
+
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous
@@ -355,3 +595,7 @@ Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
     E. Gamma, Ed., Design patterns: elements of reusable object-oriented
     software, 39. printing. in Addison-Wesley professional computing series.
     Boston, Mass. Munich: Addison-Wesley, 2011.
+
+```
+
+```
