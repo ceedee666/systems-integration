@@ -1,4 +1,4 @@
-# Lab 5: Exchange data using messaging
+# Lab 6: Exchange data using messaging
 
 <!--toc:start-->
 
