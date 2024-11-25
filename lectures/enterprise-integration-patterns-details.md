@@ -13,13 +13,29 @@
       - [Event messages](#event-messages)
       - [MQTT](#mqtt)
     - [Datatype channel](#datatype-channel)
-      - [**Example of a Data Type Channel**](#example-of-a-data-type-channel)
+      - [Example of a Data Type Channel](#example-of-a-data-type-channel)
     - [Guaranteed Delivery](#guaranteed-delivery)
     - [Channel Adapter](#channel-adapter)
       - [Channel adapter and application layers](#channel-adapter-and-application-layers)
     - [Message bus](#message-bus)
       - [Example of a Message Bus](#example-of-a-message-bus)
       - [Key Elements of the Message Bus](#key-elements-of-the-message-bus)
+  - [Message patterns](#message-patterns)
+    - [Command message](#command-message)
+      - [Example of a command message](#example-of-a-command-message)
+      - [Relation to other patterns](#relation-to-other-patterns)
+    - [Document Message](#document-message)
+      - [Example of a Document Message](#example-of-a-document-message)
+      - [Relation to other patterns](#relation-to-other-patterns)
+    - [Event Message](#event-message)
+      - [Example of an Event Message](#example-of-an-event-message)
+      - [Push vs. pull for event messages](#push-vs-pull-for-event-messages)
+        - [Push model](#push-model)
+        - [Pull model](#pull-model)
+      - [Relation to Other Patterns](#relation-to-other-patterns)
+  - [Message routing patterns - Reading Week Task](#message-routing-patterns-reading-week-task)
+    - [Task Description](#task-description)
+    - [Steps to complete the task](#steps-to-complete-the-task)
   - [Navigation](#navigation)
   - [References](#references)
   <!--toc:end-->
@@ -578,6 +594,320 @@ purpose, mechanics, and use cases within enterprise integration scenarios.
   implementation to the class, sharing insights, challenges, and practical
   applications of the pattern.
 
+## Message transformation patterns
+
+In enterprise integration, data often needs to be transformed as it moves
+between systems to accommodate differences in data formats, structures, or
+semantic requirements. This section discusses key message transformation
+patterns, including the message translator, content filter, content
+enricher, and normalizer, which address common challenges in ensuring
+seamless communication between systems.
+
+### Message translator
+
+The message translator pattern was briefly introduced in the [overview of
+enterprise integration patterns](/lectures/enterprise-integration-patterns.md)
+as a key mechanism for transforming messages to enable communication between
+systems. In this section, we will explore the
+message translator in greater depth.
+
+> **Problem statement**
+>
+> How can systems with incompatible data formats or structures communicate with
+> each other?
+
+In enterprise integration scenarios, it is common for systems to use different
+data formats, structures, or protocols. For example, one system may use XML
+while another uses JSON, or a system may expect fields that do not exist in the
+source message. Without a way to reconcile these differences, communication
+between systems becomes impossible, leading to silos and inefficiencies.
+
+The message translator pattern addresses this problem by transforming messages
+into a format or structure that the receiving system can understand. By
+adapting the message to meet the requirements of the target system, the message
+translator ensures seamless communication between heterogeneous systems without
+requiring changes to their internal logic.
+
+#### Levels of transformation
+
+The message translator addresses incompatibilities between systems at various
+levels of transformation. These levels ensure that messages can be seamlessly
+exchanged despite differences in communication protocols, data formats, or
+internal structures. The four levels of transformation are transport, data
+representation, data types, and data structure.
+
+1. Transport level
+
+   At the transport level, transformations ensure compatibility between
+   different communication protocols used by the sender and receiver. This
+   includes adapting messages to work with protocols like HTTP, FTP, or SOAP.
+   Adaptation on the transport level is handled by channel adapters.
+
+2. Data representation level
+
+   Data representation transformations address differences in formats,
+   encoding, or compression. The focus is on adapting the way data is
+   represented without changing its underlying meaning.
+
+   - Example: Format transformation - A Web shop sends order data as JSON, but
+     the ERP system requires it in XML.
+
+     - Input (JSON):
+
+       ```json
+       {
+         "orderId": "12345",
+         "customer": "Jane Doe",
+         "total": 150.0
+       }
+       ```
+
+     - Output (XML):
+
+       ```xml
+        <Order>
+            <OrderID>12345</OrderID>
+            <Customer>Jane Doe</Customer>
+            <Total>150.00</Total>
+        </Order>
+       ```
+
+   - Example: Compression
+
+     A sensor sends telemetry data in a compressed binary format, but the
+     target analytics system requires the data in plain text.
+
+     - Input: Compressed binary data stream.
+     - Output: Plain text or JSON representation of the telemetry data.
+
+3. Data types
+
+   At the data types level, transformations ensure compatibility between the
+   individual fields in a message. This includes adapting field names,
+   converting data types, or mapping code values between systems.
+
+   - Example: Field name transformation
+     A Web shop sends an order field named
+     `orderId`, but the ERP system expects `OrderID`. Furthermore, the Web shop uses
+     seperate fields for the customer name, while the ERP system uses just one name
+     filed.
+
+     - Input:
+
+       ```json
+       {
+         "orderId": "12345",
+         "name": "Jane",
+         "surname": "Doe",
+         "total": 150.0
+       }
+       ```
+
+     - Output:
+
+       ```json
+       {
+         "OrderID": "12345",
+         "CustomerName": "Jane Doe",
+         "TotalAmount": 150.0
+       }
+       ```
+
+   - Example: Code value mapping
+
+     A source system uses numeric codes for order
+     status (e.g., `1 = Pending`, `2 = Shipped`), while the target system expects
+     textual status values (e.g., `"Pending"`, `"Shipped"`).
+
+     - Input: `{ "status": 1 }`
+     - Output: `{ "status": "Pending" }`
+
+4. Data structure
+
+   Data structure transformations address differences in how entities and their
+   relationships are modeled between systems. This level involves adapting the
+   message content to reflect structural changes, such as whether an entity can
+   have multiple instances of a related entity.
+
+   - Example:
+
+     A Web shop sends a customer record with a single address, but the target
+     CRM system supports multiple addresses per customer.
+
+     - Input (Web shop):
+
+       ```json
+       {
+         "customerId": "CUST123",
+         "name": "Jane Doe",
+         "address": {
+           "street": "123 Elm Street",
+           "city": "Springfield"
+         }
+       }
+       ```
+
+     - Output (CRM system):
+
+       ```json
+       {
+         "customerId": "CUST123",
+         "name": "Jane Doe",
+         "addresses": [
+           {
+             "type": "Home",
+             "street": "123 Elm Street",
+             "city": "Springfield"
+           }
+         ]
+       }
+       ```
+
+#### Chaining transformations
+
+In complex integration scenarios, a single transformation is often insufficient
+to meet the requirements of both the sender and receiver. In such cases,
+transformations are applied in sequence, or _chained_ to incrementally adapt
+the message. Each transformation addresses a specific aspect of compatibility,
+ensuring the message evolves step-by-step to match the target system’s
+expectations.
+
+Chaining transformations allows modularity, where each step in the chain
+handles a distinct transformation task. This approach simplifies maintenance,
+improves reusability, and reduces complexity by breaking down large
+transformations into smaller, manageable steps.
+
+The major benefits of chaining transformations are:
+
+1. Modularity: Each step in the chain handles a single transformation, making
+   the process easier to understand and maintain.
+2. Reusability: Individual transformations can be reused in other scenarios
+   with similar requirements.
+3. Flexibility: Complex transformations can be built by combining simple ones,
+   reducing the need for monolithic transformation logic.
+4. Error isolation: Debugging becomes easier as each step in the chain can be
+   tested independently.
+
+##### Chaining example
+
+A Web shop sends a purchase order to an ERP system. The Web shop uses a JSON
+format with alpha-2 country codes and a flat structure. The ERP system requires
+XML, ISO 3166-1 alpha-3 country codes, and a hierarchical structure for the
+order.
+
+- Input (Web shop JSON message)
+
+  ```json
+  {
+    "orderId": "PO-12345",
+    "customer": {
+      "name": "Jane Doe",
+      "country": "US"
+    },
+    "items": [
+      { "productId": "PROD001", "quantity": 2, "price": "19.99" },
+      { "productId": "PROD002", "quantity": 1, "price": "49.99" }
+    ]
+  }
+  ```
+
+- Chained transformations
+
+  1. Data representation transformation
+
+     Convert the message from JSON to XML.
+
+     ```xml
+     <Order>
+         <OrderID>PO-12345</OrderID>
+         <Customer>
+             <Name>Jane Doe</Name>
+             <Country>US</Country>
+         </Customer>
+         <Items>
+             <Item>
+                 <ProductID>PROD001</ProductID>
+                 <Quantity>2</Quantity>
+                 <Price>19.99</Price>
+             </Item>
+             <Item>
+                 <ProductID>PROD002</ProductID>
+                 <Quantity>1</Quantity>
+                 <Price>49.99</Price>
+             </Item>
+         </Items>
+     </Order>
+     ```
+
+  2. Code value mapping
+
+     Map the ISO-3166 alpha-2 country code (`US`) to the numeric country code (`840`).
+
+     ```xml
+     <Order>
+         <OrderID>PO-12345</OrderID>
+         <Customer>
+             <Name>Jane Doe</Name>
+             <Country>840</Country>
+         </Customer>
+         <Items>
+             <Item>
+                 <ProductID>PROD001</ProductID>
+                 <Quantity>2</Quantity>
+                 <Price>19.99</Price>
+             </Item>
+             <Item>
+                 <ProductID>PROD002</ProductID>
+                 <Quantity>1</Quantity>
+                 <Price>49.99</Price>
+             </Item>
+         </Items>
+     </Order>
+     ```
+
+  3. Data structure transformation
+
+     Transform the structure to make the message hierarchical, reflecting the
+     ERP system’s entity model.
+
+     ```xml
+     <Order>
+         <OrderID>PO-12345</OrderID>
+         <Customer>
+             <Name>Jane Doe</Name>
+             <Addresses>
+                 <Address type="billing">
+                     <Country>USA</Country>
+                 </Address>
+             </Addresses>
+         </Customer>
+         <Items>
+             <Item>
+                 <Product>
+                     <ID>PROD001</ID>
+                 </Product>
+                 <Quantity>2</Quantity>
+                 <Price>19.99</Price>
+             </Item>
+             <Item>
+                 <Product>
+                     <ID>PROD002</ID>
+                 </Product>
+                 <Quantity>1</Quantity>
+                 <Price>49.99</Price>
+             </Item>
+         </Items>
+     </Order>
+     ```
+
+#### Visual mapping tools
+
+Many integration platforms provide visual mapping tools as low-code solutions
+to simplify message transformations. These tools enable users to graphically
+define mappings, apply transformation rules, and chain multiple transformations
+without extensive coding. For example, the SAP Integration Suite offers a
+drag-and-drop interfaces to accelerate the development of integrations.
+
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous
@@ -595,7 +925,3 @@ Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
     E. Gamma, Ed., Design patterns: elements of reusable object-oriented
     software, 39. printing. in Addison-Wesley professional computing series.
     Boston, Mass. Munich: Addison-Wesley, 2011.
-
-```
-
-```
