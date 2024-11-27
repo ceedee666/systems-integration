@@ -113,11 +113,11 @@ In order to access the API of the ERP system a service key is needed for the
      endpoint of the authentication service.
    - the following example shows how to perfome this call using HTTPie. This
      example assumes that the client ID, client secret and the URL are available
-     as environment variables.
+     as environment variables (e.g. as `CLIENT_ID_2`, CLIENT_SECRET_2` and `AUTH_URL`).
 
    ```bash
    http -a $CLIENT_ID_2:CLIENT_SECRET_2 POST \
-   "$URL/oauth/token?grant_type=client_credentials"
+   "$AUTH_URL/oauth/token?grant_type=client_credentials"
    ```
 
    - Copy the returend access token and store it in an environment variable
