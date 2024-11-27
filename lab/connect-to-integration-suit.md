@@ -54,19 +54,23 @@ parameters step 2](./imgs/create-if-runtime-2.png)
 3. Create a new service key for the Process Integration Runtime using
    `ClientId/Secret` as the key type.
 
-### Step 3: Invoke the flow Using HTTPie or Postman
+### Step 3: Invoke the flow using HTTPie or Postman
 
-Store client credentials as environment variables (optional but recommended
+The following description uses HTTPPie to invoke the integration flow.
+The approach fpor other tools like Postman mostly similar but differs in certain 
+steps. For example, the storing of authentication information as environment variables
+only makes sense for command line tools. Postman uses a different approach. 
 for security):
 
-1. In your terminal or environment, set the following variables:
+1. Store client credentials as environment variables (optional but recommended).
+   In your terminal or environment, set the following variables:
 
    ```bash
    CLIENT_ID="client_id_of_the_service_key"
    CLIENT_SECRET="client_secret_of_the_service_key"
    ```
 
-2. Invoke the integration flow.
+3. Invoke the integration flow.
 
    - Get the endpoint of the flow by navigating to `Monitor` and then the
      `Manage Integration Content`.
