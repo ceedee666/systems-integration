@@ -82,7 +82,7 @@ for security):
      body.
 
      ```bash
-     http -a $CLIENT_I:$CLIENT_SECRET POST \
+     http -a $CLIENT_ID:$CLIENT_SECRET POST \
      "https://<your_integration_flow_url> \
      name=Christian \
      email=drumm@fh-aachen.de
