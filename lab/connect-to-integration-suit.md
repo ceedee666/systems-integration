@@ -77,12 +77,15 @@ for security):
      `Manage Integration Content`.
    - Also set the log level to `Trace`.
    - Invoke the integration flow using e.g. HTTPie and the command below. Note
-     that the example contains some JSON data that is sent to the flow.
+     that the example contains some JSON data that is sent to the flow. Again other
+     tools like Postman require a different approach for sending JSON data in the request
+     body.
 
      ```bash
      http -a $CLIENT_I:$CLIENT_SECRET POST \
      "https://<your_integration_flow_url> \
-     name=Christian email=drumm@fh-aachen.de
+     name=Christian \
+     email=drumm@fh-aachen.de
      ```
 
      This request should trigger the flow, and you can see the processing
