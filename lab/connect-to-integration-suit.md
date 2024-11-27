@@ -30,6 +30,7 @@ Integration Suite, please refer to the following resources:
    - Sender: Add an HTTP channel as the sender. Configure it as follows:
      - User Role: Set the user role to `ESBMessaging.send`.
      - Address: Assign an address, such as `/test-inbound-client-credentials`.
+     - Uncheck the `CSRF Protected` check box. 
    - Start Event: Add a Start event to initiate the flow.
    - Content Modifier: Insert a Content Modifier step in the flow. Use the
      content modifier to add some dummy value to the message header.
