@@ -81,7 +81,7 @@ for security):
 
      ```bash
      http -a $CLIENT_I:$CLIENT_SECRET POST \
-     "https://<your_integration_runtime_url> \
+     "https://<your_integration_flow_url> \
      name=Christian email=drumm@fh-aachen.de
      ```
 
