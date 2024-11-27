@@ -116,8 +116,8 @@ In order to access the API of the ERP system a service key is needed for the
      as environment variables.
 
    ```bash
-   http -a $CLIENTID:CLIENTSECRET POST \
-   $URL/oauth/token?grant_type=client_credentials
+   http -a $CLIENT_ID_2:CLIENT_SECRET_2 POST \
+   "$URL/oauth/token?grant_type=client_credentials"
    ```
 
    - Copy the returend access token and store it in an environment variable
