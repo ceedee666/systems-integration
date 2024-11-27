@@ -30,7 +30,7 @@ Integration Suite, please refer to the following resources:
    - Sender: Add an HTTP channel as the sender. Configure it as follows:
      - User Role: Set the user role to `ESBMessaging.send`.
      - Address: Assign an address, such as `/test-inbound-client-credentials`.
-     - Uncheck the `CSRF Protected` check box. 
+     - Uncheck the `CSRF Protected` check box.
    - Start Event: Add a Start event to initiate the flow.
    - Content Modifier: Insert a Content Modifier step in the flow. Use the
      content modifier to add some dummy value to the message header.
@@ -58,9 +58,9 @@ parameters step 2](./imgs/create-if-runtime-2.png)
 ### Step 3: Invoke the flow using HTTPie or Postman
 
 The following description uses HTTPPie to invoke the integration flow.
-The approach fpor other tools like Postman mostly similar but differs in certain 
+The approach fpor other tools like Postman mostly similar but differs in certain
 steps. For example, the storing of authentication information as environment variables
-only makes sense for command line tools. Postman uses a different approach. 
+only makes sense for command line tools. Postman uses a different approach.
 for security):
 
 1. Store client credentials as environment variables (optional but recommended).
@@ -71,7 +71,7 @@ for security):
    CLIENT_SECRET="client_secret_of_the_service_key"
    ```
 
-3. Invoke the integration flow.
+2. Invoke the integration flow.
 
    - Get the endpoint of the flow by navigating to `Monitor` and then the
      `Manage Integration Content`.
@@ -111,13 +111,13 @@ In order to access the API of the ERP system a service key is needed for the
 
    - To obtain a token perform a POST request to the `/oauth/token`
      endpoint of the authentication service.
-   - the following example shows how to perfome this call using HTTPie. This
-     example assumes that the client ID, client secret and the URL are available
-     as environment variables (e.g. as `CLIENT_ID_2`, `CLIENT_SECRET_2` and `AUTH_URL`).
+   - the following example shows how to perform this call using HTTPie. This
+     example assumes again that the client ID, client secret and the URL are available
+     as environment variables (e.g. as `CLIENT_ID`, `CLIENT_SECRET` and `TOKEN_URL`).
 
    ```bash
-   http -a $CLIENT_ID_2:CLIENT_SECRET_2 POST \
-   "$AUTH_URL/oauth/token?grant_type=client_credentials"
+   http -a $CLIENT_ID:CLIENT_SECRET POST \
+   "$TOKEN_URL/oauth/token?grant_type=client_credentials"
    ```
 
    - Copy the returend access token and store it in an environment variable
