@@ -1,5 +1,15 @@
 # Learn about the SAP integration suite
 
+<!--toc:start-->
+
+- [Learn about the SAP integration suite](#learn-about-the-sap-integration-suite)
+  - [Learning About SAP Integration Suite](#learning-about-sap-integration-suite)
+    - [What is SAP Integration Suite?](#what-is-sap-integration-suite)
+  - [Setting up the SAP Integration Suite](#setting-up-the-sap-integration-suite)
+  - [Developing with SAP Integration Suite](#developing-with-sap-integration-suite)
+  - [Navigation](#navigation)
+  <!--toc:end-->
+
 This lab exercise is divided into two parts. The first two parts focus on the SAP integration suite:
 
 1. Learning about the SAP Integration Suite to understand its capabilities and

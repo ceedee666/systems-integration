@@ -1,5 +1,21 @@
 # In- and outbound connection in the SAP integration suite
 
+<!--toc:start-->
+
+- [In- and outbound connection in the SAP integration suite](#in-and-outbound-connection-in-the-sap-integration-suite)
+  - [Inbound connection using client credentials](#inbound-connection-using-client-credentials)
+    - [Step 1: Model a simple integration flow with http channel](#step-1-model-a-simple-integration-flow-with-http-channel)
+    - [Step 2: Deploy the process integration runtime in sap btp](#step-2-deploy-the-process-integration-runtime-in-sap-btp)
+    - [Step 3: Invoke the flow using HTTPie or Postman](#step-3-invoke-the-flow-using-httpie-or-postman)
+  - [Outbound connection using OAuth 2.0](#outbound-connection-using-oauth-20)
+    - [Step 0: Create a Service Key for the `simple-erp-auth-api` XSUAA Instance](#step-0-create-a-service-key-for-the-simple-erp-auth-api-xsuaa-instance)
+    - [Step 1: Use HTTPie or Postman to access the API](#step-1-use-httpie-or-postman-to-access-the-api)
+    - [Step 2: Create a integration flow](#step-2-create-a-integration-flow)
+    - [Step 3: Create Secrets for OAuth](#step-3-create-secrets-for-oauth)
+    - [Step 4: Monitor the Integration Flow](#step-4-monitor-the-integration-flow)
+  - [Navigation](#navigation)
+  <!--toc:end-->
+
 In this lab, we will explore how to perform inbound and outbound connections
 using the SAP Integration Suite. Specifically, we will focus on setting up and
 configuring both inbound communication with external systems and outbound
@@ -128,7 +144,7 @@ In order to access the API of the ERP system a service key is needed for the
    an environment variable named `TOKEN` and the URL to access the API in a
    variable named `SRV_URL`.
 
-   The URL of the API can by navigating to the cloud foundry space and
+   The URL of the API can be found by navigating to the cloud foundry space and
    accessing the details of the `simple-erp-srv`.
 
    ```bash

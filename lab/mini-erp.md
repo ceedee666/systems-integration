@@ -1,5 +1,24 @@
 # Running the ERP system
 
+<!--toc:start-->
+
+- [Running the ERP system](#running-the-erp-system)
+  - [Prerequisites](#prerequisites)
+  - [Running the ERP locally](#running-the-erp-locally)
+    - [Installing the SAP CAP](#installing-the-sap-cap)
+    - [Clone and run the simple ERP system](#clone-and-run-the-simple-erp-system)
+  - [Deploy the system to SAP BTP](#deploy-the-system-to-sap-btp)
+    - [Set Up SAP BTP Trial Account](#set-up-sap-btp-trial-account)
+    - [Set Up SAP Business Application Studio](#set-up-sap-business-application-studio)
+    - [Cloning the project and installing dependencies](#cloning-the-project-and-installing-dependencies)
+    - [Preparing the SAP BTP trial account](#preparing-the-sap-btp-trial-account)
+    - [Packaging and deploying the Mini-ERP system](#packaging-and-deploying-the-mini-erp-system)
+    - [Assigning necessary roles](#assigning-necessary-roles)
+  - [SAP CAP resources](#sap-cap-resources)
+    - [Tutorials](#tutorials)
+  - [Navigation](#navigation)
+  <!--toc:end-->
+
 In this lab, you will install and run a small ERP system built using SAP CAP
 (Cloud Application Programming). By the end of this exercise, you should have
 the system running locally or in SAP Business Technology Platform (BTP), with a
