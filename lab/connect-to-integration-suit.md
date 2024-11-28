@@ -177,7 +177,8 @@ To create this flow perform the following steps:
 ### Step 3: Create Secrets for OAuth
 
 Navigate to the Monitor section of the integration suite an click on `Security
-Material`. Create a new secret with the name `erp-api-cc`.
+Material`. Create a new secret of type OAuth2 Client Credentials with the name
+`erp-api-cc`.
 
 - The token service URL is the URL of the authentication service followed by `/oauth/token`.
 - Fill in the client id and client secret and don't change the other values.
