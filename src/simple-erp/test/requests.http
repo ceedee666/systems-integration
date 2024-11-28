@@ -42,3 +42,19 @@ content-type: application/json
           ]
         }
 }
+
+
+###
+
+POST http://localhost:4004/odata/v4/simple-erp/Products
+Authorization: Basic service-user:service-user
+content-type: application/json
+
+{
+  "productID": "Test",
+  "name": "Test",
+  "description": "This is a description test",
+  "price": 1000,
+  "currency_code": "USD",
+  "stock": 15
+}
