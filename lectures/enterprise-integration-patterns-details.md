@@ -13,7 +13,7 @@
       - [Event messages](#event-messages)
       - [MQTT](#mqtt)
     - [Datatype channel](#datatype-channel)
-      - [Example of a Data Type Channel](#example-of-a-data-type-channel)
+      - [**Example of a Data Type Channel**](#example-of-a-data-type-channel)
     - [Guaranteed Delivery](#guaranteed-delivery)
     - [Channel Adapter](#channel-adapter)
       - [Channel adapter and application layers](#channel-adapter-and-application-layers)
@@ -36,6 +36,12 @@
   - [Message routing patterns - Reading Week Task](#message-routing-patterns-reading-week-task)
     - [Task Description](#task-description)
     - [Steps to complete the task](#steps-to-complete-the-task)
+  - [Message transformation patterns](#message-transformation-patterns)
+    - [Message translator](#message-translator)
+      - [Levels of transformation](#levels-of-transformation)
+      - [Chaining transformations](#chaining-transformations)
+        - [Chaining example](#chaining-example)
+      - [Visual mapping tools](#visual-mapping-tools)
   - [Navigation](#navigation)
   - [References](#references)
   <!--toc:end-->
@@ -908,7 +914,164 @@ define mappings, apply transformation rules, and chain multiple transformations
 without extensive coding. For example, the SAP Integration Suite offers a
 drag-and-drop interfaces to accelerate the development of integrations.
 
-## Navigation
+![Message mapping tool in the SAP Integration Suite](./imgs/message-mapping.png)
+
+### Content enricher
+
+> **Problem statement**
+>
+> How can a additional data that is not available in the originating system be
+> added to a message to enable proper processing by the receiving system?
+
+#### Example: enriching an order confirmation with delivery details
+
+Consider a Web shop that sends order confirmation messages to customers after
+they place an order via a notification system. The Web shop's system generates
+a message containing the order details, such as the order ID, purchased items,
+and total amount. However, the expected delivery time is not included in the
+message because it must be calculated by an external logistics system based on
+factors such as the shipping method, destination, and current warehouse stock
+levels.
+
+![Content enricher example](./imgs/content-enricher-example.drawio.png)
+
+The content enricher pattern is similar to the message translator pattern, with
+one key difference: while the translator focuses on transforming the format or
+structure of data that is already present in the message, the content enricher
+addresses situations where the message itself lacks some of the required
+information. This missing information is retrieved from external systems or
+resources and added to the message to ensure that the receiving system can
+process it effectively.
+
+![Content enricher](./imgs/content-enricher.drawio.png)
+
+The content enricher performs the following steps:
+
+1. It uses information from the incoming message to retrieve the missing data
+   from an external resource. Possible sources for the missing data are:
+   - Computation by the content enricher (e.g. calculating a IBAN from a
+     account number and a BIC)
+   - Environment (e.g. get the current time stamp from the system)
+   - Other system
+2. It appends the retrieved data to the message. The data from the incoming
+   message might be carried over or discarded.
+
+A common use case for the content enricher is to resolve references. Instead of
+sending complex object in a messages only a reference to the object is added to
+the message. The content enricher is then used to retrieve the necessary
+information form the system containing the objects' details.
+
+### Content filter
+
+> **Problem statement**
+>
+> How can unnecessary or sensitive data be removed from a message before it is
+> sent to the receiving system, ensuring the message contains only the relevant
+> information?
+
+In enterprise integration scenarios, messages often include additional data
+that may not be relevant for all consumers. This can lead to inefficiencies,
+increased processing times, or even data leaks when sensitive information is
+exposed to systems that do not need it. The content filter pattern solves this
+problem by removing irrelevant or sensitive data from the message, leaving only
+the required content for the receiving system. This also helps to keep visual
+mapping tools usable. This tools work well for smaller message but become
+difficult to work with for lager messages.
+
+![Content filter](./imgs/content-filter.drawio.png)
+
+Furthermore, content filters not necessarily remove the data but can
+be used to flatten complex message structures into simpler ones.
+
+#### Relation to other patterns
+
+Multiple content filters can be used to implement a static splitter.
+
+![Static splitter using content filter](./imgs/static-splitter.drawio.png)
+
+### Normalizer
+
+> **Problem statement**
+>
+> How can messages from different sources with varying formats or structures be
+> standardized to enable consistent processing by the receiving system?
+
+In enterprise integration scenarios, systems often receive messages from
+multiple sources, each using its own unique format, structure, or conventions.
+Without a consistent format, the receiving system would need to implement
+custom handling logic for each source, increasing complexity and reducing
+maintainability. The normalizer pattern solves this problem by transforming
+messages into a standardized format, ensuring that the receiving system can
+process them uniformly.
+
+#### Example: normalizing sales data from multiple regions
+
+Consider a multinational company with sales data coming from regional offices
+in different formats. For instance:
+
+- The European office sends sales data in XML with amounts in euros.
+- The North American office uses JSON with amounts in US dollars.
+- The Asian office sends CSV files with amounts in local currencies.
+
+To generate consolidated reports, the central analytics system requires all
+sales data to be in JSON format with amounts normalized to a common currency
+(e.g., euros).
+
+- European office (XML):
+
+  ```xml
+  <Sale>
+      <Region>Europe</Region>
+      <Amount currency="EUR">1000</Amount>
+      <Date>2024-11-30</Date>
+  </Sale>
+  ```
+
+- North American office (JSON):
+
+  ```json
+  {
+    "region": "North America",
+    "amount": {
+      "currency": "USD",
+      "value": 1200
+    },
+    "date": "2024-11-30"
+  }
+  ```
+
+- Asian office (CSV):
+
+  ```csv
+  Region,Amount (Local),Currency,Date
+  Asia,150000,JPY,2024-11-30
+  ```
+
+The normalizer transforms these varied formats into a common JSON format with
+amounts converted to euros:
+
+**Normalized message:**
+
+```json
+{
+  "region": "Europe",
+  "amount": 1000,
+  "currency": "EUR",
+  "date": "2024-11-30"
+}
+```
+
+#### The normalizer pattern
+
+The normalizer uses a message router together with several message translators to
+convert the incoming messages from different sources into a common format.
+
+![Normalizer details](./imgs/normalizer-details.drawio.png)
+
+As this is a common pattern in integration scenarios there is also a special icon
+for the normalizer.
+
+![Normalizer icon](./imgs/normalizer.drawio.png)
 
 🏠 [Overview](../README.md) | [< Previous
 Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
