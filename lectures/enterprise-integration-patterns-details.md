@@ -42,7 +42,17 @@
       - [Chaining transformations](#chaining-transformations)
         - [Chaining example](#chaining-example)
       - [Visual mapping tools](#visual-mapping-tools)
-  - [Navigation](#navigation)
+    - [Content enricher](#content-enricher)
+      - [Example: enriching an order confirmation with delivery details](#example-enriching-an-order-confirmation-with-delivery-details)
+    - [Content filter](#content-filter)
+      - [Relation to other patterns](#relation-to-other-patterns)
+    - [Normalizer](#normalizer)
+      - [Example: normalizing sales data from multiple regions](#example-normalizing-sales-data-from-multiple-regions)
+      - [The normalizer pattern](#the-normalizer-pattern)
+    - [Canonical data model](#canonical-data-model)
+      - [The challenge of point-to-point integrations](#the-challenge-of-point-to-point-integrations)
+      - [Challenges in creating a canonical data model](#challenges-in-creating-a-canonical-data-model)
+      - [Possible approaches for implementing a canonical data model](#possible-approaches-for-implementing-a-canonical-data-model)
   - [References](#references)
   <!--toc:end-->
 
@@ -1107,6 +1117,110 @@ system added requires new transformations to and from every other system,
 compounding the development and maintenance effort.
 
 ![Number of transformations required with 5 systems](./imgs/large-number-of-connections.drawio.png)
+
+A canonical data model addresses this challenge by acting as a common language
+for all systems. Instead of creating direct transformations between every pair
+of systems, each system only transforms its data into and out of the canonical
+format. This approach reduces the number of required transformations. While
+there is still a linear increase in transformations as systems are added, the
+complexity is far lower compared to a fully connected graph.
+
+#### Challenges in creating a canonical data model
+
+Despite its advantages, establishing a canonical data model is often a complex
+and resource-intensive process. Many organizations struggle to create an common
+data model. Most large companies have at least one failed attempt at creating
+one. Some of the common challenges for a canonical data model are:
+
+1. High initial investment
+
+   Developing a canonical data model requires significant time and effort.
+   Stakeholders must agree on common definitions for all data entities, which
+   can involve extensive collaboration across departments and systems.
+
+2. Complexity of system landscape
+
+   Enterprises often have diverse legacy systems with complex data structures.
+   Adapting these systems to fit a canonical model can be costly and
+   technically challenging.
+
+3. Evolving business requirements
+
+   Enterprises operate in dynamic environments where requirements can change
+   rapidly. A canonical data model designed today may become outdated as new
+   systems are introduced or business pprocesses evolve, requiring continuous
+   updates.
+
+4. Diverse interpretations of data (bounded contexts)
+
+   One of the most significant challenges in creating a canonical data model is
+   defining a common language that works across all systems and business
+   processes. Data entities, such as "customer," "order," or "product," are
+   often interpreted differently by various departments or systems. For example:
+
+   - In sales, a "customer" might include personal details like name, email,
+     and purchase history.
+   - In logistics, a "customer" might focus on delivery information like
+     addresses and contact numbers.
+   - In finance, a "customer" might represent an invoicing entity with tax
+     identifiers and payment terms.
+
+   This issue becomes apparent when analysing the complex data models of large
+   ERP systems. Attempting to enforce a single universal definition for such
+   entities can lead to overly complex models that fail to meet the specific
+   needs of any department. This issue is exacerbated in large organizations
+   with varied processes and regional differences.
+
+#### Possible approaches for implementing a canonical data model
+
+Successfully implementing a canonical data model requires addressing its
+inherent challenges with practical and flexible strategies. Instead of
+attempting a comprehensive solution from the outset, organizations can adopt
+incremental and targeted approaches to mitigate complexity and improve the
+chances of success. Below are some possible approaches:
+
+1. Start small
+
+   One of the most effective ways to manage the complexity of a canonical data
+   model is to start small and expand incrementally:
+
+   - Focus on high-priority entities: Begin with a limited scope by modeling only
+     the most critical or frequently exchanged data entities (e.g., "customer,"
+     "order," or "invoice").
+   - Incremental development: Extend the model over time as new needs arise,
+     rather than attempting to define all entities and relationships at once.
+   - Early wins: Demonstrating success in a smaller scope builds confidence and
+     buy-in from stakeholders, creating momentum for further adoption.
+
+2. Just a data model for the exchanged data
+
+   Rather than modeling all data entities comprehensively across all systems,
+   focus the CDM specifically on the data exchanged between systems. This
+   simplifies implementation and avoids unnecessary complexity:
+
+   - Interface-focused design: Define the canonical format only for the data
+     fields that need to be exchanged, leaving internal system representations
+     untouched.
+   - Flexibility: By limiting the scope to exchanged data, organizations can adapt
+     more easily to evolving requirements without overhauling internal systems.
+
+3. Leverage bounded contexts
+
+   To address the challenge of reconciling diverse interpretations of data
+   entities, organizations can apply the concept of bounded contexts from
+   Domain-Driven Design. This approach allows different systems or departments to
+   define entities according to their specific needs while maintaining an
+   overarching structure:
+
+   - Context-specific definitions: Each system or process defines its own
+     representation of an entity (e.g., "customer" in sales vs. "customer" in
+     logistics).
+   - Linking contexts: Use mappings or transformations to translate between
+     representations in different contexts, ensuring consistency across the
+     organization.
+   - Adaptability: Bounded contexts make it easier to accommodate differences in
+     terminology, attributes, and requirements without forcing a universal
+     definition.
 
 🏠 [Overview](../README.md) | [< Previous
 Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
