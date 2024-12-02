@@ -1073,6 +1073,41 @@ for the normalizer.
 
 ![Normalizer icon](./imgs/normalizer.drawio.png)
 
+### Canonical data model
+
+In enterprise integration scenarios, organizations often rely on multiple
+systems that must exchange data. Each system may use its own format, structure,
+or semantics, leading to a rapidly growing complexity of transformations
+required for communication. This complexity can be visualized as a fully
+connected graph, where each system is a node, and each edge represents a
+transformation between two systems.
+
+#### The challenge of point-to-point integrations
+
+In a fully connected graph with $n$ nodes (systems), the number of edges
+(transformations) grows quadratically according to the formula:
+
+```math
+$$
+E = \frac{n(n-1)}{2}
+$$
+```
+
+This formula highlights how the number of transformations escalates as new
+systems are added:
+
+- For $n=3$ systems, $E=\frac{3(3-1)}{2}=3$ transformations.
+- For $n=4$ systems, $E=\frac{4(4-1)}{2}=6$ transformations.
+- For $n=5$ systems, $E=\frac{5(5-1)}{2}=10$ transformations.
+- For $n=10$ systems, $E =\frac{10(10-1)}{2}=45$ transformations.
+
+As the number of systems increases, the integration complexity grows
+quadratically, making the landscape increasingly difficult to manage. Each
+system added requires new transformations to and from every other system,
+compounding the development and maintenance effort.
+
+![Number of transformations required with 5 systems](./imgs/large-number-of-connections.drawio.png)
+
 🏠 [Overview](../README.md) | [< Previous
 Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
 ](./reliability-performance.md)
