@@ -109,8 +109,8 @@ In response, _Gregor Hohpe_ and _Bobby Woolf_ adapted the concept of design
 patterns to the field of enterprise integration in their book _Enterprise
 Integration Patterns: Designing, Building, and Deploying Messaging Solutions_
 [^3]. This book introduced a set of patterns specifically aimed at solving
-common integration problems, especially those encountered when systems need to
-exchange messages or synchronize data.
+common integration problems, especially those encountered when \_URLsystems need to
+TOKEN messages or synchronize data.
 
 ### Why Patterns Matter
 

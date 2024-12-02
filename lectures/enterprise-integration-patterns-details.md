@@ -53,6 +53,11 @@
       - [The challenge of point-to-point integrations](#the-challenge-of-point-to-point-integrations)
       - [Challenges in creating a canonical data model](#challenges-in-creating-a-canonical-data-model)
       - [Possible approaches for implementing a canonical data model](#possible-approaches-for-implementing-a-canonical-data-model)
+  - [Messaging endpoints](#messaging-endpoints)
+    - [Messaging gateway](#messaging-gateway)
+    - [Transactional client](#transactional-client)
+    - [Polling consumer](#polling-consumer)
+    - [Event-driven consumer](#event-driven-consumer)
   - [References](#references)
   <!--toc:end-->
 
@@ -1221,6 +1226,149 @@ chances of success. Below are some possible approaches:
    - Adaptability: Bounded contexts make it easier to accommodate differences in
      terminology, attributes, and requirements without forcing a universal
      definition.
+
+## Messaging endpoints
+
+Messaging endpoints are the connection points where applications interact with
+a messaging system to send or receive messages. They play a crucial role in
+enterprise integration by enabling applications to communicate asynchronously
+and reliably, even in distributed environments. This section discusses four key
+messaging endpoint patterns: messaging gateway, transactional client,
+polling consumer, and event-driven consumer. Each pattern is introduced
+with a problem statement and explained in detail.
+
+### Messaging gateway
+
+> **Problem statement**
+>
+> How can an application interact with a messaging system without being tightly
+> coupled to its implementation?
+
+Directly integrating an application with a messaging system can lead to tight
+coupling, making the application dependent on the specific API of the messaging
+infrastructure. This increases complexity and reduces
+flexibility, especially when migrating to a new messaging system or supporting
+multiple protocols.
+
+![Messaging gateway](./img/messaging-gateway.drawio.png)
+
+A messaging gateway serves as an abstraction layer between the application and
+the messaging system. It provides a simplified interface for sending and
+receiving messages, hiding the underlying complexity of the messaging
+infrastructure. Key benefits:
+
+- Decouples the application from the messaging system.
+- Exposes business functionality to the application
+
+Messaging gateways often send messages to other systems and expect a reply (cf.
+request-reply pattern). Such a messaging gateway can be implemented as a
+synchronous or an asynchronous messaging gateway.
+
+### Transactional client
+
+> **Problem statement**
+>
+> How can an application ensure reliable message delivery and processing while
+> maintaining consistency across multiple operations in a larger transactional
+> context?
+
+Messaging systems are inherently transactional to guarantee the reliable
+delivery and processing of messages. For example:
+
+- In a publish-subscribe channel, the messaging system needs to ensure that all
+  subscribers receive a message.
+- In a point-to-point channel, the messaging system needs to ensure that a
+  message is delivered to exactly one consumer.
+
+While these guarantees are sufficient for simple message delivery scenarios,
+there are use cases where clients require broader transactional context.
+Examples for such use cases are:
+
+1. Database updates triggered by messages
+
+   When a message arrives via a channel adapter, the application may need to
+   update a database with information from the message. If the database update
+   fails, the message must not be marked as processed to ensure it can be
+   retried later.
+
+2. Coordination of messages with workflows
+
+   In complex workflows, multiple messages may need to be coordinated to
+   complete a single task. The transactional client ensures that messages are
+   processed or sent as part of the workflow without leaving the system in an
+   inconsistent state.
+
+3. Message-driven orchestration
+
+   Applications that orchestrate actions across multiple systems based on
+   incoming messages may require transactional consistency to ensure that
+   partially processed workflows can be rolled back.
+
+![Transactional client](./imgs/transactional-client.drawio.png)
+
+A transactional client extends the messaging system’s transactional guarantees
+by integrating messaging operations into the application’s transactional
+boundaries. This allows messaging actions (e.g., sending, receiving) to
+participate in distributed transactions alongside other operations like
+database updates or external service calls. The transactional client ensures
+atomicity across all operations in the transaction:
+
+1. Begin transaction
+
+   The application (transactional sender) or the messaging
+   system (transactional receiver) start a transactional context.
+
+2. Perform operations
+
+   - Receive or send messages through the messaging system.
+   - Perform related operations such as database updates or service calls.
+
+3. Commit or rollback
+
+   - If all operations succeed, the transaction is committed, ensuring changes
+     are permanent, and messages are acknowledged (transactional receiver) or
+     sent (transactional sender).
+   - If any operation fails, the transaction is rolled back, and all changes
+     are reverted. Messages are not send or are not acknowledged
+
+### Polling consumer
+
+> **Problem statement**
+>
+> How can the application controls when and how often it processes messages?
+
+In many enterprise scenarios, applications do not need to react to messages
+immediately as they arrive. Instead, they may process messages in batches,
+during specific time windows, or based on their own operational schedule.
+Without a mechanism for controlled retrieval, the application might remain idle
+while continuously listening for messages, wasting resources.
+
+A polling consumer retrieves messages by periodically checking (polling) a
+queue or topic for new messages. This pattern gives the application full
+control over when and how often it processes messages, making it ideal for
+scenarios where immediate processing is unnecessary or resource availability
+varies over time.
+
+![Polling consumer](./imgs/polling-consumer.drawio.png)
+
+### Event-driven consumer
+
+> **Problem statement**
+>
+> How can an application process messages as soon as they become available to
+> enable real-time responsiveness?
+
+The main drawback of a polling consumer is that it repeatedly queries the
+messaging system for new messages, even when there are none to process. This
+continuous polling consumes unnecessary resources and introduces
+inefficiencies, especially in systems with infrequent message arrivals.
+
+A better approach is for the messaging system to notify the application when a
+message becomes available. This is the essence of the event-driven consumer.
+The messaging system invokes the event-driven consumer whenever a message
+arrived. The event driven consumer uses an application specific API to process the message.
+
+![Event-driven consumer](./imgs/event-drivenconsumer.drawio.png)
 
 🏠 [Overview](../README.md) | [< Previous
 Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
