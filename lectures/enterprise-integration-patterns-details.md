@@ -13,7 +13,7 @@
       - [Event messages](#event-messages)
       - [MQTT](#mqtt)
     - [Datatype channel](#datatype-channel)
-      - [**Example of a Data Type Channel**](#example-of-a-data-type-channel)
+      - [Example of a Data Type Channel](#example-of-a-data-type-channel)
     - [Guaranteed Delivery](#guaranteed-delivery)
     - [Channel Adapter](#channel-adapter)
       - [Channel adapter and application layers](#channel-adapter-and-application-layers)
@@ -195,7 +195,7 @@ on the type of data they carry. By assigning each message type to its own
 channel, the sender knows the type of message based on the channel through
 which it is sent.
 
-#### **Example of a Data Type Channel**
+#### Example of a Data Type Channel
 
 Consider a Web shop that sends different types of messages to an ERP
 system:
@@ -586,6 +586,168 @@ additional channels and messages needed for the state request and state reply.
 
   Event Messages are commonly used with Publish-Subscribe Channels to broadcast
   events to multiple systems.
+
+### Request-reply
+
+> Problem statement
+>
+> How can two systems communicate when the requester needs a response to its
+> request? How does the receiver know where to send a reply?
+
+In many enterprise integration scenarios, one system must send a request to
+another system and wait for a response. This is a common pattern for tasks like
+querying a database, validating a transaction, or retrieving data from a
+service. The request-reply pattern addresses this by using two messages:
+one for the request and another for the reply.
+
+A key feature of this pattern is the inclusion of the reply channel address in
+the message header. This informs the receiving system where to send the reply.
+Using this approach keeps the systems loosely coupled as the reply information
+address is only read from the message and not hard coded or configured in
+advance.
+
+![Request reply message](./imgs/request-reply.drawio.png)
+
+The request-reply pattern typically consists of the following steps:
+
+1. The requester sends a command message to a point-to-point channel, including
+   the address of the reply channel in the message header.
+2. The receiver processes the message and sends a document message containing
+   the result to the specified reply channel.
+3. The requester uses the reply channel to receive the response. Optionally,
+   the receiver is correlating the response to the original request using a
+   correlation identifier.
+
+#### Example of request-reply
+
+An ERP system queries a financial service for the latest currency exchange rates.
+
+1. Request message (sent by the ERP system):
+
+   ```json
+   {
+     "command": "GetExchangeRate",
+     "data": {
+       "currencyFrom": "USD",
+       "currencyTo": "EUR"
+     },
+     "headers": {
+       "replyChannel": "currency-exchange-reply-queue-erp",
+       "correlationId": "REQ-12345"
+     }
+   }
+   ```
+
+2. Reply message (sent by the financial service to the specified reply channel):
+
+   ```json
+   {
+     "data": {
+       "currencyFrom": "USD",
+       "currencyTo": "EUR",
+       "exchangeRate": 0.93
+     },
+     "headers": {
+       "correlationId": "REQ-12345"
+     }
+   }
+   ```
+
+#### Relation to other patterns
+
+- Command message:
+
+  The request in the request-reply pattern is typically encapsulated as a
+  command message.
+
+- Document message:
+
+  The reply is usually a document message containing the requested data or
+  operation result.
+
+- Correlation identifier:
+
+  The correlation identifier in the request and reply headers ties the response
+  to the corresponding request.
+
+- Point-to-point channel:
+
+  Both the request and reply messages are sent via point-to-point channels to
+  ensure exclusive consumption.
+
+### Correlation identifier
+
+> Problem statement
+>
+> How can a requester match a response to in a channel to a specific request?
+
+In distributed systems, multiple requests may be in progress simultaneously,
+and each response must be matched to its corresponding request. The
+correlation identifier solves this problem by assigning a unique identifier
+to each request, which is included in both the request and response messages.
+
+![Correlation identifier](./imgs/correlation-identifier.drawio.png)
+
+Communication using a correlation identifier usually consists of the following steps:
+
+1. Assign a unique identifier:
+
+   The requester generates a unique correlation identifier and includes it in
+   the request message.
+
+2. Include the same identifier in the response:
+
+   The receiver processes the request and includes the same correlation
+   identifier in the response message.
+
+3. Match the response to the request:
+
+   The requester uses the correlation identifier to associate the response with
+   the original request.
+
+The correlation identifier is often implemented using a message header field.
+Furthermore, a message might use separate message and correlation identifiers
+to allow message chaining.
+
+#### Relation to other patterns
+
+- Request-reply:
+
+  The correlation identifier is essential for matching replies with their
+  corresponding requests in the request-reply pattern.
+
+- Point-to-point channel:
+
+  Responses are usually sent via point-to-point channels, ensuring exclusive
+  delivery of the message to the intended recipient.
+
+By including a **correlation identifier**, distributed systems can handle
+concurrent requests and responses reliably, ensuring that each response is
+processed in the correct context.
+
+### Message expiration
+
+> Problem statement
+>
+> How can a sender indicate that message that a message should not be processed
+> after a certain period or date?
+
+In distributed systems, some messages have a limited period of relevance. For
+instance, time-sensitive data like stock prices, flight availability, or
+temporary discounts may lose their value after a certain point. Processing
+outdated messages can lead to incorrect decisions or wasted resources. The
+message expiration pattern ensures that such messages are discarded when they
+are no longer useful. Furthermore, in a messaging system there is no way the
+sender can cancel a request once it is send. The message expiration pattern
+solve this problem by assigning an expiration time to the message.
+
+![Message expiration pattern](./imgs/message-expiration.drawio.png)
+
+In the message expiration pattern, the sender assigns an expiration timestamp
+or duration to the message, indicating how long the message remains valid. If
+the message is not delivered or consumed within the expiration time the
+messaging system might either discards the message or sends it to a dead
+message channel.
 
 ## Message routing patterns - Reading Week Task
 
