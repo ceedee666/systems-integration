@@ -1418,7 +1418,7 @@ infrastructure. This increases complexity and reduces
 flexibility, especially when migrating to a new messaging system or supporting
 multiple protocols.
 
-![Messaging gateway](./img/messaging-gateway.drawio.png)
+![Messaging gateway](./imgs/messaging-gateway.drawio.png)
 
 A messaging gateway serves as an abstraction layer between the application and
 the messaging system. It provides a simplified interface for sending and
