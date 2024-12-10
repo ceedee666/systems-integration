@@ -1536,7 +1536,7 @@ message becomes available. This is the essence of the event-driven consumer.
 The messaging system invokes the event-driven consumer whenever a message
 arrived. The event driven consumer uses an application specific API to process the message.
 
-![Event-driven consumer](./imgs/event-drivenconsumer.drawio.png)
+![Event-driven consumer](./imgs/event-driven-consumer.drawio.png)
 
 🏠 [Overview](../README.md) | [< Previous
 Chapter](./enterprise-integration-patterns.md) | [Next Chapter >
