@@ -51,6 +51,9 @@ scenarios.
 3. M. van Steen and A. S. Tanenbaum, Distributed Systems, Fourth edition,
    Version 4.01 (January 2023). Maarten van Steen, 2023.
    [Online](https://www.distributed-systems.net/index.php/books/ds4/)
+4. M. Kleppmann, Designing data-intensive applications: the big ideas behind
+   reliable, scalable, and maintainable systems, First edition. Beijing Boston
+   Farnham Sebastopol Tokyo: O’Reilley, 2017.
 
 ## Additional course material
 
