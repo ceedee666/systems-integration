@@ -174,7 +174,7 @@ $$
 $$
 ```
 
-By substituting $\frac{dN_1(t)}{dt} = -N\frac{dR(t){dt}$ we get:
+By substituting $\frac{dN_1(t)}{dt} = -N\frac{dR(t)}{dt}$ we get:
 
 ```math
 $$
