@@ -149,3 +149,4 @@ component is defined as \( A(\infty) \).
     M. Kleppmann, Designing data-intensive applications: the big ideas behind
     reliable, scalable, and maintainable systems, First edition. Beijing Boston
     Farnham Sebastopol Tokyo: O’Reilley, 2017.
+```
