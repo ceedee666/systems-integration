@@ -166,7 +166,7 @@ R(t) = \frac{N_0(t)}{N} = \frac{N - N_1(t)}{N} = 1 - \frac{N_1(t)}{N}
 $$
 ```
 
-Differentiate both sides with respect to \( t \):
+Differentiate both sides with respect to $t$:
 
 ```math
 $$
