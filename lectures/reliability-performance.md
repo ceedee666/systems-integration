@@ -67,109 +67,111 @@ brings flexibility and enables scalability, it also introduces a higher degree
 of complexity and vulnerability to failures. In this section fault tolerance
 for distributed systems is discussed in detail.
 
-Fault tolerance is a term closely related to dependability. In the context of distributed systems dependability includes the following concepts [^1]:
+Fault tolerance is a term closely related to dependability. In the context of
+distributed systems dependability includes the following concepts [^1]:
 
 - Availability
 - Reliability
 - Safety
 - Maintainability
 
-### Availability
+### Definitions
 
-> **Definition**
+> **Availability**
 >
 > Availability is the probability that a system is operational and accessible at
 > a given point in time. It reflects the system's readiness to deliver its
 > intended functionality whenever required.Key considerations:
 
-Availability is typically expressed as a percentage, calculated using the formula:
+Availability is typically expressed as a percentage. For example [^2]:
 
-```math
-$$
-Availability = \frac{Uptime}{Uptime + Downtime} \times 100
-$$
-```
+- A system with 99.9% availability (commonly known as "three nines") allows for
+  approximately 8.76 hours of downtime per year.
+- A system with 99.99% availability ("four nines") reduces downtime to around
+  52.6 minutes per year.
 
-Availability=UptimeUptime+Downtime×100
-Availability=Uptime+DowntimeUptime​×100
+> **Reliability**
+>
+> Reliability measures the ability of a system to perform its intended function
+> without failure over a specific period. It focuses on consistent operation
+> rather than immediate recovery.
 
-For example:
+A highly reliable systems is one that works without interruption for a long
+period of time. As an example consider a system that fails randomly for 1 ms
+every hour. The availability of the system is still above 99.999%. However, the
+reliability is low. In contrast, a system that never fails but is shout down
+for 2 planned weeks every year has a high reliability, but only an availability
+of about 96%.
 
-    A system with 99.9% availability (commonly known as "three nines") allows for approximately 8.76 hours of downtime per year.
-    A system with 99.99% availability ("four nines") reduces downtime to around 52.6 minutes per year.
+> **Safety**
+>
+> Safety ensures that a system operates without causing unacceptable risks or
+> harm.
 
-- Redundancy: Use of failover mechanisms or redundant components to minimize
-  downtime.
-- Monitoring: Real-time detection and response to issues.
-- Load balancing: Distributing requests across multiple servers to prevent
-  overloading.
+This is particularly crucial in high risk scenarios e.g. aviation or process
+control. A failing control system of a nuclear power plant could e.g. cause
+catastrophic consequences.
 
-Example in integration: An e-commerce platform must ensure its payment gateway
-remains available during high traffic events like Black Friday.
+> **Maintainability**
+>
+> Maintainability is the ease with which a system can be repaired or updated to
+> restore functionality or improve performance.
 
-### Reliability
+### Exercise / Discussion
 
-Definition: Reliability measures the ability of a system to perform its
-intended function without failure over a specific period. It focuses on
-consistent operation rather than immediate recovery.
+For each of the mentioned aspects identify are real-world example in which this
+aspect is crucial. For each scenario:
 
-Key considerations:
-
-- Error handling: Mechanisms to detect and address errors without compromising
-  the system.
-- Data integrity: Ensuring data remains accurate and consistent across
-  integrations.
-- Testing: Regular stress testing to identify potential weaknesses.
-
-Example in integration: A supply chain system must reliably synchronize
-inventory data across warehouses and stores.
-
----
-
-### Safety
-
-Definition: Safety ensures that a system operates without causing unacceptable
-risks or harm. This is particularly crucial in domains like healthcare or
-aviation.
-
-Key considerations:
-
-- Fail-safe mechanisms: Designing systems to enter a safe state in case of
-  failure.
-- Error isolation: Ensuring faults in one component do not propagate to others.
-- Compliance: Adhering to industry standards and regulations.
-
-Example in integration: A healthcare system must prevent incorrect medication
-dosages due to integration errors between prescription and dispensing systems.
-
----
-
-### Maintainability
-
-Definition: Maintainability is the ease with which a system can be repaired or
-updated to restore functionality or improve performance.
-
-Key considerations:
-
-- Modular design: Simplifying updates and replacements by isolating components.
-- Documentation: Providing detailed records of system configurations and
-  integrations.
-- Monitoring tools: Enabling quick diagnosis of issues through effective
-  monitoring.
-
-Example in integration: A content management system (CMS) should allow seamless
-integration with new plugins or APIs without major rework.
-
----
-
-Interactive Discussion:
-
-- Discuss real-world examples where each aspect is critical.
+- Identify a possible approach to increase the crucial aspect.
 - Highlight trade-offs: For instance, achieving high availability might
   increase complexity, impacting maintainability.
 
-By covering these aspects, students can understand the multi-dimensional
-approach required to design robust and fault-tolerant integrations.
+In the following we use the formal definitions given in [^1]. The **availability** \( A(t) \) of a component in the time interval
+\([0, t)\) is defined as the average fraction of time that the component has
+been functioning correctly during that interval. The long-term availability \(
+A \) of a component is defined as \( A(\infty) \).
+
+Likewise, the **reliability** \( R(t) \) of a component in the time interval \([0, t)\) is formally defined as the conditional probability that it has been functioning correctly during that interval, given that it was functioning correctly at time \( T = 0 \).
+
+Following Pradhan [1996], to establish \( R(t) \), we consider a system of \( N \) identical components. Let \( N_0(t) \) denote the number of correctly operating components at time \( t \), and \( N_1(t) \) the number of failed components. Then, clearly:
+
+\[
+R(t) = \frac{N_0(t)}{N} = 1 - \frac{N_1(t)}{N} = \frac{N_0(t)}{N_0(t) + N_1(t)}
+\]
+
+The rate at which components are failing can be expressed as the derivative \( \frac{dN_1(t)}{dt} \). Dividing this by the number of correctly operating components at time \( t \) gives us the failure rate function \( z(t) \):
+
+\[
+z(t) = \frac{1}{N_0(t)} \frac{dN_1(t)}{dt}
+\]
+
+From:
+
+\[
+\frac{dR(t)}{dt} = -\frac{1}{N} \frac{dN_1(t)}{dt}
+\]
+
+it follows that:
+
+\[
+z(t) = \frac{1}{N_0(t)} \frac{dN_1(t)}{dt} = -\frac{1}{R(t)} \frac{dR(t)}{dt}
+\]
+
+If we make the simplifying assumption that a component does not age (and thus essentially has no wear-out phase), its failure rate will be constant, i.e., \( z(t) = z \), implying that:
+
+\[
+\frac{dR(t)}{dt} = -zR(t)
+\]
+
+Because \( R(0) = 1 \), we obtain:
+
+\[
+R(t) = e^{-zt}
+\]
+
+In other words, if we ignore aging of a component, we see that a constant failure rate leads to a reliability function described by an exponential decay.
+
+```
 
 ## Navigation
 
@@ -182,7 +184,10 @@ approach required to design robust and fault-tolerant integrations.
     Version 4.01 (January 2023). Maarten van Steen, 2023.
     [Online](https://www.distributed-systems.net/index.php/books/ds4/)
 
-[^2]:
+[^2]: https://en.wikipedia.org/wiki/High_availability
+
+[^3]:
     M. Kleppmann, Designing data-intensive applications: the big ideas behind
     reliable, scalable, and maintainable systems, First edition. Beijing Boston
     Farnham Sebastopol Tokyo: O’Reilley, 2017.
+```
