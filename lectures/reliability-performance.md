@@ -127,10 +127,10 @@ aspect is crucial. For each scenario:
   increase complexity, impacting maintainability.
 
 In the following we use the formal definitions given in [^1]. The
-availability $A(t)$ of a component in the time interval \([0, t)\) is
+availability $A(t)$ of a component in the time interval $[0, t)$ is
 defined as the average fraction of time that the component has been functioning
-correctly during that interval. The long-term availability \( A \) of a
-component is defined as \( A(\infty) \).
+correctly during that interval. The long-term availability $A$ of a
+component is defined as $A(\infty)$.
 
 ## Navigation
 
