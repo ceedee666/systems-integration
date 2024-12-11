@@ -132,6 +132,84 @@ defined as the average fraction of time that the component has been functioning
 correctly during that interval. The long-term availability $A$ of a
 component is defined as $A(\infty)$.
 
+Reliability $R(t)$ of a component in the time interval
+$[0, t)$ is formally defined as the conditional probability that it has been
+functioning correctly during that interval, given that it was functioning
+correctly at time $ T = 0 $.
+
+Consider a system of $N$ identical components. Let $N_0(t)$ denote the number
+of correctly operating components at time $t$, and $N_1(t)$ the number of
+failed components.
+
+```math
+$$
+R(t) = \frac{N_0(t)}{N} = 1 - \frac{N_1(t)}{N} = \frac{N_0(t)}{N_0(t) + N_1(t)}
+$$
+```
+
+The rate at which components are failing can be expressed as
+$\frac{dN_1(t)}{dt}$. Dividing this by the number of correctly operating
+components at time $t$ gives us the failure rate function $z(t)$:
+
+```math
+$$
+z(t) = \frac{1}{N_0(t)} \frac{dN_1(t)}{dt}
+$$
+```
+
+Since $N = N_0(t) + N_1(t)$, we can write:
+
+```math
+$$
+R(t) = \frac{N_0(t)}{N} = \frac{N - N_1(t)}{N} = 1 - \frac{N_1(t)}{N}
+
+$$
+```
+
+Differentiate both sides with respect to \( t \):
+
+```math
+$$
+\frac{dR(t)}{dt} = 0 - \frac{1}{N} \frac{dN_1(t)}{dt} = = -\frac{1}{N} \frac{dN_1(t)}{dt}
+$$
+```
+
+By substituting $\frac{dN_1(t)}{dt} = -N\frac{dR(t){dt}$ we get:
+
+```math
+$$
+z(t) = -\frac{N}{NR(t)}\frac{dR(t)}{dt} = -\frac{1}{R(t)} \frac{dR(t)}{dt}.
+$$
+```
+
+If we assume the failure rate $z(t)$ is constant over time $z(t) = z$, we
+rewrite the equation as:
+
+```math
+$$
+\frac{dR(t)}{dt} = -zR(t).
+$$
+```
+
+This differential equation describes the rate at which reliability decreases
+over time. With $ R(0) = 1$ (i.e. the system starts fully operational), we get:
+
+```math
+$$
+R(t) = e^{-zt}.
+$$
+```
+
+The solution $R(t) = e^{-zt}$ shows:
+
+- Reliability decreases exponentially over time when the failure rate $z$ is
+  constant.
+- The system follows an exponential distribution, which models the time between
+  events (failures) in a memoryless process.
+
+This result is a fundamental property of systems with constant failure rates
+and reflects their reliability over time.
+
 ## Navigation
 
 🏠 [Overview](../README.md) | [< Previous Chapter](./enterprise-integration-patterns-details.md)
