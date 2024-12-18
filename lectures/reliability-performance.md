@@ -156,7 +156,7 @@ component is defined as $A(\infty)$.
 Reliability $R(t)$ of a component in the time interval
 $[0, t)$ is formally defined as the conditional probability that it has been
 functioning correctly during that interval, given that it was functioning
-correctly at time $ T = 0 $.
+correctly at time $T = 0$.
 
 Consider a system of $N$ identical components. Let $N_0(t)$ denote the number
 of correctly operating components at time $t$, and $N_1(t)$ the number of
