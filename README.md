@@ -41,6 +41,10 @@ scenarios.
    SAP integration suite
 6. Exchange data using [messages](./lab/messaging.md)
 
+## Term paper
+
+1. Task description for the [term paper](./term-paper/term-paper.md).
+
 ## Readings list
 
 1. S. Rinderle-Ma, J. Mangler, and D. Ritter, _Fundamentals of Information
