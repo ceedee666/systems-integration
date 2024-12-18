@@ -1,5 +1,24 @@
 # Reliability and performance
 
+<!--toc:start-->
+
+- [Reliability and performance](#reliability-and-performance)
+  - [Side note: Understanding computer time on a human scale](#side-note-understanding-computer-time-on-a-human-scale)
+    - [Exercise: Scaling computer times to human scale](#exercise-scaling-computer-times-to-human-scale)
+    - [Solution](#solution)
+  - [Fault tolerance](#fault-tolerance)
+    - [Definitions](#definitions)
+    - [Exercise / Discussion](#exercise-discussion)
+    - [Formal Definitions](#formal-definitions)
+    - [Relationship Between Availability, MTBF, and MTTR](#relationship-between-availability-mtbf-and-mttr)
+    - [Difference and Relation Between Fault, Error, and Failure](#difference-and-relation-between-fault-error-and-failure)
+      - [Example Scenario](#example-scenario)
+      - [Types of faults](#types-of-faults)
+      - [Types of failures](#types-of-failures)
+  - [Navigation](#navigation)
+  - [References](#references)
+  <!--toc:end-->
+
 ## Side note: Understanding computer time on a human scale
 
 In modern computing, operations happen incredibly fast, often measured in
@@ -126,6 +145,8 @@ aspect is crucial. For each scenario:
 - Highlight trade-offs: For instance, achieving high availability might
   increase complexity, impacting maintainability.
 
+### Formal Definitions
+
 In the following we use the formal definitions given in [^1]. The
 availability $A(t)$ of a component in the time interval $[0, t)$ is
 defined as the average fraction of time that the component has been functioning
@@ -209,6 +230,232 @@ The solution $R(t) = e^{-zt}$ shows:
 
 This result is a fundamental property of systems with constant failure rates
 and reflects their reliability over time.
+
+### Relationship Between Availability, MTBF, and MTTR
+
+Availability $A$ can also be expressed using the metrics Mean Time Between
+Failures (MTBF) and Mean Time To Repair (MTTR). Theses two metrics are defined
+as follows:
+
+- Mean Time Between Failures (MTBF): The average time a system operates
+  correctly between two consecutive failures.
+- Mean Time To Repair (MTTR): The average time required to repair a system and
+  restore it to an operational state after a failure.
+
+Availability $A$ is the fraction of time a system is operational. It can be
+expressed in terms of MTBF and MTTR as:
+
+```math
+$$
+A = \frac{\text{MTBF}}{\text{MTBF} + \text{MTTR}}
+$$
+```
+
+This formula highlights how the interplay between MTBF and MTTR affects
+availability:
+
+- Higher MTBF: Indicates the system operates longer without failure, improving
+  availability.
+- Lower MTTR: Reduces downtime, also improving availability.
+
+Bases on this definitions, we can make some observations:
+
+- If MTBF is much larger than MTTR $\text{MTBF} \gg \text{MTTR}$, the system
+  will have very high availability $A \to 1$.
+- If MTTR is comparable to MTBF $\text{MTBF} \approx \text{MTTR}$, availability
+  decreases significantly because the system spends a considerable portion of
+  time under repair.
+
+> Note that the previous definitions only make sense if it is clear what a
+> failure actually is. This might not always be obvious in a complex system
+> landscape.
+
+### Difference and Relation Between Fault, Error, and Failure
+
+In the context of system reliability and fault tolerance, the terms fault,
+error, and failure are often used interchangeably, but they have distinct
+meanings and relationships. Understanding these terms is essential for
+analyzing and designing robust systems.
+
+A _fault_ is the underlying cause of an abnormal condition in a component of
+the system. It refers to a defect in hardware, software, or the environment
+that has the potential to disrupt system operation. A fault may be transient,
+intermittent or permanent. [^2]
+
+An _error_ is a deviation from the intended or expected behavior of a system
+caused by an active fault. It represents the manifestation of a fault during
+system operation. A error might cause a system failure.
+
+A _failure_ occurs when a system deviates from its intended behavior and is
+unable to deliver the required functionality to the user. It is the ultimate
+consequence of an error that impacts the system ability to provide its services.
+
+#### Example Scenario
+
+Consider web application that provides real-time stock price updates to users.
+The application consists of:
+
+- A front-end interface for user interaction.
+- Middleware servers for processing requests.
+- A database backend for storing stock price data.
+
+To ensure reliability, the system is designed with _redundancy_ in the
+middleware layer, having multiple middleware servers to handle requests.
+
+- Example 1: fault that does not lead to failure
+
+  - Fault: One of the middleware servers experiences a hardware issue (e.g., a
+    network interface card fails), making it unable to process requests.
+  - This fault does not lead to an error or failure because the system detects
+    the unresponsive middleware server and reroutes requests to other middleware
+    servers in the cluster. The redundancy ensures the application continues to
+    operate normally, and is able to provide its services
+
+- Example 2: critical fault leading to failure
+
+  - Fault: The database backend encounters a corruption in its stock price
+    table due to a disk failure.
+  - When a middleware server queries the database for stock prices, it receives
+    corrupted or invalid data. The front-end application tries to display the
+    stock prices and crashes due to the malformed data. Unlike the first fault,
+    this fault affects a critical component (the database). The error propagates
+    to the user-facing application, resulting in a failure.
+
+#### Types of faults
+
+In [^1] the following fault types in distributed systems are defined:
+
+- Hardware faults:
+
+  Examples of hardware faults include hard disk crashes, RAM failures, power
+  outages, or physical mistakes like unplugging cables.
+
+  Mitigation strategies for hardware faults include hardware redundancy to
+  reduce failure rates. Examples for hardware redundancy are RAID for
+  disks, dual power supplies, and backup generators.
+
+- Software errors:
+
+  Examples of software errors include bugs, runaway processes excessively
+  consuming resources, a service slows down, stops responding or returns
+  corrupted responses.
+
+  Mitigation strategies for software errors include:
+
+  - thorough Testing
+  - Process isolation to limit the scope of errors.
+  - Monitoring for anomalies in performance and resource usage.
+
+- Human errors:
+
+  Human errors are mistakes made by developers, operators, or users during the
+  design, configuration, or operation of a system. Examples include
+  configuration errors, accidental actions like deleting critical files or poor
+  maintenance like not installing updates.
+  Ignoring disk space alerts leading to crashes.
+
+#### Types of failures
+
+In [^2] failures are further categorized:
+
+| **Type of Failure**        | **Description of Server’s Behavior**               |
+| -------------------------- | -------------------------------------------------- |
+| **Crash failure**          | Halts but is working correctly until it halts      |
+| **Omission failure**       |                                                    |
+| - Receive omission         | Fails to respond to incoming requests              |
+| - Send omission            | Fails to send messages                             |
+| **Timing failure**         | Response lies outside a specified time interval    |
+| **Response failure**       |                                                    |
+| - Value failure            | The value of the response is wrong                 |
+| - State-transition failure | Deviates from the correct flow of control          |
+| **Arbitrary failure**      | May produce arbitrary responses at arbitrary times |
+
+### The CAP theorem and its relation to fault tolerance
+
+The CAP theorem, formulated by Eric Brewer, is a foundational concept in
+distributed systems that describes a trade-off between three key properties:
+
+1. Consistency (C): All nodes in the system see the same data at the same time.
+2. Availability (A): The system is operational and can respond to requests,
+   even in the presence of faults.
+3. Partition Tolerance (P): The system continues to operate despite network
+   partitions (communication breakdowns between nodes).
+
+The theorem states that in a distributed system, you can achieve at most two of
+these three properties simultaneously.
+
+#### Understanding the Properties
+
+1. Consistency:
+
+   Ensures that every read receives the most recent write or an
+   error. This is crucial for applications where data correctness is critical,
+   such as financial transactions.
+
+2. Availability:
+
+   Guarantees that every request receives a (potentially
+   outdated) response, even if some nodes are unavailable. This is essential
+   for systems that prioritize uptime over data freshness.
+
+3. Partition tolerance:
+
+   Ensures the system can function correctly despite
+   network failures that partition the system into isolated segments.
+
+#### Trade-offs in CAP
+
+According to the CAP theorem, there are three distinct trade-offs for a
+distributed system. When designing a distributed system, you need to consider
+which of the possible properties are required by the system.
+
+1. Consistency + Availability (CA):
+
+   Possible in systems that do not need to tolerate network partitions.
+   Typically applies to systems operating in a single, reliable data center.
+
+2. Consistency + Partition Tolerance (CP):
+
+   Prioritizes correctness over availability. During network partitions, some
+   requests may fail to ensure consistent data. Example: Traditional relational
+   databases using distributed transactions.
+
+3. Availability + Partition Tolerance (AP):
+
+   Prioritizes uptime over strict consistency. Nodes may return stale data
+   during partitions. Example: Distributed systems like DNS or NoSQL databasesp.
+
+The CAP theorem is directly related to fault tolerance because distributed
+systems often encounter network partitions or node failures, requiring the
+system to choose between consistency and availability.
+
+#### Example scenario for the CAP theorem
+
+Consider a distributed database used for real-time stock trading:
+
+- During a network partition, the system faces a choice:
+  - Prioritize Consistency (stop trading to ensure all nodes have the same data).
+  - Prioritize Availability (allow trading to continue with potentially stale data).
+- Depending on the system's fault tolerance strategy, it might:
+  - Opt for consistency to avoid incorrect trades (CP system).
+  - Opt for availability to maintain service during network issues (AP system).
+
+### Exercise
+
+Analyze the distributed architecture you implemented in the lab, focusing on
+fault tolerance and the CAP theorem. Begin by identifying key
+components (e.g., webshop, ERP system, messaging systems) and their
+interactions. Highlight potential faults (hardware, software, human errors) and
+describe how your system (could) mitigates these issues using mechanisms like
+redundancy, load balancing, or error recovery. Discuss the impact of unhandled
+faults on system performance and reliability.
+
+Evaluate your architecture with respect to the CAP theorem, explaining which
+properties (consistency, availability, partition tolerance) your system
+prioritizes. Provide examples of trade-offs in scenarios such as network
+partitions or high traffic.
+
+Prepare a short presentation of your results.
 
 ## Navigation
 
