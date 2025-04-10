@@ -1,3 +1,7 @@
+# About
+
+This repository was moved to https://codeberg.org/ceedee666/systems-integration
+
 # Systems Integration Lecture
 
 <!--toc:start-->
